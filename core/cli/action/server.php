@@ -4,6 +4,7 @@ namespace Bot\Core\Cli\Action;
 
 use Bot\Core\Cli\Error\Logger;
 use Bot\Core\Cli\Kernel;
+use Bot\Core\Connect\Openswoole;
 use Bot\Core\Request;
 use Symfony\Component\Process\Process;
 
@@ -20,7 +21,7 @@ class Server
     public function setWebhook(): void
     {
         $env = (new Kernel())->checkEnvSet('BOT_DOMAIN', 'BOT_TOKEN');
-        if ($env !== []){
+        if ($env !== []) {
             $item = implode(', ', $env);
             Logger::status('ENV ERR', "Please set {$item} in .env file!", 'failed', true);
         }
@@ -62,6 +63,7 @@ class Server
         if ($webServer->isStarted()) {
             Logger::success("WebServer Started on {$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}");
         }
+
         if (isset($this->cmd[2]) && $this->cmd[2] === '--api-server') {
             $null = (new Kernel())->checkEnvSet('BOT_API_SERVER_DIR', 'API_ID', 'API_HASH');
             if ($null !== []) {
@@ -83,6 +85,7 @@ class Server
                 Logger::success('Bot API Server Started');
             }
         }
+
         $webServer->wait();
         if (isset($apiServer)) {
             $apiServer->wait();
@@ -111,5 +114,18 @@ class Server
             Logger::success('Bot API Server Started');
         }
         $apiServer->wait();
+    }
+
+    public function runOpenswoole(): void
+    {
+        $null = (new Kernel())->checkEnvSet('OPENSWOOLE_IP', 'OPENSWOOLE_PORT');
+        if ($null !== []) {
+            Logger::title('ENV ERR');
+            $item = implode(', ', $null);
+            Logger::status('ENV ERR', "Please set {$item} in .env file!", 'failed');
+            return;
+        }
+
+        Openswoole::connect();
     }
 }

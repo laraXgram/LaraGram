@@ -8,7 +8,7 @@ class Runner
     {
         $files = json_decode(file_get_contents('bootstrap/load.json'), true);
         foreach ($files as $file) {
-            require_once $file;
+            require $file;
         }
     }
 }

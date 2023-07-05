@@ -4,6 +4,7 @@ namespace Bot\Core;
 
 use Amp\Loop;
 use Bot\Core\Connect\Amphp;
+use Bot\Core\Connect\Openswoole;
 
 /**
  * Telegram Bot Class.
@@ -805,13 +806,22 @@ class Request
      */
     public function getData()
     {
-        if (empty($this->data)) {
-            $rawData = file_get_contents('php://input');
 
-            return json_decode($rawData, true);
-        } else {
-            return $this->data;
+        if (!isset(Openswoole::$openswoole) && Openswoole::$openswooleStatus === 0) {
+            if (empty($this->data)) {
+                $rawData = file_get_contents('php://input');
+                return json_decode($rawData, true);
+            } else {
+                return $this->data;
+            }
+        } else if (isset(Openswoole::$openswoole) && Openswoole::$openswooleStatus === 1) {
+            if (empty($this->data)) {
+                return Openswoole::$openswoole;
+            } else {
+                return $this->data;
+            }
         }
+
     }
 
     /// Set the data currently used
@@ -1990,7 +2000,7 @@ class Request
 
             if ($post) {
                 $response = yield $apiClient->post($content);
-            }else{
+            } else {
                 $response = yield $apiClient->get();
             }
 

@@ -70,4 +70,41 @@ class Installer
             Logger::success('AMPHP Removed Successfully!');
         }
     }
+
+    public function install_Openswoole(): void
+    {
+        if (file_exists('vendor/openswoole')){
+            Logger::status('Failed', 'OpenSwoole already installed!', 'failed', true);
+        }
+
+        $command = new Process(["composer", "require", "openswoole/core"]);
+        $command->start();
+        $command->wait();
+        if ($command->isSuccessful()) {
+            Logger::success('OpenSwoole Installed Successfully!');
+        }else{
+            Logger::failed('Failed to install OpenSwoole!');
+            if (str_contains($command->getErrorOutput(), 'requires ext-openswoole')){
+                Logger::message('Make sure the openswoole extension is installed!');
+            }else{
+                Logger::message('Make sure you are connected to the network!           ');
+                Logger::message('If the problem is not solved, directly use the command');
+                Logger::message('    >> composer require openswoole/core               ');
+            }
+        }
+    }
+
+    public function uninstall_Openswoole(): void
+    {
+        if (!file_exists('vendor/openswoole')){
+            Logger::status('Failed', 'OpenSwoole not installed!', 'failed', true);
+        }
+
+        $command = new Process(["composer", "remove", "openswoole/core"]);
+        $command->start();
+        $command->wait();
+        if ($command->isSuccessful()) {
+            Logger::success('OpenSwoole Removed Successfully!');
+        }
+    }
 }

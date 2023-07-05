@@ -25,7 +25,7 @@ class Kernel
         return $null;
     }
 
-    public function call(string $arg, callable $action, ...$data)
+    public function call(string $arg, callable $action, ...$data): void
     {
         if ($this->cmd[1] === $arg) {
             call_user_func($action, ...$data);
@@ -33,7 +33,7 @@ class Kernel
         }
     }
 
-    public function shutdown()
+    public function shutdown(): void
     {
         Logger::failed('Failed');
         Logger::message('Command not found!');

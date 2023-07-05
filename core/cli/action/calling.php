@@ -38,6 +38,11 @@ $kernel->call('start:apiserver', function () {
     $server->runApiServer();
 });
 
+$kernel->call('start:openswoole', function () {
+    $server = new Server();
+    $server->runOpenswoole();
+});
+
 $kernel->call('setWebhook', function () {
     $server = new Server();
     $server->setWebhook();
@@ -66,6 +71,16 @@ $kernel->call('get:amphp', function () {
 $kernel->call('remove:amphp', function () {
     $server = new Installer();
     $server->uninstall_Amphp();
+});
+
+$kernel->call('get:openswoole', function () {
+    $server = new Installer();
+    $server->install_Openswoole();
+});
+
+$kernel->call('remove:openswoole', function () {
+    $server = new Installer();
+    $server->uninstall_Openswoole();
 });
 //-----------------------------------------------------------------
 $kernel->shutdown();

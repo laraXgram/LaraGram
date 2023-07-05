@@ -8,15 +8,27 @@ use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
 
 class Openswoole {
+    public static int $openswooleStatus = 0;
+    public static $openswoole;
     public static function connect(): void
     {
-        $server = new OpenSwoole\HTTP\Server($_ENV['OPENSWOOLE_IP'], $_ENV['OPENSWOOLE_PORT']);
+        $server = new Server($_ENV['OPENSWOOLE_IP'], $_ENV['OPENSWOOLE_PORT']);
 
-        $server->on("start", function (Server $server) {
-            Logger::status('Success', "OpenSwoole http server is started at {$_ENV['OPENSWOOLE_IP']}:{$_ENV['OPENSWOOLE_PORT']}");
+        $server->on("start", function () {
+            Logger::success("OpenSwoole http server is started at {$_ENV['OPENSWOOLE_IP']}:{$_ENV['OPENSWOOLE_PORT']}");
         });
 
-        // Coming Soon ...
+        $server->on("request", function (Request $swooleRequest, Response $swooleResponse){
+            $swooleResponse->end();
+
+            self::$openswoole = json_decode($swooleRequest->getContent(), true);
+            self::$openswooleStatus = 1;
+
+            require 'index.php';
+
+            self::$openswoole = null;
+            self::$openswooleStatus = 0;
+        });
 
         $server->start();
     }
