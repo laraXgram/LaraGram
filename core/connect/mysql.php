@@ -2,6 +2,7 @@
 
 namespace Bot\Core\Connect;
 
+use Bot\Core\Cli\Error\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
@@ -9,6 +10,10 @@ use Illuminate\Events\Dispatcher;
 class Mysql {
     public static function connect(): void
     {
+        if (!file_exists('vendor/illuminate/database')){
+            Logger::status('Failed', 'Please Install Database Eloquent!', 'failed', true);
+        }
+
         $capsule = new Capsule;
         $capsule->addConnection([
             'driver' => $_ENV['MYSQL_DRIVER'],

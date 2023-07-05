@@ -6,6 +6,7 @@ use Amp\Http\Client\HttpClient;
 use Amp\Http\Client\HttpClientBuilder;
 use Amp\Http\Client\Request;
 use Amp\Promise;
+use Bot\Core\Cli\Error\Logger;
 
 class Amphp
 {
@@ -14,6 +15,10 @@ class Amphp
 
     public function __construct(string $url)
     {
+        if (!file_exists('vendor/amphp')){
+            Logger::status('Failed', 'Please Install AMPHP!', 'failed', true);
+        }
+
         $this->apiBaseUrl = $url;
         $this->httpClient = HttpClientBuilder::buildDefault();
     }

@@ -12,6 +12,10 @@ class Openswoole {
     public static $openswoole;
     public static function connect(): void
     {
+        if (!file_exists('vendor/openswoole')){
+            Logger::status('Failed', 'Please Install Openswoole!', 'failed', true);
+        }
+
         $server = new Server($_ENV['OPENSWOOLE_IP'], $_ENV['OPENSWOOLE_PORT']);
 
         $server->on("start", function () {

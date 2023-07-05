@@ -57,14 +57,24 @@ class Server
             return;
         }
 
-        $webServer = new Process(["php", "-S", "{$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}"]);
-        $webServer->setTimeout(108000);
-        $webServer->start();
-        if ($webServer->isStarted()) {
-            Logger::success("WebServer Started on {$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}");
+        if (isset($this->cmd[2]) && $this->cmd[2] === '--openswoole' || isset($this->cmd[3]) && $this->cmd[3] === '--openswoole'){
+            $null = (new Kernel())->checkEnvSet('OPENSWOOLE_IP', 'OPENSWOOLE_PORT');
+            if ($null !== []) {
+                Logger::status('ENV ERR', "Please set BOT_API_SERVER in .env file!", 'failed');
+                return;
+            }
+
+            Openswoole::connect();
+        }else{
+            $webServer = new Process(["php", "-S", "{$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}"]);
+            $webServer->setTimeout(108000);
+            $webServer->start();
+            if ($webServer->isStarted()) {
+                Logger::success("WebServer Started on {$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}");
+            }
         }
 
-        if (isset($this->cmd[2]) && $this->cmd[2] === '--api-server') {
+        if (isset($this->cmd[2]) && $this->cmd[2] === '--api-server' || isset($this->cmd[3]) && $this->cmd[3] === '--api-server') {
             $null = (new Kernel())->checkEnvSet('BOT_API_SERVER_DIR', 'API_ID', 'API_HASH');
             if ($null !== []) {
                 Logger::title('ENV ERR');

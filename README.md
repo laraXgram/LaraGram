@@ -63,6 +63,16 @@ php bot serve
 php bot serve --api-server
 ```
 
+* start Bot OpenSwoole Server
+
+```
+php bot serve --openswoole
+```
+Or
+```
+php bot start:openswoole
+```
+
 * start Bot Api Server
 
 ```
@@ -95,6 +105,14 @@ php bot remove:eloqunet
 php bot get:amphp
 
 php bot remove:amphp
+```
+
+* OpenSwoole
+
+```
+php bot get:openswoole
+
+php bot remove:openswoole
 ```
 
 ---
