@@ -79,6 +79,24 @@ php bot setWebhook
 php bot deleteWebhook
 ```
 
+###### Manage Dependency
+
+* Database Eloquent
+
+```
+php bot get:eloqunet
+
+php bot remove:eloqunet
+```
+
+* AMPHP
+
+```
+php bot get:amphp
+
+php bot remove:amphp
+```
+
 ---
 
 ### Handler :

@@ -86,4 +86,16 @@ class Logger
             exit();
         }
     }
+
+    public static function blinker(string $message, SGR|string $color = SGR::COLOR_FG_CYAN, SGR|string $bg_color = SGR::COLOR_BG_CYAN_BRIGHT): void
+    {
+        $ansi = new Ansi(new StreamWriter('php://stdout'));
+        $ansi->color([$bg_color, $color])
+            ->blink()
+            ->bold()
+            ->tab()
+            ->text("    {$message}    ")
+            ->nostyle();
+        echo PHP_EOL;
+    }
 }

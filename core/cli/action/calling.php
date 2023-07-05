@@ -48,4 +48,24 @@ $kernel->call('deleteWebhook', function () {
     $server->deleteWebhook();
 });
 //-----------------------------------------------------------------
+$kernel->call('get:eloquent', function () {
+    $server = new Installer();
+    $server->install_Eloquent();
+});
+
+$kernel->call('remove:eloquent', function () {
+    $server = new Installer();
+    $server->uninstall_Eloquent();
+});
+
+$kernel->call('get:amphp', function () {
+    $server = new Installer();
+    $server->install_Amphp();
+});
+
+$kernel->call('remove:amphp', function () {
+    $server = new Installer();
+    $server->uninstall_Amphp();
+});
+//-----------------------------------------------------------------
 $kernel->shutdown();
