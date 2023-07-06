@@ -72,6 +72,10 @@ Or
 ```
 php bot start:openswoole
 ```
+* Start Openswoole server and bot api server
+```
+php bot serve --openswoole --api-server
+```
 
 * start Bot Api Server
 
