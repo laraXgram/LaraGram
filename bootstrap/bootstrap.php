@@ -23,7 +23,7 @@ class Bootstrap
         /*
          * Connect Databases
          * */
-        if ($_ENV['MYSQL_POWER'] == 'on' && class_exists(Capsule::class)) {
+        if ($_ENV['MYSQL_POWER'] === 'on' && class_exists(Capsule::class)) {
             Mysql::connect();
         }
 

@@ -1,26 +1,27 @@
 {
-    "name": "laraxgram/laragram",
-    "description": "LaraGram, an advanced framework for Telegram Bot development!",
-    "type": "project",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Bot\\Bootstrap\\": "bootstrap",
-            "Bot\\Core\\": "core",
-            "Bot\\Database\\": "database"
-        }
-    },
-    "authors": [
-        {
-            "name": "laraXgram",
-            "email": "laraxgram@gmail.com"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-        "vlucas/phpdotenv": "^5.5",
-        "symfony/process": "^6.3",
-        "bramus/ansi-php": "^3.1",
-        "ext-curl": "*"
+  "name": "laraxgram/laragram",
+  "description": "LaraGram, an advanced framework for Telegram Bot development!",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Bot\\Bootstrap\\": "bootstrap",
+      "Bot\\Core\\": "core",
+      "Bot\\Database\\": "database"
     }
+  },
+  "authors": [
+    {
+      "name": "laraXgram",
+      "email": "laraxgram@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "vlucas/phpdotenv": "^5.5",
+    "symfony/process": "^6.3",
+    "bramus/ansi-php": "^3.1",
+    "ext-curl": "*",
+    "ext-redis": "*"
+  }
 }

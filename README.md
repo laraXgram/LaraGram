@@ -225,3 +225,33 @@ $bot->onText(['hello', 'hay'], function(Request $request){
   ], REQUEST_METHODE_PARALLEL_CURL);
 });
 ```
+
+### Use Redis :
+
+* Simple Use :
+
+```php
+// init Redis Server
+$redis = PhpRedis::connect();
+
+// set
+$redis->set('foo', 'bar');
+
+//get
+$data = $redis->get('foo'));
+echo $data;
+// Result : var
+```
+
+* Pass Db name:
+```php
+// init Redis Server with db name
+$redis = PhpRedis::connect('dbname');
+```
+
+# Support & Contact:
+* [Email](mailto:amirh.kargar895@gmail.com)
+* [Telegram](https://telegram.me/Amirh_krgr)
+
+# Updating ...
+###### Version 1.4
