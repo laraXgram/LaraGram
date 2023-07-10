@@ -134,7 +134,7 @@ class Request
             $this->request_mode = 'openswoole_sendAPIRequest';
         }
 
-        if (str_ends_with('/')){
+        if (str_ends_with('/', $_ENV['BOT_API_SERVER'])){
             $url = $_ENV['BOT_API_SERVER'] . 'bot' . $this->bot_token . '/' . $methode;
         }else{
             $url = $_ENV['BOT_API_SERVER'] . '/bot' . $this->bot_token . '/' . $methode;

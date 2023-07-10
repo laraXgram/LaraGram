@@ -26,6 +26,8 @@ class Installer
         $command->wait();
         if ($command->isSuccessful()) {
             Logger::success('Database Eloquent Installed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
         }
     }
 
@@ -40,6 +42,8 @@ class Installer
         $command->wait();
         if ($command->isSuccessful()) {
             Logger::success('Database Eloquent Removed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
         }
     }
 
@@ -54,6 +58,8 @@ class Installer
         $command->wait();
         if ($command->isSuccessful()) {
             Logger::success('AMPHP Installed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
         }
     }
 
@@ -68,6 +74,8 @@ class Installer
         $command->wait();
         if ($command->isSuccessful()) {
             Logger::success('AMPHP Removed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
         }
     }
 
@@ -105,6 +113,33 @@ class Installer
         $command->wait();
         if ($command->isSuccessful()) {
             Logger::success('OpenSwoole Removed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
+        }
+    }
+
+    public function clear_vendor(): void
+    {
+        $command = ["composer", "remove"];
+        if (file_exists('vendor/openswoole')){
+            $command[] = "openswoole/core";
+        }
+
+        if (file_exists('vendor/amphp')){
+            $command[] = "amphp/http-client";
+        }
+
+        if (file_exists('vendor/illuminate/database')){
+            $command = array_merge($command, ["illuminate/database", "illuminate/events", "doctrine/dbal"]);
+        }
+
+        $command = new Process($command);
+        $command->start();
+        $command->wait();
+        if ($command->isSuccessful()) {
+            Logger::success('Vendor was successfully cleared!');
+        }else{
+            Logger::failed('An error occurred!');
         }
     }
 }

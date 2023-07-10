@@ -54,33 +54,38 @@ $kernel->call('deleteWebhook', function () {
 });
 //-----------------------------------------------------------------
 $kernel->call('get:eloquent', function () {
-    $server = new Installer();
-    $server->install_Eloquent();
+    $installer = new Installer();
+    $installer->install_Eloquent();
 });
 
 $kernel->call('remove:eloquent', function () {
-    $server = new Installer();
-    $server->uninstall_Eloquent();
+    $installer = new Installer();
+    $installer->uninstall_Eloquent();
 });
 
 $kernel->call('get:amphp', function () {
-    $server = new Installer();
-    $server->install_Amphp();
+    $installer = new Installer();
+    $installer->install_Amphp();
 });
 
 $kernel->call('remove:amphp', function () {
-    $server = new Installer();
-    $server->uninstall_Amphp();
+    $installer = new Installer();
+    $installer->uninstall_Amphp();
 });
 
 $kernel->call('get:openswoole', function () {
-    $server = new Installer();
-    $server->install_Openswoole();
+    $installer = new Installer();
+    $installer->install_Openswoole();
 });
 
 $kernel->call('remove:openswoole', function () {
-    $server = new Installer();
-    $server->uninstall_Openswoole();
+    $installer = new Installer();
+    $installer->uninstall_Openswoole();
+});
+
+$kernel->call('clear:vendor', function () {
+    $installer = new Installer();
+    $installer->clear_vendor();
 });
 //-----------------------------------------------------------------
 $kernel->shutdown();
