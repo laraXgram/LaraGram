@@ -7,8 +7,7 @@
     "psr-4": {
       "Bot\\Bootstrap\\": "bootstrap",
       "Bot\\Core\\": "core",
-      "Bot\\App\\": "app",
-      "Bot\\Database\\": "database"
+      "Bot\\App\\": "app"
     }
   },
   "authors": [
@@ -23,9 +22,6 @@
     "symfony/process": "^6.3",
     "bramus/ansi-php": "^3.1",
     "ext-curl": "*",
-    "ext-redis": "*",
-    "illuminate/database": "^10.15",
-    "illuminate/events": "^10.15",
-    "doctrine/dbal": "^3.6"
+    "ext-redis": "*"
   }
 }
