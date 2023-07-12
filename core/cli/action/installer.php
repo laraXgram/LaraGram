@@ -118,6 +118,30 @@ class Installer
         }
     }
 
+    public function install_Redis(): void
+    {
+        $command = new Process(["composer", "require", "ext-redis:*"]);
+        $command->start();
+        $command->wait();
+        if ($command->isSuccessful()) {
+            Logger::success('Ext-Redis Installed Successfully!');
+        }else{
+            Logger::failed('Failed to install Ext-Redis!');
+        }
+    }
+
+    public function uninstall_Redis(): void
+    {
+        $command = new Process(["composer", "remove", "ext-redis:*"]);
+        $command->start();
+        $command->wait();
+        if ($command->isSuccessful()) {
+            Logger::success('Ext-Redis Removed Successfully!');
+        }else{
+            Logger::failed('An error occurred!');
+        }
+    }
+
     public function clear_vendor(): void
     {
         $command = ["composer", "remove"];

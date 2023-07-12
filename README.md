@@ -261,6 +261,14 @@ php bot get:openswoole
 php bot remove:openswoole
 ```
 
+* Ext-Redis
+
+```
+php bot get:redis
+
+php bot remove:redis
+```
+
 * Clean Vendor
 
 Remove all extra dependencies

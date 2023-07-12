@@ -88,6 +88,16 @@ $kernel->call('remove:openswoole', function () {
     $installer->uninstall_Openswoole();
 });
 
+$kernel->call('get:redis', function () {
+    $installer = new Installer();
+    $installer->install_Redis();
+});
+
+$kernel->call('remove:redis', function () {
+    $installer = new Installer();
+    $installer->uninstall_Redis();
+});
+
 $kernel->call('clear:vendor', function () {
     $installer = new Installer();
     $installer->clear_vendor();

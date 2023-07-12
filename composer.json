@@ -21,7 +21,6 @@
     "vlucas/phpdotenv": "^5.5",
     "symfony/process": "^6.3",
     "bramus/ansi-php": "^3.1",
-    "ext-curl": "*",
-    "ext-redis": "*"
+    "ext-curl": "*"
   }
 }
