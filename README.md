@@ -272,6 +272,26 @@ Remove all extra dependencies
 php bot clear:vendor
 ```
 
+* Make Api Controller
+
+```
+php bot make:api ApiName
+
+php bot remove:api ApiName
+```
+1. Build an api controller
+2. Open the created file ( path: App/Controller/Api )
+3. Start writing ( a sample method has been created for you )
+
+* Use Api In Resource File :
+```php
+$api = new Api();
+$api->api('ApiName@MetodeName', $parameters);
+
+// Helper 
+api('ApiName@MetodeName', $parameters)
+```
+
 # Support & Contact:
 
 * [Email](mailto:amirh.kargar895@gmail.com)
@@ -279,4 +299,4 @@ php bot clear:vendor
 
 # Updating ...
 
-###### Version 1.4
+###### Version 1.5

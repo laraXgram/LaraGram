@@ -9,47 +9,57 @@ use Bot\Core\Cli\Kernel;
 $kernel = new Kernel();
 //-----------------------------------------------------------------
 $kernel->call('make:model', function () {
-    $database = new Database();
+    $database = new DatabaseMaker();
     $database->createModel();
 });
 
 $kernel->call('make:migration', function () {
-    $database = new Database();
+    $database = new DatabaseMaker();
     $database->createMigration();
 });
 //-----------------------------------------------------------------
 $kernel->call('make:resource', function () {
-    $resource = new Resource();
+    $resource = new ResourceMaker();
     $resource->createResources();
 });
 
 $kernel->call('remove:resource', function () {
-    $resource = new Resource();
+    $resource = new ResourceMaker();
     $resource->removeResources();
 });
 //-----------------------------------------------------------------
+$kernel->call('make:api', function () {
+    $resource = new ApiMaker();
+    $resource->createApi();
+});
+
+$kernel->call('remove:api', function () {
+    $resource = new ApiMaker();
+    $resource->removeApi();
+});
+//-----------------------------------------------------------------
 $kernel->call('serve', function () {
-    $server = new Server();
+    $server = new ServerMaker();
     $server->serve();
 });
 
 $kernel->call('start:apiserver', function () {
-    $server = new Server();
+    $server = new ServerMaker();
     $server->runApiServer();
 });
 
 $kernel->call('start:openswoole', function () {
-    $server = new Server();
+    $server = new ServerMaker();
     $server->runOpenswoole();
 });
 
 $kernel->call('setWebhook', function () {
-    $server = new Server();
+    $server = new ServerMaker();
     $server->setWebhook();
 });
 
 $kernel->call('deleteWebhook', function () {
-    $server = new Server();
+    $server = new ServerMaker();
     $server->deleteWebhook();
 });
 //-----------------------------------------------------------------

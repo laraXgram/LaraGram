@@ -34,6 +34,11 @@ class Bootstrap
         define("REQUEST_METHODE_PARALLEL_CURL", 64);
         define("REQUEST_METHODE_AMPHP", 128);
         define("REQUEST_METHODE_OPENSWOOLE", 256);
+
+        /*
+         * Load Helper Function
+         * */
+        Runner::LoadFolder('core/helper');
     }
 }
 

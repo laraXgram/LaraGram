@@ -8,7 +8,7 @@ use Bot\Core\Connect\Openswoole;
 use Bot\Core\Request;
 use Symfony\Component\Process\Process;
 
-class Server
+class ServerMaker
 {
     private mixed $cmd;
 

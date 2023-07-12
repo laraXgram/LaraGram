@@ -17,4 +17,14 @@ class Runner
             }
         }
     }
+
+    public static function LoadFolder(string $folderPath): void
+    {
+        $files = scandir($folderPath);
+        foreach ($files as $file) {
+            if (is_file($folderPath . '/' . $file)) {
+                require_once $folderPath . '/' . $file;
+            }
+        }
+    }
 }

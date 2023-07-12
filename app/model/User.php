@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Database\Mysql\Model;
+namespace Bot\App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 

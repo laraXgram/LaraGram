@@ -4,7 +4,7 @@ namespace Bot\Core\Cli\Action;
 
 use Bot\Core\Cli\Error\Logger;
 
-class Database
+class DatabaseMaker
 {
     private mixed $cmd;
 
@@ -41,7 +41,7 @@ class Database
     private function createMysqlModel(): void
     {
         $migrationPage = str_replace('&&&', $this->cmd[2], file_get_contents('core/cli/layout/mysqlModel.txt'));
-        $fileName = 'database/mysql/model/' . $this->cmd[2] . '.php';
+        $fileName = 'app/model/' . $this->cmd[2] . '.php';
         if (file_exists($fileName)) {
             Logger::warning('Model is already exist!');
         } else {

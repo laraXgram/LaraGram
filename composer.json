@@ -7,6 +7,7 @@
     "psr-4": {
       "Bot\\Bootstrap\\": "bootstrap",
       "Bot\\Core\\": "core",
+      "Bot\\App\\": "app",
       "Bot\\Database\\": "database"
     }
   },
