@@ -13,7 +13,6 @@ LaraGram, an advanced framework for Telegram Bot development
 - Support Bot Api Server
 - Laravel Eloquent
     - Model
-    - Migration
 - Database
     - MySql
     - Redis
@@ -179,12 +178,10 @@ php bot make:resource my-resource
 php bot remove:resource my-resource
 ```
 
-###### model and migration
+###### model
 
 ```
 php bot make:model User
-
-php bot make:migration create_users_table
 ```
 
 ###### Server
