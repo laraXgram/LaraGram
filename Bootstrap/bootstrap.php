@@ -40,7 +40,7 @@ class Bootstrap
         /*
          * Load Helper Function
          * */
-        Runner::LoadFolder('Core/helper');
+        Runner::LoadFolder('Core/Helper');
     }
 
     private function classLoader(): void

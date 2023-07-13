@@ -304,4 +304,4 @@ api('ApiName@MetodeName', $parameters)
 
 # Updating ...
 
-###### Version 1.5.3
+###### Version 1.5.5

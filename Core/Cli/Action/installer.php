@@ -22,6 +22,7 @@ class Installer
         }
 
         $command = new Process(["composer", "require", "illuminate/database", "illuminate/events", "doctrine/dbal"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -38,6 +39,7 @@ class Installer
         }
 
         $command = new Process(["composer", "remove", "illuminate/database", "illuminate/events", "doctrine/dbal"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -54,6 +56,7 @@ class Installer
         }
 
         $command = new Process(["composer", "require", "amphp/http-client"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -70,6 +73,7 @@ class Installer
         }
 
         $command = new Process(["composer", "remove", "amphp/http-client"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -86,6 +90,7 @@ class Installer
         }
 
         $command = new Process(["composer", "require", "openswoole/core"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -109,6 +114,7 @@ class Installer
         }
 
         $command = new Process(["composer", "remove", "openswoole/core"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -121,6 +127,7 @@ class Installer
     public function install_Redis(): void
     {
         $command = new Process(["composer", "require", "ext-redis:*"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
@@ -133,6 +140,7 @@ class Installer
     public function uninstall_Redis(): void
     {
         $command = new Process(["composer", "remove", "ext-redis:*"]);
+        $command->setTimeout(900);
         $command->start();
         $command->wait();
         if ($command->isSuccessful()) {
