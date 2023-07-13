@@ -12,6 +12,21 @@ $kernel->call('make:model', function () {
     $database = new DatabaseMaker();
     $database->createModel();
 });
+
+$kernel->call('remove:model', function () {
+    $database = new DatabaseMaker();
+    $database->removeModel();
+});
+
+$kernel->call('make:migration', function () {
+    $database = new DatabaseMaker();
+    $database->createMigrations();
+});
+
+$kernel->call('migrate', function () {
+    $database = new DatabaseMaker();
+    $database->migrate();
+});
 //-----------------------------------------------------------------
 $kernel->call('make:resource', function () {
     $resource = new ResourceMaker();

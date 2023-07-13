@@ -2,15 +2,19 @@
 
 namespace Bot\Core\Connect;
 
+use Bot\Core\Cli\Db\Migration;
 use Bot\Core\Cli\Error\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Events\Dispatcher;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Facade;
+use newrelic\DistributedTracePayload;
 
-class Mysql {
-    public static function connect(): void
+class Mysql
+{
+    public function connect(): void
     {
-        if (!file_exists('vendor/illuminate/database')){
+        if (!file_exists('vendor/illuminate/database')) {
             Logger::status('Failed', 'Please Install Database Eloquent!', 'failed', true);
         }
 
@@ -29,9 +33,20 @@ class Mysql {
         $capsule->bootEloquent();
         $capsule->setAsGlobal();
 
-        $container = new Container;
-        $dispatcher = new Dispatcher($container);
+        $app = new Container();
+        Facade::setFacadeApplication($app);
 
-        $capsule->setEventDispatcher($dispatcher);
+        $this->migrations();
+    }
+
+    private function migrations(): void
+    {
+        if (!Capsule::schema()->hasTable('migrations')) {
+            Capsule::schema()->create('migrations', function (Blueprint $table) {
+                $table->id();
+                $table->string('migration');
+                $table->integer('batch');
+            });
+        }
     }
 }

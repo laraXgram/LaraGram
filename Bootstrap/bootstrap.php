@@ -2,9 +2,12 @@
 
 namespace Bot\Bootstrap;
 
+use Bot\Core\App;
 use Bot\Core\Connect\Mysql;
 use Dotenv\Dotenv;
+use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Support\Facades\Facade;
 
 class Bootstrap
 {
@@ -20,13 +23,16 @@ class Bootstrap
          * */
         Dotenv::createImmutable(getcwd())->load();
 
+        /*
+         * Load Class
+         * */
         $this->classLoader();
 
         /*
          * Connect Databases
          * */
         if ($_ENV['MYSQL_POWER'] === 'on' && class_exists(Capsule::class)) {
-            Mysql::connect();
+            (new Mysql)->connect();
         }
 
         /*

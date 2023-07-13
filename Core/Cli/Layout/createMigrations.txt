@@ -2,8 +2,8 @@
 
 namespace Bot\Database\Mysql\Migrations;
 
+use Bot\Core\Database\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class
 {
@@ -14,7 +14,7 @@ return new class
     {
         Schema::create('&&&', function (Blueprint $table) {
             $table->id();
-            // Your Table ...
+            // Your Tables ...
             $table->timestamps();
         });
     }

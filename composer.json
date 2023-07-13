@@ -14,6 +14,8 @@
     "vlucas/phpdotenv": "^5.5",
     "symfony/process": "^6.3",
     "bramus/ansi-php": "^3.1",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "illuminate/database": "^10.15",
+    "doctrine/dbal": "^3.6"
   }
 }

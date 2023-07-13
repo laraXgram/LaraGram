@@ -21,7 +21,7 @@ class Installer
             Logger::status('Failed', 'Database Eloquent already installed!', 'failed', true);
         }
 
-        $command = new Process(["composer", "require", "illuminate/database", "illuminate/events", "doctrine/dbal"]);
+        $command = new Process(["composer", "require", "illuminate/database", "doctrine/dbal"]);
         $command->setTimeout(900);
         $command->start();
         $command->wait();
@@ -38,7 +38,7 @@ class Installer
             Logger::status('Failed', 'Database Eloquent not installed!', 'failed', true);
         }
 
-        $command = new Process(["composer", "remove", "illuminate/database", "illuminate/events", "doctrine/dbal"]);
+        $command = new Process(["composer", "remove", "illuminate/database", "doctrine/dbal"]);
         $command->setTimeout(900);
         $command->start();
         $command->wait();
@@ -162,7 +162,7 @@ class Installer
         }
 
         if (file_exists('vendor/illuminate/database')){
-            $command = array_merge($command, ["illuminate/database", "illuminate/events", "doctrine/dbal"]);
+            $command = array_merge($command, ["illuminate/database", "doctrine/dbal"]);
         }
 
         $command = new Process($command);

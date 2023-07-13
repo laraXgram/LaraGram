@@ -13,6 +13,7 @@ LaraGram, an advanced framework for Telegram Bot development
 - Support Bot Api Server
 - Laravel Eloquent
     - Model
+    - Migrations
 - Database
     - MySql
     - Redis
@@ -178,12 +179,6 @@ php bot make:resource my-resource
 php bot remove:resource my-resource
 ```
 
-###### model
-
-```
-php bot make:model User
-```
-
 ###### Server
 
 * start Web server
@@ -296,6 +291,39 @@ $api->api('ApiName@MetodeName', $parameters);
 // Helper 
 api('ApiName@MetodeName', $parameters)
 ```
+* Male Model
+
+```
+php bot make:model User
+```
+
+* Make Migration
+
+```
+// Create table
+php bot make:migration create_users_table --create=users
+
+// Edit table
+php bot make:migration edit_users_table --table=users
+
+```
+
+Note:
+ * Note that the names of the migrations should be similar to the example above
+   `create_{table_name}_table`
+   `create_{table_name}_table`
+ * The table_name must be plural
+
+
+1. Build an migration
+2. Open the created file ( path: Database/Mysql/Migrations/ )
+3. Start writing ( An example has been created for you )
+
+ * It is better to learn to work with Eloquent and Laravel query builder
+   Use the following links:
+
+   [Eloquent](https://laravel.com/docs/master/eloquent) -- [Queries](https://laravel.com/docs/master/queries)
+
 
 # Support & Contact:
 
@@ -304,4 +332,4 @@ api('ApiName@MetodeName', $parameters)
 
 # Updating ...
 
-###### Version 1.5.5
+###### Version 1.6.0
