@@ -21,9 +21,9 @@ class ApiMaker
             return;
         }
 
-        $apiPage = str_replace('&&&', $this->cmd[2], file_get_contents('core/cli/layout/api.txt'));
+        $apiPage = str_replace('&&&', $this->cmd[2], file_get_contents('Core/Cli/Layout/api.txt'));
 
-        $fileName = 'app/controller/api/' . $this->cmd[2] . '.php';
+        $fileName = 'App/Controller/Api/' . $this->cmd[2] . '.php';
         if (file_exists($fileName)) {
             Logger::warning('Api is already exist!');
         } else {
@@ -39,8 +39,8 @@ class ApiMaker
             return;
         }
 
-        if (file_exists("app/controller/api/{$this->cmd[2]}.php")) {
-            unlink("app/controller/api/{$this->cmd[2]}.php");
+        if (file_exists("App/Controller/Api/{$this->cmd[2]}.php")) {
+            unlink("App/Controller/Api/{$this->cmd[2]}.php");
             Logger::status('Success', 'Api deleted successfully!');
         } else {
             Logger::status('Failed', 'Api is not exist!', 'failed');

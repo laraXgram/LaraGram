@@ -21,8 +21,8 @@ class DatabaseMaker
             return;
         }
 
-        $migrationPage = str_replace('&&&', $this->cmd[2], file_get_contents('core/cli/layout/mysqlModel.txt'));
-        $fileName = 'app/model/' . $this->cmd[2] . '.php';
+        $migrationPage = str_replace('&&&', $this->cmd[2], file_get_contents('Core/Cli/Layout/mysqlModel.txt'));
+        $fileName = 'App/Model/' . $this->cmd[2] . '.php';
         if (file_exists($fileName)) {
             Logger::warning('Model is already exist!');
         } else {

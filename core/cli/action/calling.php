@@ -2,7 +2,7 @@
 
 namespace Bot\Core\Cli\Action;
 
-require_once 'bootstrap/bootstrap.php';
+require_once 'Bootstrap/bootstrap.php';
 
 use Bot\Core\Cli\Kernel;
 

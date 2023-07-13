@@ -21,13 +21,13 @@ class ResourceMaker
             return;
         }
 
-        $data = json_decode(file_get_contents('bootstrap/load.json'), true);
-        if (!in_array("app/resources/{$this->cmd[2]}.php", $data) && !file_exists("app/resources/{$this->cmd[2]}.php")) {
-            $data[$this->cmd[2]] = "app/resources/{$this->cmd[2]}.php";
+        $data = json_decode(file_get_contents('Bootstrap/load.json'), true);
+        if (!in_array("App/Resources/{$this->cmd[2]}.php", $data) && !file_exists("App/Resources/{$this->cmd[2]}.php")) {
+            $data[$this->cmd[2]] = "App/Resources/{$this->cmd[2]}.php";
             $data = json_encode($data, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             $data = str_replace('\\', '', $data);
-            file_put_contents('bootstrap/load.json', $data);
-            file_put_contents("app/resources/{$this->cmd[2]}.php", file_get_contents('core/cli/layout/resource.txt'));
+            file_put_contents('Bootstrap/load.json', $data);
+            file_put_contents("App/Resources/{$this->cmd[2]}.php", file_get_contents('Core/Cli/Layout/resource.txt'));
             Logger::status('Success', 'Resource created successfully!');
         } else {
             Logger::status('Failed', 'Resource is already exist!', 'failed');
@@ -41,13 +41,13 @@ class ResourceMaker
             return;
         }
 
-        $data = json_decode(file_get_contents('bootstrap/load.json'), true);
-        if (in_array("app/resources/{$this->cmd[2]}.php", $data) && file_exists("app/resources/{$this->cmd[2]}.php")) {
-            unlink("app/resources/{$this->cmd[2]}.php");
+        $data = json_decode(file_get_contents('Bootstrap/load.json'), true);
+        if (in_array("App/Resources/{$this->cmd[2]}.php", $data) && file_exists("App/Resources/{$this->cmd[2]}.php")) {
+            unlink("App/Resources/{$this->cmd[2]}.php");
             unset($data[$this->cmd[2]]);
             $data = json_encode($data, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
             $data = str_replace('\\', '', $data);
-            file_put_contents('bootstrap/load.json', $data);
+            file_put_contents('Bootstrap/load.json', $data);
             Logger::status('Success', 'Resource deleted successfully!');
         } else {
             Logger::status('Failed', 'Resource is not exist!', 'failed');

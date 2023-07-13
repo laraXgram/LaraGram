@@ -40,27 +40,30 @@ class Bootstrap
         /*
          * Load Helper Function
          * */
-        Runner::LoadFolder('core/helper');
+        Runner::LoadFolder('Core/helper');
     }
 
     private function classLoader(): void
     {
         spl_autoload_register(function ($className) {
+            $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
-                'Bot\\Bootstrap\\' => '../bootstrap',
-                'Bot\\Core\\' => '../core',
-                'Bot\\App\\' => '../app'
+                'Bot\\Core\\' => 'Core',
+                'Bot\\Bootstrap\\' => 'Bootstrap',
+                'Bot\\App\\' => 'App'
             ];
-
             foreach ($namespacePrefixes as $namespacePrefix => $directory) {
                 $prefixLength = strlen($namespacePrefix);
-                if (strncmp($namespacePrefix, $className, $prefixLength) === 0) {
+                if (str_contains($className, $namespacePrefix)) {
                     $relativeClass = substr($className, $prefixLength);
-                    $file = __DIR__ . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
-                    if (file_exists($file)) {
-                        require_once $file;
-                        return;
-                    }
+                    $part = explode('\\', $relativeClass);
+                    $lastKey = key(array_slice($part, -1, 1, true));
+                    $part[$lastKey] = lcfirst($part[$lastKey]);
+                    $relativeClass = implode('\\', $part);
+
+                    $file = $dir . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
+
+                    require_once $file;
                 }
             }
         });

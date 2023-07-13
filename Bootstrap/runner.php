@@ -8,7 +8,7 @@ class Runner
 {
     public static function start(): void
     {
-        $files = json_decode(file_get_contents('bootstrap/load.json'), true);
+        $files = json_decode(file_get_contents('Bootstrap/load.json'), true);
         foreach ($files as $file) {
             if (!isset(Openswoole::$openswoole)){
                 require_once $file;
