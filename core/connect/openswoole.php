@@ -3,13 +3,13 @@
 namespace Bot\Core\Connect;
 
 use Bot\Core\Cli\Error\Logger;
-use OpenSwoole\Http\Server;
 use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
+use OpenSwoole\Http\Server;
 
 class Openswoole {
     public static int $openswooleStatus = 0;
-    public static $openswoole;
+    public static mixed $openswoole;
     public static function connect(): void
     {
         if (!file_exists('vendor/openswoole')){
