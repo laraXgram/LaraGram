@@ -5,9 +5,6 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Bot\\Bootstrap\\": "bootstrap",
-      "Bot\\Core\\": "core",
-      "Bot\\App\\": "app"
     }
   },
   "authors": [
