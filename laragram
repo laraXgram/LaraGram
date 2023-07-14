@@ -1,0 +1,4 @@
+#!/usr/bin/php
+<?php
+
+require_once 'core/Cli/Action/calling.php';

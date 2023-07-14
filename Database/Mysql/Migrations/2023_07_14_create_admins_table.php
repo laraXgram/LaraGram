@@ -12,17 +12,14 @@ return new class
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name')->nullable();
-<<<<<<< HEAD
-            $table->string('user_id')->unique();
-=======
-            $table->integer('user_id');
-            $table->integer('chat_id');
->>>>>>> cb99f88 (start create auth system)
+            $table->integer('user')->unsigned()->index();
+            $table->string('role');
             $table->timestamps();
+
+            $table->foreign('user')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('admins');
     }
 };
