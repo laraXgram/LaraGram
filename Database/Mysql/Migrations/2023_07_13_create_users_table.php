@@ -16,12 +16,9 @@ return new class
             $table->id();
             $table->string('first_name');
             $table->string('last_name')->nullable();
-<<<<<<< HEAD
             $table->string('user_id')->unique();
-=======
             $table->integer('user_id');
             $table->integer('chat_id');
->>>>>>> cb99f88 (start create auth system)
             $table->timestamps();
         });
     }
