@@ -7,10 +7,25 @@ use Bot\Core\Request;
 
 class Auth
 {
-    private static function getStatus(int|string|null $user_id = null, int|string|null $chat_id = null){
+    /**
+     * Check user statis
+     * @param int|string|null $user_id <p>
+     * UserId. if null $userId = Message sender
+     * </p>
+     * @param int|string|null $chat_id
+     * ChatId. if null $chat_id = Current Chat
+     * </p>
+     * @return string|null user status
+     */
+    public static function getStatus(int|string|null $user_id = null, int|string|null $chat_id = null): string|null
+    {
         $request = new Request();
-        if (is_null($chat_id)) { $chat_id = $request->ChatID(); }
-        if (is_null($user_id)) { $user_id = $request->UserID(); }
+        if (is_null($chat_id)) {
+            $chat_id = $request->ChatID();
+        }
+        if (is_null($user_id)) {
+            $user_id = $request->UserID();
+        }
 
         $status = $request->getChatMember([
             'chat_id' => $chat_id,

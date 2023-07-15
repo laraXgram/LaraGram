@@ -6,6 +6,7 @@ use Bot\Core\Interface\SchemaInterface;
 use Closure;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Connection;
+use Illuminate\Database\Schema\Builder;
 
 class Schema implements SchemaInterface
 {
@@ -16,7 +17,7 @@ class Schema implements SchemaInterface
 
     public static function table(string $table, Closure $callback)
     {
-        // TODO: Implement table() method.
+        Capsule::schema()->table($table, $callback);
     }
 
     public static function create(string $table, Closure $callback)
@@ -26,111 +27,111 @@ class Schema implements SchemaInterface
 
     public static function blueprintResolver(Closure $resolver)
     {
-        // TODO: Implement blueprintResolver() method.
+        Capsule::schema()->blueprintResolver($resolver);
     }
 
-    public static function createDatabase(string $name)
+    public static function createDatabase(string $name): bool
     {
-        // TODO: Implement createDatabase() method.
+        return Capsule::schema()->createDatabase($name);
     }
 
-    public static function disableForeignKeyConstraints()
+    public static function disableForeignKeyConstraints(): bool
     {
-        // TODO: Implement disableForeignKeyConstraints() method.
+        return Capsule::schema()->disableForeignKeyConstraints();
     }
 
     public static function drop(string $table)
     {
-        // TODO: Implement drop() method.
+        Capsule::schema()->drop($table);
     }
 
     public static function dropAllTables()
     {
-        // TODO: Implement dropAllTables() method.
+        Capsule::schema()->dropAllTables();
     }
 
     public static function dropAllTypes()
     {
-        // TODO: Implement dropAllTypes() method.
+        Capsule::schema()->dropAllTypes();
     }
 
     public static function dropAllViews()
     {
-        // TODO: Implement dropAllViews() method.
+        Capsule::schema()->dropAllViews();
     }
 
     public static function dropColumns(string $name, array|string $columns)
     {
-        // TODO: Implement dropColumns() method.
+        Capsule::schema()->dropColumns($name, $columns);
     }
 
-    public static function dropDatabaseIfExists(string $name)
+    public static function dropDatabaseIfExists(string $name): bool
     {
-        // TODO: Implement dropDatabaseIfExists() method.
+        return Capsule::schema()->dropDatabaseIfExists($name);
     }
 
     public static function dropIfExists(string $table)
     {
-        // TODO: Implement dropIfExists() method.
+        Capsule::schema()->dropIfExists($table);
     }
 
-    public static function enableForeignKeyConstraints()
+    public static function enableForeignKeyConstraints(): bool
     {
-        // TODO: Implement enableForeignKeyConstraints() method.
+        return Capsule::schema()->enableForeignKeyConstraints();
     }
 
-    public static function getAllTables()
+    public static function getAllTables(): array
     {
-        // TODO: Implement getAllTables() method.
+        return Capsule::schema()->getAllTables();
     }
 
-    public static function getColumnListing(string $table)
+    public static function getColumnListing(string $table): array
     {
-        // TODO: Implement getColumnListing() method.
+        return Capsule::schema()->getColumnListing($table);
     }
 
-    public static function getColumnType(string $table, string $column)
+    public static function getColumnType(string $table, string $column): string
     {
-        // TODO: Implement getColumnType() method.
+        return Capsule::schema()->getColumnType($table, $column);
     }
 
-    public static function getConnection($table_name)
+    public static function getConnection(): Connection
     {
-        // TODO: Implement getConnection() method.
+        return Capsule::schema()->getConnection();
     }
 
-    public static function hasColumn(string $table, string $column)
+    public static function hasColumn(string $table, string $column): bool
     {
-        // TODO: Implement hasColumn() method.
+        return Capsule::schema()->hasColumn($table, $column);
     }
 
-    public static function hasColumns(string $table, array $columns)
+    public static function hasColumns(string $table, array $columns): bool
     {
-        // TODO: Implement hasColumns() method.
+        return Capsule::schema()->hasColumns($table, $columns);
     }
 
     public static function rename(string $from, string $to)
     {
-        // TODO: Implement rename() method.
+        Capsule::schema()->rename($from, $to);
     }
 
-    public static function setConnection(Connection $connection)
+    public static function setConnection(Connection $connection): Builder
     {
-        // TODO: Implement setConnection() method.
+        return Capsule::schema()->setConnection($connection);
     }
 
     public static function whenTableDoesntHaveColumn(string $table, string $column, Closure $callback)
     {
-        // TODO: Implement whenTableDoesntHaveColumn() method.
+        Capsule::schema()->whenTableDoesntHaveColumn($table, $column, $callback);
     }
 
-    public static function withoutForeignKeyConstraints(Closure $callback)
+    public static function withoutForeignKeyConstraints(Closure $callback): mixed
     {
-        // TODO: Implement withoutForeignKeyConstraints() method.
+        return Capsule::schema()->withoutForeignKeyConstraints($callback);
     }
 
     public static function whenTableHasColumn(string $table, string $column, Closure $callback)
     {
-        // TODO: Implement whenTableHasColumn() method.
+        Capsule::schema()->whenTableHasColumn($table, $column, $callback);
     }
 }

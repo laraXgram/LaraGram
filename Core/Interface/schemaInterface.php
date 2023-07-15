@@ -41,7 +41,7 @@ interface SchemaInterface
 
     public static function getColumnType(string $table, string $column);
 
-    public static function getConnection($table_name);
+    public static function getConnection();
 
     public static function hasColumn(string $table, string $column);
 

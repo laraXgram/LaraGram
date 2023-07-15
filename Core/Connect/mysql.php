@@ -35,13 +35,11 @@ class Mysql
 
         $app = new Container();
         Facade::setFacadeApplication($app);
-
-        $this->migrations();
     }
 
-    private function migrations(): void
+    public function create_migrations_table(): void
     {
-        if (!Capsule::schema()->hasTable('migrations')) {
+        if (!(Capsule::schema()->hasTable('migrations'))) {
             Capsule::schema()->create('migrations', function (Blueprint $table) {
                 $table->id();
                 $table->string('migration');

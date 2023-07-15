@@ -3,6 +3,7 @@
 namespace Bot\Core\Cli\Action;
 
 use Bot\Core\Cli\Error\Logger;
+use Bot\Core\Connect\Mysql;
 use Bot\Core\Database\Migration;
 
 class DatabaseMaker
@@ -127,6 +128,8 @@ class DatabaseMaker
 
     public function migrate(): void
     {
+        (new Mysql())->create_migrations_table();
+
         $needMigrate = $this->needMigrate();
         if (is_null($needMigrate)) {
             Logger::failed('Nothing to Migrate!');
