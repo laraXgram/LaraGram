@@ -92,6 +92,63 @@ class Auth
     }
 
     /**
+     * Check is kicked member or not
+     * @param int|string|null $user_id <p>
+     * UserId. if null $userId = Message sender
+     * </p>
+     * @param int|string|null $chat_id <p>
+     * ChatId. if null $chat_id = Current Chat
+     * </p>
+     * @return bool true if is member, false
+     * otherwise.
+     */
+    public static function isKicked(int|string|null $user_id = null, int|string|null $chat_id = null): bool
+    {
+        if (self::getStatus($user_id, $chat_id) === 'kicked') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check is restricted member or not
+     * @param int|string|null $user_id <p>
+     * UserId. if null $userId = Message sender
+     * </p>
+     * @param int|string|null $chat_id <p>
+     * ChatId. if null $chat_id = Current Chat
+     * </p>
+     * @return bool true if is member, false
+     * otherwise.
+     */
+    public static function isRestricted(int|string|null $user_id = null, int|string|null $chat_id = null): bool
+    {
+        if (self::getStatus($user_id, $chat_id) === 'restricted') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check is left member or not
+     * @param int|string|null $user_id <p>
+     * UserId. if null $userId = Message sender
+     * </p>
+     * @param int|string|null $chat_id <p>
+     * ChatId. if null $chat_id = Current Chat
+     * </p>
+     * @return bool true if is member, false
+     * otherwise.
+     */
+    public static function isLeft(int|string|null $user_id = null, int|string|null $chat_id = null): bool
+    {
+        if (self::getStatus($user_id, $chat_id) === 'left') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Check is bot admin or not
      * @param int|string|null $user_id <p>
      * UserId. if null $userId = Message sender
