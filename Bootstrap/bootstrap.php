@@ -63,8 +63,10 @@ class Bootstrap
                 if (str_contains($className, $namespacePrefix)) {
                     $relativeClass = substr($className, $prefixLength);
                     $part = explode('\\', $relativeClass);
-                    $lastKey = key(array_slice($part, -1, 1, true));
-                    $part[$lastKey] = lcfirst($part[$lastKey]);
+                    if (!in_array('Model', $part)){
+                        $lastKey = key(array_slice($part, -1, 1, true));
+                        $part[$lastKey] = lcfirst($part[$lastKey]);
+                    }
                     $relativeClass = implode('\\', $part);
 
                     $file = $dir . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';

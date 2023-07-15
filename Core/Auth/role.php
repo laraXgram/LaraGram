@@ -8,11 +8,12 @@ use Bot\Core\Request;
 
 class Role
 {
-    private static function checkRole(int|string $user_id, int|string|null $chat_id = null, string $role)
+    private static function checkRole(string $role, int|string $user_id, int|string|null $chat_id = null): bool
     {
         if (is_null($chat_id)) { $chat_id = (new Request())->ChatID(); }
 
         $user = User::where('user_id', $user_id)->where('chat_id', $chat_id)->first();
+
         if (!is_null($user)){
             if (is_null($user->admin->role)){
                 Admin::create([
@@ -21,7 +22,7 @@ class Role
                 ]);
                 return true;
             }else{
-                Admin::where('user_id', $user)->where('chat_id', $chat_id)->update([
+                Admin::where('user', $user->admin->id)->update([
                     'role' => $role
                 ]);
                 return true;
@@ -50,12 +51,12 @@ class Role
 
     public static function addBotAdmin(int|string $user_id, int|string|null $chat_id = null): bool
     {
-        return self::checkRole($user_id, $chat_id, 'administrator');
+        return self::checkRole('administrator', $user_id, $chat_id);
     }
 
     public static function addBotOwner(int|string $user_id, int|string|null $chat_id = null): bool
     {
-        return self::checkRole($user_id, $chat_id, 'owner');
+        return self::checkRole('owner', $user_id, $chat_id);
     }
 
     public static function removeRole(int|string $user_id, int|string|null $chat_id = null): bool
@@ -64,10 +65,9 @@ class Role
 
         $user = User::where('user_id', $user_id)->where('chat_id', $chat_id)->first();
         if (!is_null($user->admin->role)){
-            Admin::where('user_id', $user)->where('chat_id', $chat_id)->delete();
+            Admin::where('user', $user->admin->id)->delete();
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 }

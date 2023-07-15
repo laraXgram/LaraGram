@@ -1186,6 +1186,11 @@ class Request
         return $this->data['message']['from']['id'];
     }
 
+    public function ReplyToUserID()
+    {
+        return $this->data['message']['reply_to_message']['from']['id'];
+    }
+
     /// Get user's id of current forwarded message
     public function FromID()
     {

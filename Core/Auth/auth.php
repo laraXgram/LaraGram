@@ -54,19 +54,38 @@ class Auth
     }
 
     /**
-     * Check is chat owner or not
+     * Check is chat creator or not
      * @param int|string|null $user_id <p>
      * UserId. if null $userId = Message sender
      * </p>
      * @param int|string|null $chat_id <p>
      * ChatId. if null $chat_id = Current Chat
      * </p>
-     * @return bool true if is owner, false
+     * @return bool true if is creator, false
      * otherwise.
      */
-    public static function isChatOwner(int|string|null $user_id = null, int|string|null $chat_id = null): bool
+    public static function isChatCreator(int|string|null $user_id = null, int|string|null $chat_id = null): bool
     {
-        if (self::getStatus($user_id, $chat_id) === 'owner') {
+        if (self::getStatus($user_id, $chat_id) === 'creator') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check is chat member or not
+     * @param int|string|null $user_id <p>
+     * UserId. if null $userId = Message sender
+     * </p>
+     * @param int|string|null $chat_id <p>
+     * ChatId. if null $chat_id = Current Chat
+     * </p>
+     * @return bool true if is member, false
+     * otherwise.
+     */
+    public static function isChatMember(int|string|null $user_id = null, int|string|null $chat_id = null): bool
+    {
+        if (self::getStatus($user_id, $chat_id) === 'member') {
             return true;
         }
         return false;
@@ -119,7 +138,7 @@ class Auth
     }
 
     /**
-     * Check is bot father or not
+     * Check is bot father or not ( not available )
      * bot father is creator/s
      * @param int|string|null $user_id <p>
      * UserId. if null $userId = Message sender
