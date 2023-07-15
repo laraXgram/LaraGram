@@ -1,7 +1,6 @@
 <?php
 
-namespace Bot\Core\Helper;
-
+use Bot\Core\Auth\Level;
 use Bot\Core\Auth\Role;
 
 /**
@@ -50,4 +49,39 @@ function addBotOwner(int|string $user_id, int|string|null $chat_id = null): bool
 function removeRole(int|string $user_id, int|string|null $chat_id = null): bool
 {
     return Role::removeRole($user_id, $chat_id);
+}
+
+/**
+ * set level
+ * @param string|int $level <p>
+ * level name/number
+ * </p>
+ * @param int|string $user_id <p>
+ * UserId. if null $userId = Message sender
+ * </p>
+ * @param int|string|null $chat_id <p>
+ * ChatId. if null $chat_id = Current Chat
+ * </p>
+ * @return bool true if role removed, false
+ * otherwise.
+ */
+function setLevel(string|int $level, int|string $user_id, int|string|null $chat_id = null): bool
+{
+    return Level::setLevel($level, $user_id, $chat_id);
+}
+
+/**
+ * remove level
+ * @param int|string $user_id <p>
+ * UserId. if null $userId = Message sender
+ * </p>
+ * @param int|string|null $chat_id <p>
+ * ChatId. if null $chat_id = Current Chat
+ * </p>
+ * @return bool true if role removed, false
+ * otherwise.
+ */
+function removeLevel(int|string $user_id, int|string|null $chat_id = null): bool
+{
+    return Level::removeLevel($user_id, $chat_id);
 }

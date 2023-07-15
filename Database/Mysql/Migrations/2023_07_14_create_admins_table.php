@@ -15,7 +15,8 @@ return new class
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->integer('user')->unsigned()->index();
-            $table->string('role');
+            $table->string('role')->nullable();
+            $table->string('level')->nullable();
             $table->timestamps();
 
             $table->foreign('user')->references('id')->on('users')

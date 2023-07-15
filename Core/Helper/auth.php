@@ -1,7 +1,5 @@
 <?php
 
-namespace Bot\Core\Helper;
-
 use Bot\Core\Auth\Auth;
 
 /**

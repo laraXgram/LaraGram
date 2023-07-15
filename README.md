@@ -1,24 +1,28 @@
 # LaraGram
 
-LaraGram, an advanced framework for Telegram Bot development
+>LaraGram, an advanced framework for Telegram Bot development
 
 # Feature
-
-- sync & Async
-  - Curl
-  - Parallel Curl
-  - AMPHP
-  - OpenSwoole
-- Webserver
-- Support Bot Api Server
-- Laravel Eloquent
-  - Model
-  - Migrations
-- Database
-  - MySql
-  - Redis
-  - Json
-  -
+>- sync & Async
+   >    - Curl
+>    - Parallel Curl
+>    - AMPHP
+>    - OpenSwoole
+>- Development server
+>- Support Local Bot Api Server
+>- Laravel Eloquent
+   >    - Model
+>    - Migrations
+>- Database
+   >    - MySql
+>    - Redis
+>    - Json
+>- Authentication
+   >    - Role
+>    - Auth
+>    - Level
+>- Controller
+   >  - Api
 
 ---
 
@@ -30,11 +34,66 @@ composer create-project laraxgram/laragram:dev-master@dev my-bot
 
 ---
 
+### Handler :
+
+>- `on(array|string $message, callable $action)`
+>- `onText(array|string $message, callable $action)`
+>- `onCommand(array|string $command, callable $action)`
+>- `onAnimation(callable $action, array|string $file_id = null)`
+>- `onAudio(callable $action, array|string $file_id = null)`
+>- `onDocument(callable $action, array|string $file_id = null)`
+>- `onPhoto(callable $action, array|string $file_id = null)`
+>- `onSticker(callable $action, array|string $file_id = null)`
+>- `onVideo(callable $action, array|string $file_id = null)`
+>- `onVideoNote(callable $action, array|string $file_id = null)`
+>- `onVoice(callable $action, array|string $file_id = null)`
+>- `onContact(callable $action)`
+>- `onDice(callable $action, string|null $emoji = null, string|int|null $value = null)`
+>- `onGame(callable $action)`
+>- `onPoll(callable $action)`
+>- `onVenue(callable $action)`
+>- `onLocation(callable $action)`
+>- `onNewChatMembers(callable $action)`
+>- `onLeftChatMember(callable $action)`
+>- `onNewChatTitle(callable $action)`
+>- `onNewChatPhoto(callable $action)`
+>- `onDeleteChatPhoto(callable $action)`
+>- `onGroupChatCreated(callable $action)`
+>- `onSuperGroupChatCreated(callable $action)`
+>- `onMessageAutoDeleteTimerChanged(callable $action)`
+>- `onMigrateToChatId(callable $action)`
+>- `onMigrateFromChatId(callable $action)`
+>- `onPinnedMessage(callable $action)`
+>- `onInvoice(callable $action)`
+>- `onSuccessfulPayment(callable $action)`
+>- `onConnectedWebsite(callable $action)`
+>- `onPassportData(callable $action)`
+>- `onProximityAlertTriggered(callable $action)`
+>- `onForumTopicCreated(callable $action)`
+>- `onForumTopicEdited(callable $action)`
+>- `onForumTopicClosed(callable $action)`
+>- `onForumTopicReopened(callable $action)`
+>- `onVideoChatScheduled(callable $action)`
+>- `onVideoChatStarted(callable $action)`
+>- `onVideoChatEnded(callable $action)`
+>- `onVideoChatParticipantsInvited(callable $action)`
+>- `onWebAppData(callable $action)`
+
+---
+
 # Get Start ...
+
+* make and remove resource
+
+```
+php laragram make:resource my-resource
+
+php laragram remove:resource my-resource
+```
 
 ### Usage:
 
-1. make a resource and open it
+1. make a resource and open it --- **Path: `App/Resources`**
 2. Create an instance of Bot()
 
 ```php
@@ -76,7 +135,7 @@ $bot->onText(['hello', 'hay'], function(Request $request){
 
 * Change Request Mode
 
-##### Constant
+  ##### Constant
 
 | Type                             | Name                            | Int   |
 |----------------------------------|---------------------------------|-------|
@@ -93,53 +152,6 @@ $bot->onText(['hello', 'hay'], function(Request $request){
   ], REQUEST_METHODE_PARALLEL_CURL);
 });
 ```
-
----
-
-### Handler :
-
-- `on(array|string $message, callable $action)`
-- `onText(array|string $message, callable $action)`
-- `onCommand(array|string $command, callable $action)`
-- `onAnimation(callable $action, array|string $file_id = null)`
-- `onAudio(callable $action, array|string $file_id = null)`
-- `onDocument(callable $action, array|string $file_id = null)`
-- `onPhoto(callable $action, array|string $file_id = null)`
-- `onSticker(callable $action, array|string $file_id = null)`
-- `onVideo(callable $action, array|string $file_id = null)`
-- `onVideoNote(callable $action, array|string $file_id = null)`
-- `onVoice(callable $action, array|string $file_id = null)`
-- `onContact(callable $action)`
-- `onDice(callable $action, string|null $emoji = null, string|int|null $value = null)`
-- `onGame(callable $action)`
-- `onPoll(callable $action)`
-- `onVenue(callable $action)`
-- `onLocation(callable $action)`
-- `onNewChatMembers(callable $action)`
-- `onLeftChatMember(callable $action)`
-- `onNewChatTitle(callable $action)`
-- `onNewChatPhoto(callable $action)`
-- `onDeleteChatPhoto(callable $action)`
-- `onGroupChatCreated(callable $action)`
-- `onSuperGroupChatCreated(callable $action)`
-- `onMessageAutoDeleteTimerChanged(callable $action)`
-- `onMigrateToChatId(callable $action)`
-- `onMigrateFromChatId(callable $action)`
-- `onPinnedMessage(callable $action)`
-- `onInvoice(callable $action)`
-- `onSuccessfulPayment(callable $action)`
-- `onConnectedWebsite(callable $action)`
-- `onPassportData(callable $action)`
-- `onProximityAlertTriggered(callable $action)`
-- `onForumTopicCreated(callable $action)`
-- `onForumTopicEdited(callable $action)`
-- `onForumTopicClosed(callable $action)`
-- `onForumTopicReopened(callable $action)`
-- `onVideoChatScheduled(callable $action)`
-- `onVideoChatStarted(callable $action)`
-- `onVideoChatEnded(callable $action)`
-- `onVideoChatParticipantsInvited(callable $action)`
-- `onWebAppData(callable $action)`
 
 ---
 
@@ -171,20 +183,12 @@ $redis = PhpRedis::connect('dbname');
 
 ### Terminal Command :
 
-###### make and remove resource
-
-```
-php laragram make:resource my-resource
-
-php laragram remove:resource my-resource
-```
-
 ###### Server
 
 * start Web server
 
-If you are working on a local host, it is better to use this web server
-Otherwise, Apache, Nginx, etc. web servers are a better option ( For `php laragram serve` command only )
+>If you are working on a local host, it is better to use this web server
+>Otherwise, Apache, Nginx, etc. web servers are a better option ( For `php laragram serve` command only )
 
 ```
 php laragram serve
@@ -201,9 +205,7 @@ php laragram serve --api-server
 ```
 php laragram serve --openswoole
 ```
-
-Or
-
+**Or**
 ```
 php laragram start:openswoole
 ```
@@ -266,20 +268,22 @@ php laragram remove:redis
 
 * Clean Vendor
 
-Remove all extra dependencies
+  Remove all extra dependencies
 
 ```
 php laragram clear:vendor
 ```
+
 * Make Api Controller
+
 ```
 php laragram make:api ApiName
 
 php laragram remove:api ApiName
 ```
-1. Build an api controller
-2. Open the created file ( path: App/Controller/Api )
-3. Start writing ( a sample method has been created for you )
+>1. Build an api controller
+>2. Open the created file ( path: App/Controller/Api )
+>3. Start writing ( a sample method has been created for you )
 
 * Use Api In Resource File :
 ```php
@@ -289,7 +293,7 @@ $api->api('ApiName@MetodeName', $parameters);
 // Helper 
 api('ApiName@MetodeName', $parameters)
 ```
-* Male Model
+* Make Model
 
 ```
 php laragram make:model User
@@ -303,28 +307,153 @@ php laragram make:migration create_users_table --create=users
 
 // Edit table
 php laragram make:migration edit_users_table --table=users
+
 ```
 
-Note:
- * Note that the names of the migrations should be similar to the example above
-   `create_{table_name}_table`
-   `edit_{table_name}_table`
- * The table_name must be plural
+>Note:
+> * Note that the names of the migrations should be similar to the example above
+    >   `create_{table_name}_table`
+    >   `edit_{table_name}_table`
+> * The table_name must be plural (`users`, `addresses`)
+>
+>
+>1. Build an migration
+>2. Open the created file ( path: Database/Mysql/Migrations/ )
+>3. Start writing ( An example has been created for you )
+>
+>* It is better to learn to work with Eloquent and Laravel query builder
+   >  Use the following links:
+   >
+   >  [Eloquent](https://laravel.com/docs/master/eloquent) -- [Queries](https://laravel.com/docs/master/queries)
 
-1. Build an migration
-2. Open the created file ( path: Database/Mysql/Migrations/ )
-3. Start writing ( An example has been created for you )
+---
 
- * It is better to learn to work with Eloquent and Laravel query builder
-   Use the following links:
+### Authentication
+* Check Status
+>* Bot administrators and bot owners are those who are not admins or group owners, but have specific access to use the bot.
+---
+>- If the specified person is the admin of the group, it returns true
+```php
+Auth::isChatAdmin(int|string|null $user_id, int|string|null $chat_id)
 
-   [Eloquent](https://laravel.com/docs/master/eloquent) -- [Queries](https://laravel.com/docs/master/queries)
+// Helper
+isChatAdmin()
+```
+---
+>- If the specified person is the creator of the group, it returns true
+```php
+Auth::isChatCreator(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isChatCreator()
+```
+---
+>- If the specified person is the member of the group, it returns true
+```php
+Auth::isChatMember(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isChatMember()
+```
+---
+>- If the specified person is the kicked of the group, it returns true
+```php
+Auth::iskicked(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+iskicked()
+```
+---
+>- If the specified person is the restricted of the group, it returns true
+```php
+Auth::isRestricted(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isRestricted()
+```
+---
+>- If the specified person is the left of the group, it returns true
+```php
+Auth::isLeft(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isLeft()
+```
+---
+>- If the specified person is the admin of the bot, it returns true
+```php
+Auth::isBotAdmin(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isBotAdmin()
+```
+---
+>- If the specified person is the owner of the bot, it returns true
+```php
+Auth::isBotOwner(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+isBotOwner()
+```
+---
+>If the entries are null, the sender of the message is considered to be in the current group.
+
+>**Note:**
+>1. **The admin and owner of the bot are authenticate based on the default database structure, whose migration is present in the project by default.**
+>2. **Follow Laragram rules for proper functioning, otherwise you must use personal authentication system.**
+>3. **In the future, we will try to make this dynamic.**
+
+>- After you make a group member the bot admin or bot owner, you must save it in the database
+   >  You can do this easily with the following functions:
+---
+* Role
+* Add new BotAdmin
+```php
+Role::addBotAdmin(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+addBotAdmin()
+```
+---
+* Add new BotOwner
+```php
+Role::addBotOwner(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+addBotOwner()
+```
+---
+* Remove BotAdmin or BotOwner
+```php
+Role::removeRole(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+removeRole()
+```
+---
+#### Level
+* Set User Level
+```php
+Role::setLevel(string|int $level, int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+setLevel()
+```
+---
+* Remove User Level
+```php
+Role::removeLevel(int|string|null $user_id, int|string|null $chat_id)
+
+// Helper
+removeLevel()
+```
+---
 
 # Support & Contact:
 
-* [Email](mailto:amirh.kargar895@gmail.com)
-* [Telegram](https://telegram.me/Amirh_krgr)
-
+>* [Email](mailto:amirh.kargar895@gmail.com)
+>* [Telegram](https://telegram.me/Amirh_krgr)
+---
 # Updating ...
 
-###### Version 1.6.2
+>###### Version 1.7.0

@@ -1,5 +1,4 @@
 <?php
-namespace Bot\Core\Helper;
 
 use Bot\App\Controller\Api\Api;
 
