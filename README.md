@@ -448,6 +448,19 @@ Role::removeLevel(int|string|null $user_id, int|string|null $chat_id)
 removeLevel()
 ```
 ---
+### Assets Folder
+
+* This folder is for storing photos, audio, videos, etc.
+* It is available through the `assets()` function.
+* For the calling address of `.` Use
+```php
+echo assets('path.to.image');
+
+// Result:
+// 'Assets/path/to/image.png'
+```
+
+---
 
 # Support & Contact:
 

@@ -210,4 +210,12 @@ class Auth
     {
         return false;
     }
+
+    public static function userLevel(int|string|null $user_id, int|string|null $chat_id): string|int|null
+    {
+        if (is_null($chat_id)) { $chat_id = (new Request())->ChatID(); }
+        if (is_null($user_id)) { $user_id = (new Request())->UserID(); }
+
+        return User::where('user_id', $user_id)->where('chat_id', $chat_id)->first()->admin->level;
+    }
 }

@@ -162,3 +162,19 @@ function isBotFather(int|string|null $user_id = null, int|string|null $chat_id =
 {
     return Auth::isBotFather($user_id, $chat_id);
 }
+
+/**
+ * get userLevel
+ * @param int|string|null $user_id <p>
+ * UserId. if null $userId = Message sender
+ * </p>
+ * @param int|string|null $chat_id <p>
+ * ChatId. if null $chat_id = Current Chat
+ * </p>
+ * @return string|int|null string|int level, null
+ * otherwise.
+ */
+function userLevel(int|string|null $user_id = null, int|string|null $chat_id = null): string|int|null
+{
+    return Auth::userLevel($user_id, $chat_id);
+}
