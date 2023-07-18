@@ -3,7 +3,7 @@
 >LaraGram, an advanced framework for Telegram Bot development
 
 #### Report bugs, help and support, suggestions and criticisms
-> [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues)
+> [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues) - [Telegram Group](https://telegram.me/LaraGramChat)
 # Feature
 >- sync & Async
    >    - Curl
@@ -466,9 +466,32 @@ echo assets('path.to.image');
 
 # Support & Contact:
 
->* [Email](mailto:laraxgram@gmail.com)
+> * [Email](mailto:laraxgram@gmail.com)
 >* [Telegram](https://telegram.me/Amirh_krgr)
 ---
+
 # Updating ...
 
->###### Version 1.7.0
+##### Version 1.8.0 coming soon...
+
+###### Feature
+
+* Condition Methode
+    * `noReply()`
+    * `mustReply()`
+    * `untilDate(string|array $date)`
+    * `untilTime(string|array $time)`
+* Set Scope Methode
+    * `scope(string|array $scope)`
+    * `private()`
+    * `group()`
+    * `channel()`
+* Accessibility Methode
+    * `can(string|array $role)`
+    * `level(string|array $level)`
+
+**The above methods are used in a chain behind the handlers.**
+
+---
+
+> ###### Version 1.7.1
