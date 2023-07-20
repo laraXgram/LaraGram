@@ -3,7 +3,9 @@
 >LaraGram, an advanced framework for Telegram Bot development
 
 #### Report bugs, help and support, suggestions and criticisms
-> [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues) - [Telegram Group](https://telegram.me/LaraGramChat)
+> [Telegram Channel](https://telegram.me/LaraXGram) - [Telegram Group](https://telegram.me/LaraGramChat)
+> 
+> [LaraGram Email](mailto:laraxgram@gmail.com) - [Issues](https://github.com/laraXgram/LaraGram/issues) - [Author Telegram](https://telegram.me/amirh_krgr)
 # Feature
 >- sync & Async
    >    - Curl
