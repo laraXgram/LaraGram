@@ -80,6 +80,22 @@ composer create-project laraxgram/laragram:dev-master@dev my-bot
 >- `onVideoChatEnded(callable $action)`
 >- `onVideoChatParticipantsInvited(callable $action)`
 >- `onWebAppData(callable $action)`
+>- `onMessage(callable $action);`
+>- `onMessageType(string|array $type, callable $action);`
+>- `onEditedMessage(callable $action);`
+>- `onChannelPost(callable $action);`
+>- `onEditedChannelPost(callable $action);`
+>- `onInlineQuery(callable $action);`
+>- `onChosenInlineResult(callable $action);`
+>- `onCallbackQuery(callable $action);`
+>- `onCallbackQueryData(string|array $pattern, callable $action);`
+>- `onShippingQuery(callable $action);`
+>- `onPreCheckoutQuery(callable $action);`
+>- `onPollAnswer(callable $action);`
+>- `onMyChatMember(callable $action);`
+>- `onChatMember(callable $action);`
+>- `onChatJoinRequest(callable $action);`
+>- `onAny(callable $action);`
 
 ---
 
@@ -472,7 +488,7 @@ echo assets('path.to.image');
 
 # Updating ...
 
-##### Version 1.8.0 coming soon...
+##### Version 1.9.0 coming soon...
 
 ###### Feature
 
@@ -494,4 +510,4 @@ echo assets('path.to.image');
 
 ---
 
-> ###### Version 1.7.1
+> ###### Version 1.8.0
