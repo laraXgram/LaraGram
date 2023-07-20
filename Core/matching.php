@@ -52,7 +52,7 @@ abstract class Matching
         ])) {
             $this->matchMessage($type);
         } elseif ($type === 'message_type') {
-            $this->matchMessageType($type);
+            $this->matchMessageType();
         } elseif ($type === 'callback_query_data') {
             $this->matchCallbackData($this->request->Callback_Data());
         } elseif ($type === 'any') {
