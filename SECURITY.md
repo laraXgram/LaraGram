@@ -16,7 +16,6 @@ Versions currently supported with security updates.
 | 1.7.x   | :white_check_mark: |
 | 1.8.x   | :white_check_mark: |
 
-
 ## Reporting a Vulnerability
 
 If you see a vulnerability, you can Notify via [Email](mailto:LaraXGram@gmail.com]) or give a pull request.

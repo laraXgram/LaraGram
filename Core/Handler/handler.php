@@ -4,9 +4,13 @@ namespace Bot\Core\Handler;
 
 use Bot\Core\Interface\MessageHandlerInterface;
 use Bot\Core\Matching;
+use Bot\Core\Trait\Authentication;
+use Bot\Core\Trait\Condition;
+use Bot\Core\Trait\Scope;
 
 class Handler extends Matching implements MessageHandlerInterface
 {
+    use Authentication, Condition, Scope;
 
     public function on(array|string $message, callable $action): static
     {
