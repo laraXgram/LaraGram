@@ -153,6 +153,17 @@ $bot->onText(['hello', 'hay'], function(Request $request){
 });
 ```
 
+* Use Helper
+
+```php
+$bot->onText(['hello', 'hay'], function(){
+  sendMessage([
+    'chat_id' => ChatID(),
+    'text'    => 'hi'
+  ]);
+});
+```
+
 * Change Request Mode
 
   ##### Constant
@@ -490,7 +501,7 @@ echo assets('path.to.image');
 
 # Updating ...
 
-##### Version 1.9.0 coming soon...
+##### Version 1.10.0 coming soon...
 
 ###### Feature
 
