@@ -151,7 +151,7 @@ $bot->onText(['hello', 'hay'], function(Request $request){
 });
 ```
 
-* Use Helper
+* Use Helper ( Not available yet )
 
 ```php
 $bot->onText(['hello', 'hay'], function(){
