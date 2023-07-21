@@ -93,6 +93,8 @@ class Request
     private $update_type;
     private $request_mode = 'curl_sendAPIRequest';
 
+    private static $instance;
+
     /// Class constructor
 
     /**
@@ -111,6 +113,14 @@ class Request
         }
         $this->data = $this->getData();
         $this->proxy = $proxy;
+    }
+
+    public static function getInstance(): Request
+    {
+        if (self::$instance === null){
+            self::$instance = new Request();
+        }
+        return self::$instance;
     }
 
     /// Do requests to Telegram Bot API
@@ -1208,7 +1218,7 @@ class Request
     /**
      *  \return BOOLEAN true if the message is from a Group chat, false otherwise.
      */
-    public function messageFromGroup(): bool
+    public function MessageFromGroup(): bool
     {
         if ($this->data['message']['chat']['type'] == 'private') {
             return false;
@@ -1222,7 +1232,7 @@ class Request
     /**
      *  \return a String of the contact phone number.
      */
-    public function getContactPhoneNumber()
+    public function GetContactPhoneNumber()
     {
         if ($this->getUpdateType() == self::CONTACT) {
             return $this->data['message']['contact']['phone_number'];
@@ -1236,7 +1246,7 @@ class Request
     /**
      *  \return a String of the title chat.
      */
-    public function messageFromGroupTitle()
+    public function MessageFromGroupTitle()
     {
         if ($this->data['message']['chat']['type'] != 'private') {
             return $this->data['message']['chat']['title'];
