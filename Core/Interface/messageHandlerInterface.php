@@ -87,36 +87,4 @@ interface MessageHandlerInterface
     public function onVideoChatParticipantsInvited(callable $action);
 
     public function onWebAppData(callable $action);
-
-    public function onMessage(callable $action);
-
-    public function onMessageType(string|array $type, callable $action);
-
-    public function onEditedMessage(callable $action);
-
-    public function onChannelPost(callable $action);
-
-    public function onEditedChannelPost(callable $action);
-
-    public function onInlineQuery(callable $action);
-
-    public function onChosenInlineResult(callable $action);
-
-    public function onCallbackQuery(callable $action);
-
-    public function onCallbackQueryData(string|array $pattern, callable $action);
-
-    public function onShippingQuery(callable $action);
-
-    public function onPreCheckoutQuery(callable $action);
-
-    public function onPollAnswer(callable $action);
-
-    public function onMyChatMember(callable $action);
-
-    public function onChatMember(callable $action);
-
-    public function onChatJoinRequest(callable $action);
-
-    public function onAny(callable $action);
 }
