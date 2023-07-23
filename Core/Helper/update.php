@@ -206,13 +206,3 @@ function MessageFromGroupTitle()
 {
     return (Request::getInstance())->MessageFromGroupTitle();
 }
-
-function getUpdates($offset = 0, $limit = 100, $timeout = 0, $update = true)
-{
-    return (Request::getInstance())->getUpdates($offset, $limit, $timeout, $update);
-}
-
-function getUpdateType(): bool|string
-{
-    return (Request::getInstance())->getUpdateType();
-}
