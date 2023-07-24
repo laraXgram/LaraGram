@@ -9,7 +9,6 @@
       "email": "laraxgram@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "vlucas/phpdotenv": "^5.5",
     "symfony/process": "^6.3",
