@@ -7,19 +7,11 @@ require_once 'inlineKeyboardMarkup.php';
 
 class Keyboard
 {
-    public static function foreReply()
+    public static function replyKeyboardMarkup(...$row): bool|string
     {
-
-    }
-
-    public static function replyKeyboardRemove()
-    {
-
-    }
-
-    public static function replyKeyboardMarkup()
-    {
-
+        return json_encode([
+            'keyboard' => $row
+        ]);
     }
 
     public static function inlineKeyboardMarkup(...$row): bool|string
