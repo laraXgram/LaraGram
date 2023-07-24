@@ -19,7 +19,12 @@ class Make
         $switch_inline_query_current_chat = null,
         $switch_inline_query_chosen_chat = null,
         $callback_game = '',
-        $pay = ''
+        $pay = '',
+        $request_user = '',
+        $request_chat = '',
+        $request_contact = '',
+        $request_location = '',
+        $request_poll = ''
     ): array
     {
         $replyMarkup = [
@@ -44,6 +49,16 @@ class Make
             $replyMarkup['callback_game'] = $callback_game;
         } elseif ($pay != '') {
             $replyMarkup['pay'] = $pay;
+        } elseif ($request_user != '') {
+            $replyMarkup['request_user'] = $request_user;
+        } elseif ($request_chat != '') {
+            $replyMarkup['request_chat'] = $request_chat;
+        } elseif ($request_contact != '') {
+            $replyMarkup['request_contact'] = $request_contact;
+        } elseif ($request_location != '') {
+            $replyMarkup['request_location'] = $request_location;
+        } elseif ($request_poll != '') {
+            $replyMarkup['request_poll'] = $request_poll;
         }
         return $replyMarkup;
     }
