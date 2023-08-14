@@ -31,7 +31,7 @@
 # Installation
 
 ```
-composer create-project laraxgram/laragram:v1.9.x-dev@dev my-bot
+composer create-project laraxgram/laragram:v1.7.x-dev@dev my-bot
 ```
 
 ---
