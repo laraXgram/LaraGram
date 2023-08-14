@@ -151,7 +151,7 @@ $bot->onText(['hello', 'hay'], function(Request $request){
 });
 ```
 
-* Use Helper ( Not available yet )
+* Use Helper
 
 ```php
 $bot->onText(['hello', 'hay'], function(){
@@ -482,6 +482,7 @@ removeLevel()
 * This folder is for storing photos, audio, videos, etc.
 * It is available through the `assets()` function.
 * For the calling address of `.` Use
+
 ```php
 echo assets('path.to.image');
 
@@ -489,7 +490,53 @@ echo assets('path.to.image');
 // 'Assets/path/to/image.png'
 ```
 
+### Common Helper
+
+| Name                | Input                           | Description                        |
+|---------------------|---------------------------------|------------------------------------|
+| `mentionUserById()` | `user_id`, `text`, `parse_mode` | Mention the user with a numeric ID |
+| `bold()`            | `text`, `parse_mode`            | Bold text                          |
+| `italic()`          | `text`, `parse_mode`            | Italic text                        |
+| `underline()`       | `text`                          | Underline text                     |
+| `strikethrough()`   | `text`, `parse_mode`            | Strikethrough text                 |
+| `spoiler()`         | `text`                          | Spoiler text                       |
+| `pre()`             | `text`, `lang`, `parse_mode`    | Pre text                           |
+| `code()`            | `text`, `parse_mode`            | Code text                          |
+| `inlineurl()`       | `text`, `url`, `parse_mode`     | Creating linked text               |
+
 ---
+
+### KeyBoard Builder
+
+```php
+$keyboard = Keyboard::inlineKeyboardMarkup(
+    Make::row(
+        Make::col('btn1', callback_data: '1'),
+        Make::col('btn2', url: 'https://google.com')
+    ),
+    Make::row(
+        Make::col('btn3', web_app: []),
+        Make::col('btn4', switch_inline_query_current_chat: 'test')
+    )
+    // etc...
+);
+```
+
+* With Helper:
+
+```php
+ $keyboard = inlineKeyboardMarkup(
+    row(
+        col('btn1', callback_data: '1'),
+        col('btn2', url: 'https://google.com')
+    ),
+    row(
+        col('btn3', web_app: []),
+        col('btn4', switch_inline_query_current_chat: 'test')
+    )
+    // etc...
+);
+```
 
 # Support & Contact:
 
@@ -521,4 +568,4 @@ echo assets('path.to.image');
 
 ---
 
-> ###### Version 1.8.0
+> ###### Version 1.9.0
