@@ -31,7 +31,7 @@
 # Installation
 
 ```
-composer create-project laraxgram/laragram:v1.7.x-dev@dev my-bot
+composer create-project laraxgram/laragram:v1.8.x-dev@dev my-bot
 ```
 
 ---
@@ -568,4 +568,4 @@ $keyboard = Keyboard::inlineKeyboardMarkup(
 
 ---
 
-> ###### Version 1.9.0
+> ###### Version 1.8.0
