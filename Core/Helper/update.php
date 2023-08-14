@@ -4,258 +4,205 @@ use Bot\Core\Request;
 
 function getData()
 {
-    $update = Request::getInstance();
-    return $update->getData();
+    return (Request::getInstance())->getData();
 }
 
 function Entities()
 {
-    $update = Request::getInstance();
-    return $update->Entities();
+    return (Request::getInstance())->Entities();
 }
 
 function Message()
 {
-    $update = Request::getInstance();
-    return $update->Message();
+    return (Request::getInstance())->Message();
 }
 
 function Dice()
 {
-    $update = Request::getInstance();
-    return $update->Dice();
+    return (Request::getInstance())->Dice();
 }
 
 function DiceEmoji()
 {
-    $update = Request::getInstance();
-    return $update->DiceEmoji();
+    return (Request::getInstance())->DiceEmoji();
 }
 
 function DiceValue()
 {
-    $update = Request::getInstance();
-    return $update->DiceValue();
+    return (Request::getInstance())->DiceValue();
 }
 
 function Text()
 {
-    $update = Request::getInstance();
-    return $update->Text();
+    return (Request::getInstance())->Text();
 }
 
 function Caption()
 {
-    $update = Request::getInstance();
-    return $update->Caption();
+    return (Request::getInstance())->Caption();
 }
 
 function ChatID()
 {
-    $update = Request::getInstance();
-    return $update->ChatID();
+    return (Request::getInstance())->ChatID();
 }
 
 function Chat()
 {
-    $update = Request::getInstance();
-    return $update->Chat();
+    return (Request::getInstance())->Chat();
 }
 
 function MessageID()
 {
-    $update = Request::getInstance();
-    return $update->MessageID();
+    return (Request::getInstance())->MessageID();
 }
 
 function ReplyToMessageID()
 {
-    $update = Request::getInstance();
-    return $update->ReplyToMessageID();
+    return (Request::getInstance())->ReplyToMessageID();
 }
 
 function ReplyToMessageFromUserID()
 {
-    $update = Request::getInstance();
-    return $update->ReplyToMessageFromUserID();
+    return (Request::getInstance())->ReplyToMessageFromUserID();
 }
 
 function Inline_Query()
 {
-    $update = Request::getInstance();
-    return $update->Inline_Query();
+    return (Request::getInstance())->Inline_Query();
 }
 
 function Callback_Query()
 {
-    $update = Request::getInstance();
-    return $update->Callback_Query();
+    return (Request::getInstance())->Callback_Query();
 }
 
 function Callback_ID()
 {
-    $update = Request::getInstance();
-    return $update->Callback_ID();
+    return (Request::getInstance())->Callback_ID();
 }
 
 function Callback_Data()
 {
-    $update = Request::getInstance();
-    return $update->Callback_Data();
+    return (Request::getInstance())->Callback_Data();
 }
 
 function Callback_Message()
 {
-    $update = Request::getInstance();
-    return $update->Callback_Message();
+    return (Request::getInstance())->Callback_Message();
 }
 
 function Callback_ChatID()
 {
-    $update = Request::getInstance();
-    return $update->Callback_ChatID();
+    return (Request::getInstance())->Callback_ChatID();
 }
 
 function Callback_FromID()
 {
-    $update = Request::getInstance();
-    return $update->Callback_FromID();
+    return (Request::getInstance())->Callback_FromID();
 }
 
 function Dates()
 {
-    $update = Request::getInstance();
-    return $update->Date();
+    return (Request::getInstance())->Date();
 }
 
 function FirstName()
 {
-    $update = Request::getInstance();
-    return $update->FirstName();
+    return (Request::getInstance())->FirstName();
 }
 
 function LastName()
 {
-    $update = Request::getInstance();
-    return $update->LastName();
+    return (Request::getInstance())->LastName();
 }
 
 function Username()
 {
-    $update = Request::getInstance();
-    return $update->Username();
+    return (Request::getInstance())->Username();
 }
 
 function BotUsername()
 {
-    $update = Request::getInstance();
-    return $update->BotUsername();
+    return (Request::getInstance())->BotUsername();
 }
 
 function Location()
 {
-    $update = Request::getInstance();
-    return $update->Location();
+    return (Request::getInstance())->Location();
 }
 
 function Contact()
 {
-    $update = Request::getInstance();
-    return $update->Contact();
+    return (Request::getInstance())->Contact();
 }
 
 function Game()
 {
-    $update = Request::getInstance();
-    return $update->Game();
+    return (Request::getInstance())->Game();
 }
 
 function Poll()
 {
-    $update = Request::getInstance();
-    return $update->Poll();
+    return (Request::getInstance())->Poll();
 }
 
 function Venue()
 {
-    $update = Request::getInstance();
-    return $update->Venue();
+    return (Request::getInstance())->Venue();
 }
 
 function NewChatMembers()
 {
-    $update = Request::getInstance();
-    return $update->NewChatMembers();
+    return (Request::getInstance())->NewChatMembers();
 }
 
 function LeftChatMember()
 {
-    $update = Request::getInstance();
-    return $update->LeftChatMember();
+    return (Request::getInstance())->LeftChatMember();
 }
 
 function UpdateID()
 {
-    $update = Request::getInstance();
-    return $update->UpdateID();
+    return (Request::getInstance())->UpdateID();
 }
 
 function UpdateCount(): int
 {
-    $update = Request::getInstance();
-    return $update->UpdateCount();
+    return (Request::getInstance())->UpdateCount();
 }
 
 function UserID()
 {
-    $update = Request::getInstance();
-    return $update->UserID();
+    return (Request::getInstance())->UserID();
 }
 
 function ReplyToUserID()
 {
-    $update = Request::getInstance();
-    return $update->ReplyToUserID();
+    return (Request::getInstance())->ReplyToUserID();
 }
 
 function FromID()
 {
-    $update = Request::getInstance();
-    return $update->FromID();
+    return (Request::getInstance())->FromID();
 }
 
 function FromChatID()
 {
-    $update = Request::getInstance();
-    return $update->FromChatID();
+    return (Request::getInstance())->FromChatID();
 }
 
 function MessageFromGroup(): bool
 {
-    $update = Request::getInstance();
-    return $update->MessageFromGroup();
+    return (Request::getInstance())->MessageFromGroup();
 }
 
 function GetContactPhoneNumber()
 {
-    $update = Request::getInstance();
-    return $update->GetContactPhoneNumber();
+    return (Request::getInstance())->GetContactPhoneNumber();
 }
 
 function MessageFromGroupTitle()
 {
-    $update = Request::getInstance();
-    return $update->MessageFromGroupTitle();
-}
-
-function getUpdates($offset = 0, $limit = 100, $timeout = 0, $update = true)
-{
-    $update = Request::getInstance();
-    return $update->getUpdates($offset, $limit, $timeout, $update);
-}
-
-function getUpdateType(): bool|string
-{
-    $update = Request::getInstance();
-    return $update->getUpdateType();
+    return (Request::getInstance())->MessageFromGroupTitle();
 }
