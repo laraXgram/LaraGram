@@ -3,7 +3,7 @@
 >LaraGram, an advanced framework for Telegram Bot development
 
 #### Report bugs, help and support, suggestions and criticisms
-> [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues)
+> [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues) - [Telegram Group](https://telegram.me/LaraGramChat)
 # Feature
 >- sync & Async
    >    - Curl
@@ -80,6 +80,22 @@ composer create-project laraxgram/laragram:v1.7.x-dev@dev my-bot
 >- `onVideoChatEnded(callable $action)`
 >- `onVideoChatParticipantsInvited(callable $action)`
 >- `onWebAppData(callable $action)`
+>- `onMessage(callable $action);`
+>- `onMessageType(string|array $type, callable $action);`
+>- `onEditedMessage(callable $action);`
+>- `onChannelPost(callable $action);`
+>- `onEditedChannelPost(callable $action);`
+>- `onInlineQuery(callable $action);`
+>- `onChosenInlineResult(callable $action);`
+>- `onCallbackQuery(callable $action);`
+>- `onCallbackQueryData(string|array $pattern, callable $action);`
+>- `onShippingQuery(callable $action);`
+>- `onPreCheckoutQuery(callable $action);`
+>- `onPollAnswer(callable $action);`
+>- `onMyChatMember(callable $action);`
+>- `onChatMember(callable $action);`
+>- `onChatJoinRequest(callable $action);`
+>- `onAny(callable $action);`
 
 ---
 
@@ -130,6 +146,17 @@ $bot->onText('say {text}', function(Request $request, $text){
 $bot->onText(['hello', 'hay'], function(Request $request){
   $request->sendMessage([
     'chat_id' => $request->ChatID(),
+    'text'    => 'hi'
+  ]);
+});
+```
+
+* Use Helper
+
+```php
+$bot->onText(['hello', 'hay'], function(){
+  sendMessage([
+    'chat_id' => ChatID(),
     'text'    => 'hi'
   ]);
 });
@@ -455,6 +482,7 @@ removeLevel()
 * This folder is for storing photos, audio, videos, etc.
 * It is available through the `assets()` function.
 * For the calling address of `.` Use
+
 ```php
 echo assets('path.to.image');
 
@@ -462,13 +490,82 @@ echo assets('path.to.image');
 // 'Assets/path/to/image.png'
 ```
 
+### Common Helper
+
+| Name                | Input                           | Description                        |
+|---------------------|---------------------------------|------------------------------------|
+| `mentionUserById()` | `user_id`, `text`, `parse_mode` | Mention the user with a numeric ID |
+| `bold()`            | `text`, `parse_mode`            | Bold text                          |
+| `italic()`          | `text`, `parse_mode`            | Italic text                        |
+| `underline()`       | `text`                          | Underline text                     |
+| `strikethrough()`   | `text`, `parse_mode`            | Strikethrough text                 |
+| `spoiler()`         | `text`                          | Spoiler text                       |
+| `pre()`             | `text`, `lang`, `parse_mode`    | Pre text                           |
+| `code()`            | `text`, `parse_mode`            | Code text                          |
+| `inlineurl()`       | `text`, `url`, `parse_mode`     | Creating linked text               |
+
 ---
+
+### KeyBoard Builder
+
+```php
+$keyboard = Keyboard::inlineKeyboardMarkup(
+    Make::row(
+        Make::col('btn1', callback_data: '1'),
+        Make::col('btn2', url: 'https://google.com')
+    ),
+    Make::row(
+        Make::col('btn3', web_app: []),
+        Make::col('btn4', switch_inline_query_current_chat: 'test')
+    )
+    // etc...
+);
+```
+
+* With Helper:
+
+```php
+ $keyboard = inlineKeyboardMarkup(
+    row(
+        col('btn1', callback_data: '1'),
+        col('btn2', url: 'https://google.com')
+    ),
+    row(
+        col('btn3', web_app: []),
+        col('btn4', switch_inline_query_current_chat: 'test')
+    )
+    // etc...
+);
+```
 
 # Support & Contact:
 
->* [Email](mailto:laraxgram@gmail.com)
+> * [Email](mailto:laraxgram@gmail.com)
 >* [Telegram](https://telegram.me/Amirh_krgr)
 ---
+
 # Updating ...
 
->###### Version 1.7.0
+##### Version 1.10.0 coming soon...
+
+###### Feature
+
+* Condition Methode
+    * `noReply()`
+    * `mustReply()`
+    * `untilDate(string|array $date)`
+    * `untilTime(string|array $time)`
+* Set Scope Methode
+    * `scope(string|array $scope)`
+    * `private()`
+    * `group()`
+    * `channel()`
+* Accessibility Methode
+    * `can(string|array $role)`
+    * `level(string|array $level)`
+
+**The above methods are used in a chain behind the handlers.**
+
+---
+
+> ###### Version 1.9.0

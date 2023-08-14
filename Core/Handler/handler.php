@@ -4,9 +4,13 @@ namespace Bot\Core\Handler;
 
 use Bot\Core\Interface\MessageHandlerInterface;
 use Bot\Core\Matching;
+use Bot\Core\Trait\Authentication;
+use Bot\Core\Trait\Condition;
+use Bot\Core\Trait\Scope;
 
 class Handler extends Matching implements MessageHandlerInterface
 {
+    use Authentication, Condition, Scope;
 
     public function on(array|string $message, callable $action): static
     {
@@ -257,6 +261,102 @@ class Handler extends Matching implements MessageHandlerInterface
     public function onWebAppData(callable $action): static
     {
         $this->action('web_app_data', null, $action);
+        return $this;
+    }
+
+    public function onMessage(callable $action): static
+    {
+        $this->action('message', null, $action);
+        return $this;
+    }
+
+    public function onMessageType(array|string $type, callable $action): static
+    {
+        $this->action('message_type', $type, $action);
+        return $this;
+    }
+
+    public function onEditedMessage(callable $action): static
+    {
+        $this->action('edited_message', null, $action);
+        return $this;
+    }
+
+    public function onChannelPost(callable $action): static
+    {
+        $this->action('channel_post', null, $action);
+        return $this;
+    }
+
+    public function onEditedChannelPost(callable $action): static
+    {
+        $this->action('edited_channel_post', null, $action);
+        return $this;
+    }
+
+    public function onInlineQuery(callable $action): static
+    {
+        $this->action('inline_query', null, $action);
+        return $this;
+    }
+
+    public function onChosenInlineResult(callable $action): static
+    {
+        $this->action('chosen_inline_result', null, $action);
+        return $this;
+    }
+
+    public function onCallbackQuery(callable $action): static
+    {
+        $this->action('callback_query', null, $action);
+        return $this;
+    }
+
+    public function onCallbackQueryData(array|string $pattern, callable $action): static
+    {
+        $this->action('callback_query_data', $pattern, $action);
+        return $this;
+    }
+
+    public function onShippingQuery(callable $action): static
+    {
+        $this->action('shipping_query', null, $action);
+        return $this;
+    }
+
+    public function onPreCheckoutQuery(callable $action): static
+    {
+        $this->action('pre_checkout_query', null, $action);
+        return $this;
+    }
+
+    public function onPollAnswer(callable $action): static
+    {
+        $this->action('poll_answer', null, $action);
+        return $this;
+    }
+
+    public function onMyChatMember(callable $action): static
+    {
+        $this->action('my_chat_member', null, $action);
+        return $this;
+    }
+
+    public function onChatMember(callable $action): static
+    {
+        $this->action('chat_member', null, $action);
+        return $this;
+    }
+
+    public function onChatJoinRequest(callable $action): static
+    {
+        $this->action('chat_join_request', null, $action);
+        return $this;
+    }
+
+    public function onAny(callable $action): static
+    {
+        $this->action('any', null, $action);
         return $this;
     }
 }
