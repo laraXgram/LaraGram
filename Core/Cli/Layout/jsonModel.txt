@@ -1,0 +1,10 @@
+<?php
+
+namespace Bot\App\Model\Json;
+
+use Bot\Core\Database\Json\JsonModel;
+
+class &&& extends JsonModel {
+    protected string $database = '&&&';
+
+}
