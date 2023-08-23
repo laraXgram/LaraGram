@@ -568,4 +568,4 @@ $keyboard = Keyboard::inlineKeyboardMarkup(
 
 ---
 
-> ###### Version 1.9.0
+> ###### Version 1.7.0
