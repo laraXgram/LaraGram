@@ -143,4 +143,78 @@ class DatabaseMaker
             Logger::success("Migrated: {$migrate}");
         }
     }
+
+    public function createJsonDb(): void
+    {
+        if (!isset($this->cmd[2])) {
+            Logger::status('Warning', 'Enter the Json\'s Database name!', 'warning', true);
+        }
+
+        $fileName = 'Database/Json/' . $this->cmd[2] . '.json';
+
+        if (!file_exists('Database/Json')){
+            mkdir('Database/Json');
+        }
+
+        if (file_exists($fileName)) {
+            Logger::warning('Json\'s Database is already exist!');
+        } else {
+            file_put_contents($fileName, "{\n\n}");
+            Logger::success('Json\'s Database Created Successfully!');
+        }
+    }
+
+    public function removeJsonDb(): void
+    {
+        if (!isset($this->cmd[2])) {
+            Logger::status('Warning', 'Enter the Json\'s Database name!', 'warning', true);
+        }
+
+        $fileName = 'Database/Json/' .  ucfirst($this->cmd[2]) . '.json';
+
+        if (file_exists($fileName)) {
+            unlink($fileName);
+            Logger::status('Success', 'Json\'s Database deleted successfully!');
+        } else {
+            Logger::status('Failed', 'Json\'s Database is not exist!', 'failed', true);
+        }
+    }
+
+    public function createJsonModel(): void
+    {
+        if (!isset($this->cmd[2])) {
+            Logger::status('Warning', 'Enter the Json\'s Model name!', 'warning', true);
+        }
+
+        $modelPage = str_replace('&&&', $this->cmd[2], file_get_contents('Core/Cli/Layout/jsonModel.txt'));
+        $fileName = 'App/Model/Json/' . $this->cmd[2] . '.php';
+
+        if (!file_exists('App/Model/Json')){
+            mkdir('App/Model/Json');
+        }
+
+        if (file_exists($fileName)) {
+            Logger::warning('Json\'s Model is already exist!');
+        } else {
+            file_put_contents($fileName, $modelPage);
+            Logger::success('Json\'s Model Created Successfully!');
+        }
+    }
+
+    public function removeJsonModel(): void
+    {
+        if (!isset($this->cmd[2])) {
+            Logger::status('Warning', 'Enter the Json\'s Model name!', 'warning', true);
+        }
+
+        $name = ucfirst($this->cmd[2]);
+        $fileName = "App/Model/Json/". ucfirst($this->cmd[2]) . ".php";
+
+        if (file_exists($fileName)) {
+            unlink($fileName);
+            Logger::status('Success', 'Json\'s Model deleted successfully!');
+        } else {
+            Logger::status('Failed', 'Json\'s Model is not exist!', 'failed', true);
+        }
+    }
 }
