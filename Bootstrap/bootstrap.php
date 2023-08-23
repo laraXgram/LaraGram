@@ -39,14 +39,16 @@ class Bootstrap
          * Define Request_Methode Constant
          * */
         define("REQUEST_METHODE_CURL", 32);
-        define("REQUEST_METHODE_PARALLEL_CURL", 64);
+        define("REQUEST_METHODE_NO_RESPONSE_CURL", 64);
         define("REQUEST_METHODE_AMPHP", 128);
         define("REQUEST_METHODE_OPENSWOOLE", 256);
 
         /*
          * Load Helper Function
          * */
+
         Runner::LoadFolder('Core/Helper');
+
     }
 
     private function classLoader(): void
@@ -70,7 +72,6 @@ class Bootstrap
                     $relativeClass = implode('\\', $part);
 
                     $file = $dir . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
-
                     require_once $file;
                 }
             }
