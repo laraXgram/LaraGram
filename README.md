@@ -548,24 +548,6 @@ $keyboard = Keyboard::inlineKeyboardMarkup(
 
 ##### Version 1.10.0 coming soon...
 
-###### Feature
-
-* Condition Methode
-    * `noReply()`
-    * `mustReply()`
-    * `untilDate(string|array $date)`
-    * `untilTime(string|array $time)`
-* Set Scope Methode
-    * `scope(string|array $scope)`
-    * `private()`
-    * `group()`
-    * `channel()`
-* Accessibility Methode
-    * `can(string|array $role)`
-    * `level(string|array $level)`
-
-**The above methods are used in a chain behind the handlers.**
-
 ---
 
 > ###### Version 1.8.0
