@@ -8,7 +8,13 @@ class JsonModel
 {
     private static $connect;
     private array $where = [];
+    private array $or_where = [];
+    // ---------------------------
     protected string $database;
+    protected array $unique;
+    protected string $autoIncrement;
+    protected array $fillable;
+    protected array $guarded;
 
     public static function connect(): JsonModel
     {
@@ -26,15 +32,15 @@ class JsonModel
 
     private function getDataFromDb()
     {
-        $fileName = '../../../Database/Json/' . $this->database . '.json';
+        $fileName = 'Database/Json/' . $this->database . '.json';
         return json_decode(file_get_contents($fileName), true);
     }
 
     public function create(array $data, string|int $key = null): void
     {
-        $fileName = '../../../Database/Json/' . $this->database . '.json';
+        $fileName = 'Database/Json/' . $this->database . '.json';
         $select = $this->getDataFromDb();
-        $select[$key ?? (count($select) + 1)] = $data;
+        $select[$key ?? (count($select ?? []) + 1)] = $data;
 
         file_put_contents($fileName, json_encode($select, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT));
     }
@@ -45,28 +51,37 @@ class JsonModel
     public function delete(): bool
     {
         if ($this->where != null) {
-            $uniqueValues = array_map('serialize', $this->where);
-            $uniqueValues = array_unique($uniqueValues);
-            $allArraysHaveSameValues = count($uniqueValues) === 1;
-
-            if ($allArraysHaveSameValues) {
-                $array = $this->getDataFromDb();
-                for ($i = 0; $i < count($this->where[0]); $i++) {
-                    unset($array[$this->where[0][$i]]);
-                }
-
-                file_put_contents('../../../Database/Json/' . $this->database . '.json', json_encode($array, 128|16));
-                return true;
+            $data = $this->getDataFromDb();
+            $selected = $this->get();
+            foreach ($selected as $key => $value) {
+                unset($data[$key]);
             }
+            file_put_contents('Database/Json/' . $this->database . '.json', json_encode($data, 128 | 16));
+            return true;
         } else {
             throw new Exception('delete method should be used after conditional methods', 705);
         }
         return false;
     }
 
-    protected function update()
+    public function update(string $key, mixed $new_data): bool
     {
+        $keys = explode('.', $key);
+        $array = $this->getDataFromDb();
+        $selected = $this->get();
 
+        foreach ($selected as $k => $v) {
+            $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
+                if (key_exists($key, $carry)) {
+                    $carry[$key] = $new_data;
+                    return $carry;
+                }
+            }, $v);
+            $array[$k] = $result;
+        }
+
+        file_put_contents('Database/Json/' . $this->database . '.json', json_encode($array, 128 | 16));
+        return true;
     }
 
     /**
@@ -74,23 +89,39 @@ class JsonModel
      */
     public function get(): array|null
     {
-        if ($this->where != null) {
-            $uniqueValues = array_map('serialize', $this->where);
-            $uniqueValues = array_unique($uniqueValues);
-            $allArraysHaveSameValues = count($uniqueValues) === 1;
+        if ($this->where != null && $this->or_where == null) {
+            $mainArray = $this->where;
+            $commonValues = $mainArray[0];
 
-            if ($allArraysHaveSameValues) {
-                $array = $this->getDataFromDb();
-                $data = [];
-                for ($i = 0; $i < count($this->where[0]); $i++) {
-                    $data[$this->where[0][$i]] = $array[$this->where[0][$i]];
-                }
-                return $data;
+            for ($i = 1; $i < count($mainArray); $i++) {
+                $commonValues = array_intersect($commonValues, $mainArray[$i]);
             }
-        } else {
-            throw new Exception('get method should be used after conditional methods', 705);
+
+            $databaseData = $this->getDataFromDb();
+            foreach ($commonValues as $key => $value) {
+                $data[$value] = $databaseData[$value];
+            }
+
+            return $data ?? null;
         }
-        return null;
+
+        if ($this->where != null && $this->or_where != null) {
+            $whereArray = $this->where;
+            $orWhereArray = $this->or_where;
+
+            $mergedArray = array_merge($whereArray, $orWhereArray);
+            $uniqueArray = array_unique(call_user_func_array('array_merge', $mergedArray));
+            $flattenedArray = array_values($uniqueArray);
+
+            $databaseData = $this->getDataFromDb();
+            foreach ($flattenedArray as $key) {
+                $data[$flattenedArray[$key - 1]] = $databaseData[$key];
+            }
+
+            return $data ?? null;
+        }
+
+        throw new Exception('get method should be used after conditional methods', 705);
     }
 
     public function all()
@@ -98,6 +129,9 @@ class JsonModel
         return $this->getDataFromDb();
     }
 
+    /**
+     * @throws Exception
+     */
     public function first()
     {
         if ($this->where != null) {
@@ -105,76 +139,93 @@ class JsonModel
         } else {
             throw new Exception('first method should be used after conditional methods', 705);
         }
-        return $this->get()[0];
     }
 
     public function where($key, $operator, $value): static
     {
         $keys = explode('.', $key);
         $founded = [];
+        $array = $this->getDataFromDb();
 
-        if ($this->where == []) {
-            $array = $this->getDataFromDb();
+        foreach ($array as $key => $data) {
+            $result = array_reduce($keys, function ($carry, $key) {
+                return $carry[$key];
+            }, $data);
 
-            foreach ($array as $key => $data) {
-                $result = array_reduce($keys, function ($carry, $key) {
-                    if (isset($carry[$key])) {
-                        return $carry[$key];
-                    }
-                }, $data);
-
-                if ($result != null) {
-                    $match = match ($operator) {
-                        '=' => $result == $value,
-                        '!=' => $result != $value,
-                        '<' => $result < $value,
-                        '<=' => $result <= $value,
-                        '>' => $result > $value,
-                        '>=' => $result >= $value,
-                    };
-                    if ($match) {
-                        $founded[] = $key;
-                    }
-                }
+            $match = match ($operator) {
+                '=', '==' => $result == $value,
+                '===' => $result === $value,
+                '!=' => $result != $value,
+                '<' => $result < $value,
+                '<=' => $result <= $value,
+                '>' => $result > $value,
+                '>=' => $result >= $value,
+            };
+            if ($match) {
+                $founded[] = $key;
             }
-            $this->where[] = $founded;
-        } else {
-            foreach ($this->where[0] as $index) {
-                $data = $this->getDataFromDb()[$index];
 
-                $result = array_reduce($keys, function ($carry, $key) {
-                    if (isset($carry[$key])) {
-                        return $carry[$key];
-                    }
-                }, $data);
-
-                if ($result != null) {
-                    $match = match ($operator) {
-                        '=' => $result == $value,
-                        '!=' => $result != $value,
-                        '<' => $result < $value,
-                        '<=' => $result <= $value,
-                        '>' => $result > $value,
-                        '>=' => $result >= $value,
-                    };
-                    if ($match) {
-                        $founded[] = $index;
-                    }
-                }
-            }
-            $this->where[] = $founded;
         }
+        $this->where[] = $founded;
+
         return $this;
     }
 
-    public function orWhere($key, $operator, $value)
+    public function orWhere($key, $operator, $value): static
     {
+        $keys = explode('.', $key);
+        $founded = [];
+        $array = $this->getDataFromDb();
 
+        foreach ($array as $key => $data) {
+            $result = array_reduce($keys, function ($carry, $key) {
+                if (isset($carry[$key])) {
+                    return $carry[$key];
+                }
+            }, $data);
+
+            if ($result != null) {
+                $match = match ($operator) {
+                    '=' => $result == $value,
+                    '!=' => $result != $value,
+                    '<' => $result < $value,
+                    '<=' => $result <= $value,
+                    '>' => $result > $value,
+                    '>=' => $result >= $value,
+                };
+                if ($match) {
+                    $founded[] = $key;
+                }
+            }
+        }
+        $this->or_where[] = $founded;
+
+
+        return $this;
     }
 
     public function truncate(): bool
     {
-        file_put_contents('../../../Database/Json/' . $this->database . '.json', "{\n\n}");
+        file_put_contents('Database/Json/' . $this->database . '.json', "{\n\n}");
         return true;
+    }
+
+    public function rowCount(): int
+    {
+        return count($this->all());
+    }
+
+    public function count()
+    {
+        return count($this->get());
+    }
+
+    public function empty($key)
+    {
+        $this->update($key, '');
+    }
+
+    public function updateKey($key, $newKey) {
+
     }
 }

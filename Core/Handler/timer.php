@@ -17,13 +17,13 @@ class Timer
         usleep($time);
         return $action();
     }
-    public static function waite(int|float $time): bool
+    public static function wait(int|float $time): bool
     {
         sleep($time);
         return true;
     }
 
-    public static function uWaite(int|float $time): bool
+    public static function uWait(int|float $time): bool
     {
         usleep($time);
         return true;

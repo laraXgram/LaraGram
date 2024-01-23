@@ -26,7 +26,7 @@ class Bootstrap
         /*
          * Load Class
          * */
-        $this->classLoader();
+//        $this->classLoader();
 
         /*
          * Connect Databases
@@ -46,9 +46,7 @@ class Bootstrap
         /*
          * Load Helper Function
          * */
-
         Runner::LoadFolder('Core/Helper');
-
     }
 
     private function classLoader(): void
@@ -56,9 +54,8 @@ class Bootstrap
         spl_autoload_register(function ($className) {
             $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
-                'Bot\\Core\\' => 'Core',
-                'Bot\\Bootstrap\\' => 'Bootstrap',
-                'Bot\\App\\' => 'App'
+                // "namespace" => 'folder',
+                // "LaraGram\\TestNamespace => "LaraGram/TestFolder",
             ];
             foreach ($namespacePrefixes as $namespacePrefix => $directory) {
                 $prefixLength = strlen($namespacePrefix);
