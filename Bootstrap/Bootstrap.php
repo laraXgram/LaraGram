@@ -26,7 +26,7 @@ class Bootstrap
         /*
          * Load Class
          * */
-        $this->classLoader();
+//        $this->classLoader();
 
         /*
          * Connect Databases
@@ -39,7 +39,7 @@ class Bootstrap
          * Define Request_Methode Constant
          * */
         define("REQUEST_METHODE_CURL", 32);
-        define("REQUEST_METHODE_PARALLEL_CURL", 64);
+        define("REQUEST_METHODE_NO_RESPONSE_CURL", 64);
         define("REQUEST_METHODE_AMPHP", 128);
         define("REQUEST_METHODE_OPENSWOOLE", 256);
 
@@ -54,9 +54,8 @@ class Bootstrap
         spl_autoload_register(function ($className) {
             $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
-                'Bot\\Core\\' => 'Core',
-                'Bot\\Bootstrap\\' => 'Bootstrap',
-                'Bot\\App\\' => 'App'
+                // "namespace" => 'folder',
+                // "LaraGram\\TestNamespace => "LaraGram/TestFolder",
             ];
             foreach ($namespacePrefixes as $namespacePrefix => $directory) {
                 $prefixLength = strlen($namespacePrefix);
@@ -70,7 +69,6 @@ class Bootstrap
                     $relativeClass = implode('\\', $part);
 
                     $file = $dir . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relativeClass) . '.php';
-
                     require_once $file;
                 }
             }

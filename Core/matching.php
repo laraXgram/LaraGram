@@ -5,7 +5,6 @@ namespace Bot\Core;
 abstract class Matching
 {
     private const REGEX_PATTERN = '/{((?:(?!\d+,?\d?+)\w)+?)}/';
-
     private array|string|null $pattern;
     private mixed $callable;
     private mixed $request;
