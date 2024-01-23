@@ -2,32 +2,26 @@
 
 namespace Bot\Core\Database\Json;
 
+use Bot\Core\Cli\Error\Logger;
 use Exception;
 
 class JsonModel
 {
-    private static $connect;
-    private array $where = [];
-    private array $or_where = [];
+    private array $select = [];
+    private int $select_statement = 0;
     // ---------------------------
-    protected string $database;
+    protected string $database = '';
     protected array $unique;
     protected string $autoIncrement;
-    protected array $fillable;
-    protected array $guarded;
+    protected array $fillable = [];
+    protected array $guarded = [];
 
-    public static function connect(): JsonModel
+    public function __construct()
     {
-        if (self::$connect === null) {
-            self::$connect = new JsonModel();
-        }
-
         if (!isset($self->database)) {
             $database = explode('\\', get_called_class());
-            self::$connect->database = $database[array_key_last($database)];
+            $this->database = $database[array_key_last($database)];
         }
-
-        return self::$connect;
     }
 
     private function getDataFromDb()
@@ -36,21 +30,82 @@ class JsonModel
         return json_decode(file_get_contents($fileName), true);
     }
 
+    private function getAllKeys($array, $prefix = ''): array
+    {
+        $result = [];
+        foreach ($array as $key => $value) {
+            $newKey = ($prefix === '') ? $key : $prefix . '.' . $key;
+
+            if (is_array($value)) {
+                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $newKey)));
+            } else {
+                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $newKey);
+            }
+        }
+
+        return $result;
+    }
+
+    private function isFillable(array $key)
+    {
+        if (empty($this->fillable)) {
+            return $key[0];
+        }
+        foreach ($this->fillable as $fillable) {
+            if (!in_array($fillable, $key)) {
+                return $fillable;
+            }
+        }
+        return false;
+    }
+
+    private function isGuarded(array $key)
+    {
+        foreach ($this->guarded as $guarded) {
+            if (in_array($guarded, $key)) {
+                return $guarded;
+            }
+        }
+        return false;
+    }
+
+    private function checkWriteAccess(array $keys): void
+    {
+        $isGuarded = $this->isGuarded($keys);
+        if ($isGuarded) {
+            Logger::status(
+                "Field [ $isGuarded ] is guarded!",
+                "The key [ $isGuarded ] is named as guarded field.",
+                'failed',
+                true
+            );
+        }
+
+        $isFillable = $this->isFillable($keys);
+        if ($isFillable) {
+            Logger::status(
+                "Field [ $isFillable ] is not fillable!",
+                "The [ $isFillable ] key is not named as a fill field.",
+                'failed',
+                true
+            );
+        }
+    }
+
     public function create(array $data, string|int $key = null): void
     {
+        $this->checkWriteAccess($this->getAllKeys($data));
+
         $fileName = 'Database/Json/' . $this->database . '.json';
         $select = $this->getDataFromDb();
         $select[$key ?? (count($select ?? []) + 1)] = $data;
 
-        file_put_contents($fileName, json_encode($select, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT));
+        file_put_contents($fileName, json_encode($select, 128 | 16));
     }
 
-    /**
-     * @throws Exception
-     */
     public function delete(): bool
     {
-        if ($this->where != null) {
+        if ($this->select != null) {
             $data = $this->getDataFromDb();
             $selected = $this->get();
             foreach ($selected as $key => $value) {
@@ -61,21 +116,25 @@ class JsonModel
         } else {
             throw new Exception('delete method should be used after conditional methods', 705);
         }
-        return false;
     }
 
     public function update(string $key, mixed $new_data): bool
     {
+//        $this->checkWriteAccess([$key]);
+
         $keys = explode('.', $key);
         $array = $this->getDataFromDb();
-        $selected = $this->get();
+        if ($this->select != null) {
+            $selected = $this->get();
+        } else {
+            $selected = $this->all();
+        }
 
         foreach ($selected as $k => $v) {
             $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
-                if (key_exists($key, $carry)) {
-                    $carry[$key] = $new_data;
-                    return $carry;
-                }
+                $carry[$key] = $new_data;
+                return $carry;
+
             }, $v);
             $array[$k] = $result;
         }
@@ -84,44 +143,28 @@ class JsonModel
         return true;
     }
 
-    /**
-     * @throws Exception
-     */
     public function get(): array|null
     {
-        if ($this->where != null && $this->or_where == null) {
-            $mainArray = $this->where;
-            $commonValues = $mainArray[0];
-
-            for ($i = 1; $i < count($mainArray); $i++) {
-                $commonValues = array_intersect($commonValues, $mainArray[$i]);
+        if (!empty($this->select)) {
+            foreach ($this->select as $statement) {
+                if (count($statement) > 1) {
+                    for ($i = 1; $i < count($statement); $i++) {
+                        $commonValues[] = array_intersect($statement[0], $statement[$i]);
+                    }
+                } else {
+                    $commonValues[] = $statement[0];
+                }
             }
-
+            $commonValues = array_unique(call_user_func_array('array_merge', $commonValues));
             $databaseData = $this->getDataFromDb();
-            foreach ($commonValues as $key => $value) {
-                $data[$value] = $databaseData[$value];
+            $data = [];
+            foreach ($commonValues as $key) {
+                $data[$key] = $databaseData[$key];
             }
-
-            return $data ?? null;
+            return $data;
+        } else {
+            throw new Exception('get method should be used after conditional methods', 705);
         }
-
-        if ($this->where != null && $this->or_where != null) {
-            $whereArray = $this->where;
-            $orWhereArray = $this->or_where;
-
-            $mergedArray = array_merge($whereArray, $orWhereArray);
-            $uniqueArray = array_unique(call_user_func_array('array_merge', $mergedArray));
-            $flattenedArray = array_values($uniqueArray);
-
-            $databaseData = $this->getDataFromDb();
-            foreach ($flattenedArray as $key) {
-                $data[$flattenedArray[$key - 1]] = $databaseData[$key];
-            }
-
-            return $data ?? null;
-        }
-
-        throw new Exception('get method should be used after conditional methods', 705);
     }
 
     public function all()
@@ -129,15 +172,12 @@ class JsonModel
         return $this->getDataFromDb();
     }
 
-    /**
-     * @throws Exception
-     */
     public function first()
     {
-        if ($this->where != null) {
+        if ($this->select != null) {
             return $this->get()[array_key_first($this->get())];
         } else {
-            throw new Exception('first method should be used after conditional methods', 705);
+            return $this->all()[array_key_first($this->all())];
         }
     }
 
@@ -166,13 +206,15 @@ class JsonModel
             }
 
         }
-        $this->where[] = $founded;
+        $this->select[$this->select_statement][] = $founded;
 
         return $this;
     }
 
     public function orWhere($key, $operator, $value): static
     {
+        $this->select_statement++;
+
         $keys = explode('.', $key);
         $founded = [];
         $array = $this->getDataFromDb();
@@ -198,8 +240,7 @@ class JsonModel
                 }
             }
         }
-        $this->or_where[] = $founded;
-
+        $this->select[$this->select_statement][] = $founded;
 
         return $this;
     }
@@ -215,17 +256,18 @@ class JsonModel
         return count($this->all());
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->get());
     }
 
-    public function empty($key)
+    public function empty($key): bool
     {
-        $this->update($key, '');
+        return $this->update($key, '');
     }
 
-    public function updateKey($key, $newKey) {
+    public function updateKey($key, $newKey)
+    {
 
     }
 }
