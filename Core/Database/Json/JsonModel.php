@@ -9,10 +9,9 @@ class JsonModel
 {
     private array $select = [];
     private int $select_statement = 0;
+    private array $schema = [];
     // ---------------------------
     protected string $database = '';
-    protected array $unique;
-    protected string $autoIncrement;
     protected array $fillable = [];
     protected array $guarded = [];
 
@@ -22,6 +21,103 @@ class JsonModel
             $database = explode('\\', get_called_class());
             $this->database = $database[array_key_last($database)];
         }
+        $this->schema = json_decode(file_get_contents(getcwd() . "\Core\Database\Json\schema.json"), true)[$this->database];
+    }
+
+    private function largeArrayGenerator($largeArray)
+    {
+        foreach ($largeArray as $key => $value) {
+            yield $key => $value;
+        }
+    }
+
+    private function isUnique($keyToCheck, $array1, $array2) {
+        $result = [];
+        $array2Result= array_reduce(explode('.', $keyToCheck), function ($carry, $key) {
+            if (isset($carry[$key])){
+                return $carry[$key];
+            }
+        }, $array2);
+        foreach ($array1 as $item) {
+            $array1Result= array_reduce(explode('.', $keyToCheck), function ($carry, $key) {
+                return $carry[$key];
+            }, $item);
+            $result[] = $array1Result;
+        }
+
+        if (!in_array($array2Result, $result)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private function generateStructure($data)
+    {
+        $jsonArray = $this->schema;
+        $autoIncrement = $jsonArray['auto_increment'];
+        $structure = $jsonArray['structure'];
+
+        $result = [];
+
+        foreach ($structure as $key => $attributes) {
+            $keys = explode('.', $key);
+            $current = &$result;
+
+            foreach ($keys as $nestedKey) {
+                if (!isset($current[$nestedKey])) {
+                    $current[$nestedKey] = [];
+                }
+
+                $current = &$current[$nestedKey];
+            }
+            $current = $attributes['default'];
+        }
+
+        if (isset($autoIncrement['key']) && isset($result[$autoIncrement['key']])) {
+            $result[$autoIncrement['key']] = $autoIncrement['next'];
+            $this->schema['auto_increment']['next']++;
+        }
+
+        foreach ($structure as $key => $properties) {
+            if ($properties['nullable'] === false && $key != $jsonArray['auto_increment']['key'] && !in_array($key, $this->getAllKeys($data))) {
+                die("$key is not nullable");
+            }
+
+            if ($properties['unique'] === true && !$this->isUnique($key, $this->largeArrayGenerator($this->getDataFromDb()), $data)) {
+                die("$key is unique");
+            }
+        }
+
+        return $this->mergeArraysBasedOnStructure($result, $data, $this->getAllKeys($data));
+    }
+
+    public function mergeArraysBasedOnStructure($array1, $array2, $dataKeys, $prefix = '')
+    {
+        $result = $array1;
+        $schema = $this->schema;
+        $structure = $schema['structure'];
+
+        foreach ($array2 as $key => $value) {
+            if (isset($array1[$key])) {
+                $ruleKey = $prefix != '' ? "$prefix.$key" : $key;
+                $rules = $structure[$ruleKey];
+                if ($rules['type'] == gettype($value) || $rules['type'] == '') {
+                    if (is_array($value) && is_array($array1[$key])) {
+                        $prefix == '' ? $prefix .= $key : $prefix .= '.' . $key;
+                        $result[$key] = $this->mergeArraysBasedOnStructure($array1[$key], $value, $dataKeys, $prefix);
+                    } else {
+                        $result[$key] = $value;
+                    }
+                } else {
+                    die("$key is not a {$rules['type']}");
+                }
+            } else {
+                die("$key is not a field");
+            }
+        }
+
+        return $result;
     }
 
     private function getDataFromDb()
@@ -92,11 +188,12 @@ class JsonModel
 
     public function create(array $data, string|int $key = null): void
     {
+//        exit();
         $this->checkWriteAccess($this->getAllKeys($data));
 
         $fileName = 'Database/Json/' . $this->database . '.json';
         $select = $this->getDataFromDb();
-        $select[$key ?? (count($select ?? []) + 1)] = $data;
+        $select[$key ?? (count($select ?? []) + 1)] = $this->generateStructure($data);
 
         file_put_contents($fileName, json_encode($select, 128 | 16));
     }
@@ -118,7 +215,7 @@ class JsonModel
 
     public function update(string $key, mixed $new_data): bool
     {
-//        $this->checkWriteAccess([$key]);
+        $this->checkWriteAccess([$key]);
 
         $keys = explode('.', $key);
         $array = $this->getDataFromDb();
@@ -193,6 +290,7 @@ class JsonModel
             $match = match ($operator) {
                 '=', '==' => $result == $value,
                 '===' => $result === $value,
+                '!===' => $result !== $value,
                 '!=' => $result != $value,
                 '<' => $result < $value,
                 '<=' => $result <= $value,
@@ -226,7 +324,9 @@ class JsonModel
 
             if ($result != null) {
                 $match = match ($operator) {
-                    '=' => $result == $value,
+                    '=', '==' => $result == $value,
+                    '===' => $result === $value,
+                    '!===' => $result !== $value,
                     '!=' => $result != $value,
                     '<' => $result < $value,
                     '<=' => $result <= $value,
@@ -267,5 +367,12 @@ class JsonModel
     public function updateKey($key, $newKey)
     {
 
+    }
+
+    public function __destruct()
+    {
+        $schema = json_decode(file_get_contents(getcwd() . "\Core\Database\Json\schema.json"), true);
+        $schema[$this->database] = $this->schema;
+        file_put_contents(getcwd() . "\Core\Database\Json\schema.json", json_encode($schema, 128));
     }
 }
