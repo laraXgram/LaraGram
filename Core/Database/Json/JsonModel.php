@@ -118,6 +118,7 @@ class JsonModel
         }
 
         return $result;
+        }
     }
 
     private function getDataFromDb()
@@ -148,6 +149,26 @@ class JsonModel
         foreach ($keys as $key) {
             if (!in_array($key, $this->fillable)) {
                 return $key;
+            $newKey = ($prefix === '') ? $key : $prefix . '.' . $key;
+
+            if (is_array($value)) {
+                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $newKey)));
+            } else {
+                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $newKey);
+            }
+        }
+
+        return $result;
+    }
+
+    private function isFillable(array $key)
+    {
+        if (empty($this->fillable)) {
+            return $key[0];
+        }
+        foreach ($this->fillable as $fillable) {
+            if (!in_array($fillable, $key)) {
+                return $fillable;
             }
         }
         return false;
@@ -188,12 +209,12 @@ class JsonModel
 
     public function create(array $data, string|int $key = null): void
     {
-//        exit();
         $this->checkWriteAccess($this->getAllKeys($data));
 
         $fileName = 'Database/Json/' . $this->database . '.json';
         $select = $this->getDataFromDb();
         $select[$key ?? (count($select ?? []) + 1)] = $this->generateStructure($data);
+        $select[$key ?? (count($select ?? []) + 1)] = $data;
 
         file_put_contents($fileName, json_encode($select, 128 | 16));
     }
@@ -230,6 +251,10 @@ class JsonModel
                 $carry[$key] = $new_data;
                 return $carry;
 
+        foreach ($selected as $k => $v) {
+            $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
+                $carry[$key] = $new_data;
+                return $carry;
             }, $v);
             $array[$k] = $result;
         }
@@ -290,7 +315,7 @@ class JsonModel
             $match = match ($operator) {
                 '=', '==' => $result == $value,
                 '===' => $result === $value,
-                '!===' => $result !== $value,
+                '!==' => $result !== $value,
                 '!=' => $result != $value,
                 '<' => $result < $value,
                 '<=' => $result <= $value,
@@ -321,12 +346,27 @@ class JsonModel
                     return $carry[$key];
                 }
             }, $data);
-
             if ($result != null) {
                 $match = match ($operator) {
                     '=', '==' => $result == $value,
                     '===' => $result === $value,
-                    '!===' => $result !== $value,
+                    '!==' => $result !== $value,
+                    '!=' => $result != $value,
+                    '<' => $result < $value,
+                    '<=' => $result <= $value,
+                    '>' => $result > $value,
+                    '>=' => $result >= $value,
+                };
+                if ($match) {
+                    $founded[] = $key;
+                }
+            }
+        }
+        $this->select[$this->select_statement][] = $founded;
+
+            if ($result != null) {
+                $match = match ($operator) {
+                    '=' => $result == $value,
                     '!=' => $result != $value,
                     '<' => $result < $value,
                     '<=' => $result <= $value,
@@ -368,7 +408,6 @@ class JsonModel
     {
 
     }
-
     public function __destruct()
     {
         $schema = json_decode(file_get_contents(getcwd() . "\Core\Database\Json\schema.json"), true);
