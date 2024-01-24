@@ -1,30 +1,47 @@
 # LaraGram
 
->LaraGram, an advanced framework for Telegram Bot development
+> LaraGram, an advanced framework for Telegram Bot development
 
 #### Report bugs, help and support, suggestions and criticisms
+
 > [Email](mailto:laraxgram@gmail.com) - [Telegram](https://telegram.me/amirh_krgr) - [Issues](https://github.com/laraXgram/LaraGram/issues) - [Telegram Group](https://telegram.me/LaraGramChat)
+
 # Feature
->- sync & Async
-   >    - Curl
->    - Parallel Curl
+
+> - sync & Async
+    >
+
+- Curl
+
+> - Parallel Curl
 >    - AMPHP
 >    - OpenSwoole
 >- Development server
 >- Support Local Bot Api Server
 >- Laravel Eloquent
-   >    - Model
->    - Migrations
+>
+
+- Model
+
+> - Migrations
 >- Database
-   >    - MySql
->    - Redis
+>
+
+- MySql
+
+> - Redis
 >    - Json
 >- Authentication
-   >    - Role
->    - Auth
+>
+
+- Role
+
+> - Auth
 >    - Level
 >- Controller
-   >  - Api
+>
+
+- Api
 
 ---
 
@@ -38,7 +55,7 @@ composer create-project laraxgram/laragram:v1.9.x-dev@dev my-bot
 
 ### Handler :
 
->- `on(array|string $message, callable $action)`
+> - `on(array|string $message, callable $action)`
 >- `onText(array|string $message, callable $action)`
 >- `onCommand(array|string $command, callable $action)`
 >- `onAnimation(callable $action, array|string $file_id = null)`
@@ -216,8 +233,8 @@ $redis = PhpRedis::connect('dbname');
 
 * start Web server
 
->If you are working on a local host, it is better to use this web server
->Otherwise, Apache, Nginx, etc. web servers are a better option ( For `php laragram serve` command only )
+> If you are working on a local host, it is better to use this web server
+> Otherwise, Apache, Nginx, etc. web servers are a better option ( For `php laragram serve` command only )
 
 ```
 php laragram serve
@@ -234,7 +251,9 @@ php laragram serve --api-server
 ```
 php laragram serve --openswoole
 ```
+
 **Or**
+
 ```
 php laragram start:openswoole
 ```
@@ -310,11 +329,13 @@ php laragram make:api ApiName
 
 php laragram remove:api ApiName
 ```
->1. Build an api controller
+
+> 1. Build an api controller
 >2. Open the created file ( path: App/Controller/Api )
 >3. Start writing ( a sample method has been created for you )
 
 * Use Api In Resource File :
+
 ```php
 $api = new Api();
 $api->api('ApiName@MetodeName', $parameters);
@@ -322,6 +343,9 @@ $api->api('ApiName@MetodeName', $parameters);
 // Helper 
 api('ApiName@MetodeName', $parameters)
 ```
+
+---
+
 * Make Model
 
 ```
@@ -339,7 +363,7 @@ php laragram make:migration edit_users_table --table=users
 
 ```
 
->Note:
+> Note:
 > * Note that the names of the migrations should be similar to the example above
     >   `create_{table_name}_table`
     >   `edit_{table_name}_table`
@@ -351,132 +375,170 @@ php laragram make:migration edit_users_table --table=users
 >3. Start writing ( An example has been created for you )
 >
 >* It is better to learn to work with Eloquent and Laravel query builder
-   >  Use the following links:
+   > Use the following links:
    >
    >  [Eloquent](https://laravel.com/docs/master/eloquent) -- [Queries](https://laravel.com/docs/master/queries)
 
 ---
 
 ### Authentication
+
+> * Bot administrators and bot owners are those who are not admins or group owners, but have specific access to use the
+    bot.
+
 * Check Status
->* Bot administrators and bot owners are those who are not admins or group owners, but have specific access to use the bot.
----
->- If the specified person is the admin of the group, it returns true
+
+> - If the specified person is the admin of the group, it returns true
+
 ```php
 Auth::isChatAdmin(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isChatAdmin()
 ```
+
 ---
->- If the specified person is the creator of the group, it returns true
+> - If the specified person is the creator of the group, it returns true
+
 ```php
 Auth::isChatCreator(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isChatCreator()
 ```
+
 ---
->- If the specified person is the member of the group, it returns true
+> - If the specified person is the member of the group, it returns true
+
 ```php
 Auth::isChatMember(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isChatMember()
 ```
+
 ---
->- If the specified person is the kicked of the group, it returns true
+> - If the specified person is the kicked of the group, it returns true
+
 ```php
 Auth::iskicked(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 iskicked()
 ```
+
 ---
->- If the specified person is the restricted of the group, it returns true
+> - If the specified person is the restricted of the group, it returns true
+
 ```php
 Auth::isRestricted(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isRestricted()
 ```
+
 ---
->- If the specified person is the left of the group, it returns true
+> - If the specified person is the left of the group, it returns true
+
 ```php
 Auth::isLeft(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isLeft()
 ```
+
 ---
->- If the specified person is the admin of the bot, it returns true
+> - If the specified person is the admin of the bot, it returns true
+
 ```php
 Auth::isBotAdmin(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isBotAdmin()
 ```
+
 ---
->- If the specified person is the owner of the bot, it returns true
+> - If the specified person is the owner of the bot, it returns true
+
 ```php
 Auth::isBotOwner(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 isBotOwner()
 ```
----
->If the entries are null, the sender of the message is considered to be in the current group.
 
->**Note:**
->1. **The admin and owner of the bot are authenticate based on the default database structure, whose migration is present in the project by default.**
+---
+> If the entries are null, the sender of the message is considered to be in the current group.
+
+> **Note:**
+>1. **The admin and owner of the bot are authenticate based on the default database structure, whose migration is
+    present in the project by default.**
 >2. **Follow Laragram rules for proper functioning, otherwise you must use personal authentication system.**
 >3. **In the future, we will try to make this dynamic.**
 
->- After you make a group member the bot admin or bot owner, you must save it in the database
-   >  You can do this easily with the following functions:
+> - After you make a group member the bot admin or bot owner, you must save it in the database
+    > You can do this easily with the following functions:
 ---
-* Role
+
+### Role
+
 * Add new BotAdmin
+
 ```php
 Role::addBotAdmin(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 addBotAdmin()
 ```
+
 ---
+
 * Add new BotOwner
+
 ```php
 Role::addBotOwner(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 addBotOwner()
 ```
+
 ---
+
 * Remove BotAdmin or BotOwner
+
 ```php
 Role::removeRole(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 removeRole()
 ```
+
 ---
-#### Level
+
+### Level
+
 * Set User Level
+
 ```php
 Role::setLevel(string|int $level, int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 setLevel()
 ```
+
 ---
+
 * Remove User Level
+
 ```php
 Role::removeLevel(int|string|null $user_id, int|string|null $chat_id)
 
 // Helper
 removeLevel()
 ```
+
 ---
+
 ### Assets Folder
 
 * This folder is for storing photos, audio, videos, etc.
@@ -489,6 +551,8 @@ echo assets('path.to.image');
 // Result:
 // 'Assets/path/to/image.png'
 ```
+
+---
 
 ### Common Helper
 
@@ -538,6 +602,124 @@ $keyboard = Keyboard::inlineKeyboardMarkup(
 );
 ```
 
+---
+
+### Json Eloquent
+
+* Create an instance of Database Model:
+
+```php
+$message = new Message();
+```
+
+> Insert new data :
+```php
+$message->create([
+    "id"     => 1,
+    "status" => "active"
+]);
+```
+
+> Conditional methode (where & orWhere) :
+```php
+// And
+$message
+    ->where('id', '=', '1')
+    ->where('status', '=', 'active')
+    // ...
+    ->get();
+```
+
+```php
+// Or
+$message
+    ->where('id', '=', '1')
+    ->orWhere('status', '=', 'active')
+    // ...
+    ->get();
+```
+
+| Operator         | Operator |
+|------------------|----------|
+| =                | !=       |
+| ==               | !==      |
+| ===              | !===     |
+| \>               | \>=      |
+| <                | <=       |
+**Note: = & == is same!** 
+
+
+> Update data :
+```php
+$message
+    ->where('id', '=', '1')
+    ->update('status', 'not active');
+```
+
+> Delete data :
+```php
+$message
+    ->where('id', '=', '1')
+    ->delete();
+```
+
+> Select first row :
+```php
+$message
+    ->where('id', '=', '1')
+    ->first();
+```
+
+> Select all data :
+```php
+$message->all();
+```
+
+> Count all data :
+```php
+$message->rowCount();
+```
+
+> Count selected data :
+```php
+$message
+    ->where('id', '=', '1')
+    ->count();
+```
+
+> Empty column :
+```php
+$message
+    ->where('id', '=', '1')
+    ->empty('status');
+```
+
+> Truncate all data :
+```php
+$message->truncate();
+```
+---
+### Model property
+
+```php
+// set database name if model name and json name isn't same
+protected string $database = 'Message';
+
+// set fillable keys
+protected array $fillable = ['status'];
+
+// set guarded keys
+protected array $guarded = ['id'];
+
+// set auto increment key (For Primary key)
+protected string $autoIncrement = 'id';
+
+// set unique keys
+protected array $unique = ['id'];
+```
+
+---
+
 # Support & Contact:
 
 > * [Email](mailto:laraxgram@gmail.com)
@@ -546,8 +728,6 @@ $keyboard = Keyboard::inlineKeyboardMarkup(
 
 # Updating ...
 
-##### Version 1.10.0 coming soon...
-
 ---
 
-> ###### Version 1.8.0
+> ###### Version 1.10.0

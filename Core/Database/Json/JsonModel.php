@@ -2,95 +2,167 @@
 
 namespace Bot\Core\Database\Json;
 
+use Bot\Core\Cli\Error\Logger;
 use Exception;
 
 class JsonModel
 {
-    private static $connect;
-    private array $where = [];
-    protected string $database;
+    private array $select = [];
+    private int $select_statement = 0;
+    // ---------------------------
+    protected string $database = '';
+    protected array $unique;
+    protected string $autoIncrement;
+    protected array $fillable = [];
+    protected array $guarded = [];
 
-    public static function connect(): JsonModel
+    public function __construct()
     {
-        if (self::$connect === null) {
-            self::$connect = new JsonModel();
-        }
-
         if (!isset($self->database)) {
             $database = explode('\\', get_called_class());
-            self::$connect->database = $database[array_key_last($database)];
+            $this->database = $database[array_key_last($database)];
         }
-
-        return self::$connect;
     }
 
     private function getDataFromDb()
     {
-        $fileName = '../../../Database/Json/' . $this->database . '.json';
+        $fileName = 'Database/Json/' . $this->database . '.json';
         return json_decode(file_get_contents($fileName), true);
     }
 
-    public function create(array $data, string|int $key = null): void
+    private function getAllKeys($array, $prefix = ''): array
     {
-        $fileName = '../../../Database/Json/' . $this->database . '.json';
-        $select = $this->getDataFromDb();
-        $select[$key ?? (count($select) + 1)] = $data;
-
-        file_put_contents($fileName, json_encode($select, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT));
+        $result = [];
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result[] = $key;
+                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $prefix . $key . '.')));
+            } else {
+                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $prefix . $key);;
+            }
+        }
+        return $result;
     }
 
-    /**
-     * @throws Exception
-     */
-    public function delete(): bool
+    private function isFillable(array $keys)
     {
-        if ($this->where != null) {
-            $uniqueValues = array_map('serialize', $this->where);
-            $uniqueValues = array_unique($uniqueValues);
-            $allArraysHaveSameValues = count($uniqueValues) === 1;
-
-            if ($allArraysHaveSameValues) {
-                $array = $this->getDataFromDb();
-                for ($i = 0; $i < count($this->where[0]); $i++) {
-                    unset($array[$this->where[0][$i]]);
-                }
-
-                file_put_contents('../../../Database/Json/' . $this->database . '.json', json_encode($array, 128|16));
-                return true;
+        if (empty($this->fillable)) {
+            return $keys[0];
+        }
+        foreach ($keys as $key) {
+            if (!in_array($key, $this->fillable)) {
+                return $key;
             }
-        } else {
-            throw new Exception('delete method should be used after conditional methods', 705);
         }
         return false;
     }
 
-    protected function update()
+    private function isGuarded(array $key)
     {
-
+        foreach ($this->guarded as $guarded) {
+            if (in_array($guarded, $key)) {
+                return $guarded;
+            }
+        }
+        return false;
     }
 
-    /**
-     * @throws Exception
-     */
+    private function checkWriteAccess(array $keys): void
+    {
+        $isGuarded = $this->isGuarded($keys);
+        if ($isGuarded) {
+            Logger::status(
+                "Field [ $isGuarded ] is guarded!",
+                "The key [ $isGuarded ] is named as guarded field.",
+                'failed',
+                true
+            );
+        }
+
+        $isFillable = $this->isFillable($keys);
+        if ($isFillable) {
+            Logger::status(
+                "Field [ $isFillable ] is not fillable!",
+                "The [ $isFillable ] key is not named as a fill field.",
+                'failed',
+                true
+            );
+        }
+    }
+
+    public function create(array $data, string|int $key = null): void
+    {
+        $this->checkWriteAccess($this->getAllKeys($data));
+
+        $fileName = 'Database/Json/' . $this->database . '.json';
+        $select = $this->getDataFromDb();
+        $select[$key ?? (count($select ?? []) + 1)] = $data;
+
+        file_put_contents($fileName, json_encode($select, 128 | 16));
+    }
+
+    public function delete(): bool
+    {
+        if ($this->select != null) {
+            $data = $this->getDataFromDb();
+            $selected = $this->get();
+            foreach ($selected as $key => $value) {
+                unset($data[$key]);
+            }
+            file_put_contents('Database/Json/' . $this->database . '.json', json_encode($data, 128 | 16));
+            return true;
+        } else {
+            throw new Exception('delete method should be used after conditional methods', 705);
+        }
+    }
+
+    public function update(string $key, mixed $new_data): bool
+    {
+//        $this->checkWriteAccess([$key]);
+
+        $keys = explode('.', $key);
+        $array = $this->getDataFromDb();
+        if ($this->select != null) {
+            $selected = $this->get();
+        } else {
+            $selected = $this->all();
+        }
+
+        foreach ($selected as $k => $v) {
+            $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
+                $carry[$key] = $new_data;
+                return $carry;
+
+            }, $v);
+            $array[$k] = $result;
+        }
+
+        file_put_contents('Database/Json/' . $this->database . '.json', json_encode($array, 128 | 16));
+        return true;
+    }
+
     public function get(): array|null
     {
-        if ($this->where != null) {
-            $uniqueValues = array_map('serialize', $this->where);
-            $uniqueValues = array_unique($uniqueValues);
-            $allArraysHaveSameValues = count($uniqueValues) === 1;
-
-            if ($allArraysHaveSameValues) {
-                $array = $this->getDataFromDb();
-                $data = [];
-                for ($i = 0; $i < count($this->where[0]); $i++) {
-                    $data[$this->where[0][$i]] = $array[$this->where[0][$i]];
+        if (!empty($this->select)) {
+            foreach ($this->select as $statement) {
+                if (count($statement) > 1) {
+                    for ($i = 1; $i < count($statement); $i++) {
+                        $commonValues[] = array_intersect($statement[0], $statement[$i]);
+                    }
+                } else {
+                    $commonValues[] = $statement[0];
                 }
-                return $data;
             }
+            $commonValues = array_unique(call_user_func_array('array_merge', $commonValues));
+            $databaseData = $this->getDataFromDb();
+            $data = [];
+            foreach ($commonValues as $key) {
+                $data[$key] = $databaseData[$key];
+            }
+            return $data;
         } else {
             throw new Exception('get method should be used after conditional methods', 705);
         }
-        return null;
     }
 
     public function all()
@@ -100,81 +172,100 @@ class JsonModel
 
     public function first()
     {
-        if ($this->where != null) {
+        if ($this->select != null) {
             return $this->get()[array_key_first($this->get())];
         } else {
-            throw new Exception('first method should be used after conditional methods', 705);
+            return $this->all()[array_key_first($this->all())];
         }
-        return $this->get()[0];
     }
 
     public function where($key, $operator, $value): static
     {
         $keys = explode('.', $key);
         $founded = [];
+        $array = $this->getDataFromDb();
 
-        if ($this->where == []) {
-            $array = $this->getDataFromDb();
+        foreach ($array as $key => $data) {
+            $result = array_reduce($keys, function ($carry, $key) {
+                return $carry[$key];
+            }, $data);
 
-            foreach ($array as $key => $data) {
-                $result = array_reduce($keys, function ($carry, $key) {
-                    if (isset($carry[$key])) {
-                        return $carry[$key];
-                    }
-                }, $data);
-
-                if ($result != null) {
-                    $match = match ($operator) {
-                        '=' => $result == $value,
-                        '!=' => $result != $value,
-                        '<' => $result < $value,
-                        '<=' => $result <= $value,
-                        '>' => $result > $value,
-                        '>=' => $result >= $value,
-                    };
-                    if ($match) {
-                        $founded[] = $key;
-                    }
-                }
+            $match = match ($operator) {
+                '=', '==' => $result == $value,
+                '===' => $result === $value,
+                '!=' => $result != $value,
+                '<' => $result < $value,
+                '<=' => $result <= $value,
+                '>' => $result > $value,
+                '>=' => $result >= $value,
+            };
+            if ($match) {
+                $founded[] = $key;
             }
-            $this->where[] = $founded;
-        } else {
-            foreach ($this->where[0] as $index) {
-                $data = $this->getDataFromDb()[$index];
 
-                $result = array_reduce($keys, function ($carry, $key) {
-                    if (isset($carry[$key])) {
-                        return $carry[$key];
-                    }
-                }, $data);
-
-                if ($result != null) {
-                    $match = match ($operator) {
-                        '=' => $result == $value,
-                        '!=' => $result != $value,
-                        '<' => $result < $value,
-                        '<=' => $result <= $value,
-                        '>' => $result > $value,
-                        '>=' => $result >= $value,
-                    };
-                    if ($match) {
-                        $founded[] = $index;
-                    }
-                }
-            }
-            $this->where[] = $founded;
         }
+        $this->select[$this->select_statement][] = $founded;
+
         return $this;
     }
 
-    public function orWhere($key, $operator, $value)
+    public function orWhere($key, $operator, $value): static
     {
+        $this->select_statement++;
 
+        $keys = explode('.', $key);
+        $founded = [];
+        $array = $this->getDataFromDb();
+
+        foreach ($array as $key => $data) {
+            $result = array_reduce($keys, function ($carry, $key) {
+                if (isset($carry[$key])) {
+                    return $carry[$key];
+                }
+            }, $data);
+
+            if ($result != null) {
+                $match = match ($operator) {
+                    '=' => $result == $value,
+                    '!=' => $result != $value,
+                    '<' => $result < $value,
+                    '<=' => $result <= $value,
+                    '>' => $result > $value,
+                    '>=' => $result >= $value,
+                };
+                if ($match) {
+                    $founded[] = $key;
+                }
+            }
+        }
+        $this->select[$this->select_statement][] = $founded;
+
+        return $this;
     }
 
     public function truncate(): bool
     {
-        file_put_contents('../../../Database/Json/' . $this->database . '.json', "{\n\n}");
+        file_put_contents('Database/Json/' . $this->database . '.json', "{\n\n}");
         return true;
+    }
+
+    public function rowCount(): int
+    {
+        return count($this->all());
+    }
+
+    public function count(): int
+    {
+        return count($this->get());
+    }
+
+    public function empty($key): bool
+    {
+        return $this->update($key, '');
+    }
+
+    public function updateKey($key, $newKey)
+    {
+
     }
 }

@@ -10,8 +10,6 @@ use Bot\Core\Trait\Scope;
 
 class Handler extends Matching implements MessageHandlerInterface
 {
-    use Authentication, Condition, Scope;
-
     public function on(array|string $message, callable $action): static
     {
         $this->action('text', $message, $action);

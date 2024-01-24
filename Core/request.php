@@ -137,7 +137,7 @@ class Request
         if ($mode === 32 || is_null($mode)) {
             $this->request_mode = 'curl_sendAPIRequest';
         } elseif ($mode === 64) {
-            $this->request_mode = 'parallelCurl_sendAPIRequest';
+            $this->request_mode = 'noResponseCurl_sendAPIRequest';
         } elseif ($mode === 128) {
             $this->request_mode = 'amphp_sendAPIRequest';
         } elseif ($mode === 256) {
@@ -824,7 +824,9 @@ class Request
 
         if (!isset(Openswoole::$openswoole) && Openswoole::$openswooleStatus === 0) {
             if (empty($this->data)) {
-                $rawData = file_get_contents('php://input');
+                global $datas;
+                $rawData = $datas['argv'][1];
+
                 return json_decode($rawData, true);
             } else {
                 return $this->data;
@@ -1971,7 +1973,7 @@ class Request
         return $result;
     }
 
-    public function parallelCurl_sendAPIRequest($url, array $content, $post = true): false|string
+    public function noResponseCurl_sendAPIRequest($url, array $content, $post = true): false|string
     {
         if (isset($content['chat_id'])) {
             $url = $url . '?chat_id=' . $content['chat_id'];
