@@ -34,26 +34,24 @@ class JsonModel
     {
         $result = [];
         foreach ($array as $key => $value) {
-            $newKey = ($prefix === '') ? $key : $prefix . '.' . $key;
-
             if (is_array($value)) {
-                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $newKey)));
+                $result[] = $key;
+                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $prefix . $key . '.')));
             } else {
-                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $newKey);
+                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $prefix . $key);;
             }
         }
-
         return $result;
     }
 
-    private function isFillable(array $key)
+    private function isFillable(array $keys)
     {
         if (empty($this->fillable)) {
-            return $key[0];
+            return $keys[0];
         }
-        foreach ($this->fillable as $fillable) {
-            if (!in_array($fillable, $key)) {
-                return $fillable;
+        foreach ($keys as $key) {
+            if (!in_array($key, $this->fillable)) {
+                return $key;
             }
         }
         return false;
