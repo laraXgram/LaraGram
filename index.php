@@ -13,6 +13,6 @@ popen("php Core/worker.php " . escapeshellarg(file_get_contents('php://input')) 
     <title>LaraGram</title>
 </head>
 <body>
-    <h1 style="font-size: 32px; text-align: center; user-select: none;">Silence is gold!</h1>
+<h1 style="font-size: 32px; text-align: center; user-select: none;">Silence is gold!</h1>
 </body>
 </html>
