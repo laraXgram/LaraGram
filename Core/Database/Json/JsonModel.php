@@ -2,14 +2,20 @@
 
 namespace Bot\Core\Database\Json;
 
-use Bot\Core\Cli\Error\Logger;
 use Exception;
 
 class JsonModel
 {
+    private const JSON_OPTIONS = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
     private array $select = [];
     private int $select_statement = 0;
     private array $schema = [];
+    private ?array $dataCache = null;
+    private ?array $newData = [];
+    private bool $newDataCreated = true;
+    private bool $schemaChanged = false;
+    private string $filePath;
+    private string $schemaPath;
     // ---------------------------
     protected string $database = '';
     protected array $fillable = [];
@@ -17,11 +23,49 @@ class JsonModel
 
     public function __construct()
     {
-        if (!isset($self->database)) {
-            $database = explode('\\', get_called_class());
-            $this->database = $database[array_key_last($database)];
+        $this->initializePaths();
+        $this->loadSchema();
+        $this->loadData();
+    }
+
+    public function __destruct()
+    {
+        $this->saveSchemaIfNeeded();
+        if ($this->newDataCreated) {
+            $this->saveDataToDb();
+            $this->newDataCreated = false;
         }
-        $this->schema = json_decode(file_get_contents(getcwd() . "\Core\Database\Json\schema.json"), true)[$this->database];
+    }
+
+    private function initializePaths()
+    {
+        if ($this->database === '') {
+            $this->database = $this->inferDatabaseName();
+        }
+        $this->filePath = 'Database/Json/' . $this->database . '.json';
+        $this->schemaPath = getcwd() . "/Core/Database/Json/schema.json";
+    }
+
+    private function inferDatabaseName()
+    {
+        $database = explode('\\', get_called_class());
+        return $database[array_key_last($database)];
+    }
+
+    private function loadSchema()
+    {
+        if (!file_exists($this->schemaPath)) {
+            throw new Exception("Schema file does not exist");
+        }
+        $this->schema = json_decode(file_get_contents($this->schemaPath), true) ?? [];
+    }
+
+    private function saveSchemaIfNeeded()
+    {
+        if ($this->schemaChanged) {
+            file_put_contents($this->schemaPath, json_encode($this->schema, self::JSON_OPTIONS));
+            $this->schemaChanged = false;
+        }
     }
 
     private function largeArrayGenerator($largeArray)
@@ -31,30 +75,29 @@ class JsonModel
         }
     }
 
-    private function isUnique($keyToCheck, $array1, $array2) {
-        $result = [];
-        $array2Result= array_reduce(explode('.', $keyToCheck), function ($carry, $key) {
-            if (isset($carry[$key])){
-                return $carry[$key];
-            }
-        }, $array2);
-        foreach ($array1 as $item) {
-            $array1Result= array_reduce(explode('.', $keyToCheck), function ($carry, $key) {
-                return $carry[$key];
-            }, $item);
-            $result[] = $array1Result;
+    private function isUnique($keyToCheck, $array1, $array2)
+    {
+        $keys = explode('.', $keyToCheck);
+        $array2Value = $array2;
+        foreach ($keys as $key) {
+            $array2Value = $array2Value[$key] ?? null;
         }
 
-        if (!in_array($array2Result, $result)) {
-            return true;
-        }else{
-            return false;
+        foreach ($array1 as $item) {
+            $itemValue = $item;
+            foreach ($keys as $key) {
+                $itemValue = $itemValue[$key] ?? null;
+            }
+            if ($itemValue === $array2Value) {
+                return false;
+            }
         }
+        return true;
     }
 
     private function generateStructure($data)
     {
-        $jsonArray = $this->schema;
+        $jsonArray = $this->schema[$this->database];
         $autoIncrement = $jsonArray['auto_increment'];
         $structure = $jsonArray['structure'];
 
@@ -76,7 +119,7 @@ class JsonModel
 
         if (isset($autoIncrement['key']) && isset($result[$autoIncrement['key']])) {
             $result[$autoIncrement['key']] = $autoIncrement['next'];
-            $this->schema['auto_increment']['next']++;
+            $this->schema[$this->database]['auto_increment']['next']++;
         }
 
         foreach ($structure as $key => $properties) {
@@ -84,7 +127,7 @@ class JsonModel
                 die("$key is not nullable");
             }
 
-            if ($properties['unique'] === true && !$this->isUnique($key, $this->largeArrayGenerator($this->getDataFromDb()), $data)) {
+            if ($properties['unique'] === true && !$this->isUnique($key, $this->largeArrayGenerator($this->dataCache), $data)) {
                 die("$key is unique");
             }
         }
@@ -95,7 +138,7 @@ class JsonModel
     public function mergeArraysBasedOnStructure($array1, $array2, $dataKeys, $prefix = '')
     {
         $result = $array1;
-        $schema = $this->schema;
+        $schema = $this->schema[$this->database];
         $structure = $schema['structure'];
 
         foreach ($array2 as $key => $value) {
@@ -118,13 +161,16 @@ class JsonModel
         }
 
         return $result;
-        }
     }
 
-    private function getDataFromDb()
+    private function loadData()
     {
-        $fileName = 'Database/Json/' . $this->database . '.json';
-        return json_decode(file_get_contents($fileName), true);
+        if ($this->dataCache === null) {
+            if (!file_exists($this->filePath)) {
+                throw new Exception("Data file does not exist");
+            }
+            $this->dataCache = json_decode(file_get_contents($this->filePath), true) ?? [];
+        }
     }
 
     private function getAllKeys($array, $prefix = ''): array
@@ -149,26 +195,6 @@ class JsonModel
         foreach ($keys as $key) {
             if (!in_array($key, $this->fillable)) {
                 return $key;
-            $newKey = ($prefix === '') ? $key : $prefix . '.' . $key;
-
-            if (is_array($value)) {
-                $result = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', array_merge($result, $this->getAllKeys($value, $newKey)));
-            } else {
-                $result[] = preg_replace('/[0-9]+\.|\.[0-9]+|\.[0-9]+\./', '', $newKey);
-            }
-        }
-
-        return $result;
-    }
-
-    private function isFillable(array $key)
-    {
-        if (empty($this->fillable)) {
-            return $key[0];
-        }
-        foreach ($this->fillable as $fillable) {
-            if (!in_array($fillable, $key)) {
-                return $fillable;
             }
         }
         return false;
@@ -188,49 +214,84 @@ class JsonModel
     {
         $isGuarded = $this->isGuarded($keys);
         if ($isGuarded) {
-            Logger::status(
-                "Field [ $isGuarded ] is guarded!",
-                "The key [ $isGuarded ] is named as guarded field.",
-                'failed',
-                true
-            );
+            throw new Exception("Field [ $isGuarded ] is guarded!");
         }
 
         $isFillable = $this->isFillable($keys);
         if ($isFillable) {
-            Logger::status(
-                "Field [ $isFillable ] is not fillable!",
-                "The [ $isFillable ] key is not named as a fill field.",
-                'failed',
-                true
-            );
+            throw new Exception("Field [ $isFillable ] is not fillable!");
         }
     }
 
-    public function create(array $data, string|int $key = null): void
+    private function saveDataToDb(): void
+    {
+        if ($this->newData !== null) {
+            $data = array_merge($this->dataCache, $this->newData);
+            file_put_contents($this->filePath, json_encode($data, self::JSON_OPTIONS));
+            $this->newData = [];
+            $this->newDataCreated = false;
+        }
+    }
+
+    private function applyCondition($key, $operator, $value, $isOrCondition)
+    {
+        if ($isOrCondition) {
+            $this->select_statement++;
+        }
+
+        $keys = explode('.', $key);
+        $founded = [];
+        $array = $this->dataCache;
+
+        foreach ($array as $arrayKey => $data) {
+            $result = $data;
+            foreach ($keys as $nestedKey) {
+                $result = $result[$nestedKey] ?? null;
+            }
+
+            $match = match ($operator) {
+                '=', '==' => $result == $value,
+                '===' => $result === $value,
+                '!==' => $result !== $value,
+                '!=' => $result != $value,
+                '<' => $result < $value,
+                '<=' => $result <= $value,
+                '>' => $result > $value,
+                '>=' => $result >= $value,
+                default => throw new Exception("Invalid operator: $operator")
+            };
+
+            if ($match) {
+                $founded[] = $arrayKey;
+            }
+        }
+
+        $this->select[$this->select_statement][] = $founded;
+    }
+
+    public function create(array $data, bool $forceWrite = false): void
     {
         $this->checkWriteAccess($this->getAllKeys($data));
 
-        $fileName = 'Database/Json/' . $this->database . '.json';
-        $select = $this->getDataFromDb();
-        $select[$key ?? (count($select ?? []) + 1)] = $this->generateStructure($data);
-        $select[$key ?? (count($select ?? []) + 1)] = $data;
-
-        file_put_contents($fileName, json_encode($select, 128 | 16));
+        $this->schemaChanged = true;
+        $this->newData[(count($this->dataCache ?? [])) + (count($this->newData ?? []) + 1)] = $this->generateStructure($data);
+        $this->newDataCreated = true;
+        if ($forceWrite) {
+            $this->saveDataToDb();
+        }
     }
 
     public function delete(): bool
     {
-        if ($this->select != null) {
-            $data = $this->getDataFromDb();
+        if (!empty($this->select)) {
             $selected = $this->get();
             foreach ($selected as $key => $value) {
-                unset($data[$key]);
+                unset($this->dataCache[$key]);
             }
-            file_put_contents('Database/Json/' . $this->database . '.json', json_encode($data, 128 | 16));
+            $this->saveDataToDb();
             return true;
         } else {
-            throw new Exception('delete method should be used after conditional methods', 705);
+            throw new Exception('Delete method should be used after conditional methods', 705);
         }
     }
 
@@ -239,7 +300,6 @@ class JsonModel
         $this->checkWriteAccess([$key]);
 
         $keys = explode('.', $key);
-        $array = $this->getDataFromDb();
         if ($this->select != null) {
             $selected = $this->get();
         } else {
@@ -247,19 +307,17 @@ class JsonModel
         }
 
         foreach ($selected as $k => $v) {
-            $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
-                $carry[$key] = $new_data;
-                return $carry;
-
-        foreach ($selected as $k => $v) {
-            $result = array_reduce($keys, function ($carry, $key) use ($new_data) {
-                $carry[$key] = $new_data;
-                return $carry;
-            }, $v);
-            $array[$k] = $result;
+            $result = &$this->dataCache[$k];
+            foreach ($keys as $nestedKey) {
+                if (!isset($result[$nestedKey])) {
+                    throw new Exception("Invalid key: $nestedKey");
+                }
+                $result = &$result[$nestedKey];
+            }
+            $result = $new_data;
         }
 
-        file_put_contents('Database/Json/' . $this->database . '.json', json_encode($array, 128 | 16));
+        $this->saveDataToDb();
         return true;
     }
 
@@ -276,11 +334,12 @@ class JsonModel
                 }
             }
             $commonValues = array_unique(call_user_func_array('array_merge', $commonValues));
-            $databaseData = $this->getDataFromDb();
+            $databaseData = $this->dataCache;
             $data = [];
             foreach ($commonValues as $key) {
                 $data[$key] = $databaseData[$key];
             }
+            $this->select_statement = 0;
             return $data;
         } else {
             throw new Exception('get method should be used after conditional methods', 705);
@@ -289,7 +348,7 @@ class JsonModel
 
     public function all()
     {
-        return $this->getDataFromDb();
+        return $this->dataCache;
     }
 
     public function first()
@@ -297,89 +356,19 @@ class JsonModel
         if ($this->select != null) {
             return $this->get()[array_key_first($this->get())];
         } else {
-            return $this->all()[array_key_first($this->all())];
+            return $this->dataCache[array_key_first($this->all())];
         }
     }
 
     public function where($key, $operator, $value): static
     {
-        $keys = explode('.', $key);
-        $founded = [];
-        $array = $this->getDataFromDb();
-
-        foreach ($array as $key => $data) {
-            $result = array_reduce($keys, function ($carry, $key) {
-                return $carry[$key];
-            }, $data);
-
-            $match = match ($operator) {
-                '=', '==' => $result == $value,
-                '===' => $result === $value,
-                '!==' => $result !== $value,
-                '!=' => $result != $value,
-                '<' => $result < $value,
-                '<=' => $result <= $value,
-                '>' => $result > $value,
-                '>=' => $result >= $value,
-            };
-            if ($match) {
-                $founded[] = $key;
-            }
-
-        }
-        $this->select[$this->select_statement][] = $founded;
-
+        $this->applyCondition($key, $operator, $value, false);
         return $this;
     }
 
     public function orWhere($key, $operator, $value): static
     {
-        $this->select_statement++;
-
-        $keys = explode('.', $key);
-        $founded = [];
-        $array = $this->getDataFromDb();
-
-        foreach ($array as $key => $data) {
-            $result = array_reduce($keys, function ($carry, $key) {
-                if (isset($carry[$key])) {
-                    return $carry[$key];
-                }
-            }, $data);
-            if ($result != null) {
-                $match = match ($operator) {
-                    '=', '==' => $result == $value,
-                    '===' => $result === $value,
-                    '!==' => $result !== $value,
-                    '!=' => $result != $value,
-                    '<' => $result < $value,
-                    '<=' => $result <= $value,
-                    '>' => $result > $value,
-                    '>=' => $result >= $value,
-                };
-                if ($match) {
-                    $founded[] = $key;
-                }
-            }
-        }
-        $this->select[$this->select_statement][] = $founded;
-
-            if ($result != null) {
-                $match = match ($operator) {
-                    '=' => $result == $value,
-                    '!=' => $result != $value,
-                    '<' => $result < $value,
-                    '<=' => $result <= $value,
-                    '>' => $result > $value,
-                    '>=' => $result >= $value,
-                };
-                if ($match) {
-                    $founded[] = $key;
-                }
-            }
-        }
-        $this->select[$this->select_statement][] = $founded;
-
+        $this->applyCondition($key, $operator, $value, true);
         return $this;
     }
 
@@ -391,7 +380,7 @@ class JsonModel
 
     public function rowCount(): int
     {
-        return count($this->all());
+        return count($this->dataCache);
     }
 
     public function count(): int
@@ -402,16 +391,5 @@ class JsonModel
     public function empty($key): bool
     {
         return $this->update($key, '');
-    }
-
-    public function updateKey($key, $newKey)
-    {
-
-    }
-    public function __destruct()
-    {
-        $schema = json_decode(file_get_contents(getcwd() . "\Core\Database\Json\schema.json"), true);
-        $schema[$this->database] = $this->schema;
-        file_put_contents(getcwd() . "\Core\Database\Json\schema.json", json_encode($schema, 128));
     }
 }
