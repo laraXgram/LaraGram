@@ -352,6 +352,12 @@ api('ApiName@MetodeName', $parameters)
 php laragram make:model User
 ```
 
+* Make Json Model
+
+```
+php laragram make:jsonModel User
+```
+
 * Make Migration
 
 ```
@@ -363,6 +369,17 @@ php laragram make:migration edit_users_table --table=users
 
 ```
 
+* Make Json Migration
+
+```
+// Create table
+php laragram make:jsonMigration create_users_table --create=users
+
+// Edit table
+php laragram make:jsonMigration edit_users_table --table=users
+
+```
+
 > Note:
 > * Note that the names of the migrations should be similar to the example above
     >   `create_{table_name}_table`
@@ -371,7 +388,7 @@ php laragram make:migration edit_users_table --table=users
 >
 >
 >1. Build an migration
->2. Open the created file ( path: Database/Mysql/Migrations/ )
+>2. Open the created file ( path: Database/Mysql/Migrations/ for Mysql | path: Database/Json/Migrations/ for Json)
 >3. Start writing ( An example has been created for you )
 >
 >* It is better to learn to work with Eloquent and Laravel query builder
@@ -379,6 +396,16 @@ php laragram make:migration edit_users_table --table=users
    >
    >  [Eloquent](https://laravel.com/docs/master/eloquent) -- [Queries](https://laravel.com/docs/master/queries)
 
+* Migrate
+
+```
+// Mysql Migrate
+php laragram migrate
+
+// Json Migrate
+php laragram migrate:json
+
+```
 ---
 
 ### Authentication
@@ -620,7 +647,7 @@ $message->create([
 ]);
 ```
 
-> Conditional methode (where & orWhere) :
+> Conditional methode (where & orWhere) and get :
 ```php
 // And
 $message
@@ -640,12 +667,12 @@ $message
 ```
 
 | Operator         | Operator |
-|------------------|----------|
-| =                | !=       |
-| ==               | !==      |
-| ===              | !===     |
-| \>               | \>=      |
-| <                | <=       |
+|------------------|--------|
+| =                | !=     |
+| ==               | ===    |
+| !==              | \>     |
+| \>=               | <      |
+| <=                |        |
 **Note: = & == is same!** 
 
 
@@ -663,7 +690,7 @@ $message
     ->delete();
 ```
 
-> Select first row :
+> Select first row of data:
 ```php
 $message
     ->where('id', '=', '1')
@@ -702,7 +729,7 @@ $message->truncate();
 ### Model property
 
 ```php
-// set database name if model name and json name isn't same
+// If the model name and json name are not the same, set the database name
 protected string $database = 'Message';
 
 // set fillable keys
@@ -711,7 +738,57 @@ protected array $fillable = ['status'];
 // set guarded keys
 protected array $guarded = ['id'];
 ```
+---
+### Json Migrations
 
+* create table :
+```php
+JsonSchema::create('column_name', function (JsonBlueprint $table) {
+    // create column with string type
+    $table->string('name');
+    
+    // create column with integer type
+    $table->integer('name');
+    
+    // create column with array type
+    $table->array('name');
+    
+    // create column with boolean type
+    $table->boolean('name');
+    
+    // create column with double type
+    $table->double('name');
+    
+    // create column with object type
+    $table->object('name');
+    
+    // create column with any type
+    $table->any('name');
+    
+    // make nullable column 
+    $table->string('name')->nullable();
+    
+    // set default value for column
+    $table->string('name')->default('default value');
+    
+    // make unique column
+    $table->string('name')->unique();
+    
+    // make auto increment column
+    $table->integer('id')->autoIncrement();
+    
+    // make auto increment column with start number
+    $table->integer('id')->autoIncrement(100);
+    
+    // Note: autoIncrement must be an integer
+});
+```
+* edit table :
+```php
+JsonSchema::table('column_name', function (JsonBlueprint $table) {
+    // Code ...
+});
+```
 ---
 
 # Support & Contact:
