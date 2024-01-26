@@ -2,13 +2,12 @@
 
 namespace Bot\Core\Database;
 
-use Bot\Core\Interface\SchemaInterface;
 use Closure;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Builder;
 
-class Schema implements SchemaInterface
+class Schema
 {
     public static function hasTable(string $table): bool
     {

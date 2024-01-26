@@ -29,23 +29,33 @@ $kernel->call('migrate', function () {
 });
 
 $kernel->call('make:jsonModel', function () {
-    $database = new DatabaseMaker();
-    $database->createJsonModel();
+    $database = new JsonDatabaseMaker();
+    $database->createModel();
 });
 
 $kernel->call('remove:jsonModel', function () {
-    $database = new DatabaseMaker();
-    $database->removeJsonModel();
+    $database = new JsonDatabaseMaker();
+    $database->removeModel();
 });
 
 $kernel->call('make:jsonDb', function () {
-    $database = new DatabaseMaker();
-    $database->createJsonDb();
+    $database = new JsonDatabaseMaker();
+    $database->createDb();
 });
 
 $kernel->call('remove:jsonDb', function () {
-    $database = new DatabaseMaker();
-    $database->removeJsonDb();
+    $database = new JsonDatabaseMaker();
+    $database->removeDb();
+});
+
+$kernel->call('make:jsonMigration', function () {
+    $database = new JsonDatabaseMaker();
+    $database->createMigrations();
+});
+
+$kernel->call('migrate:json', function () {
+    $database = new JsonDatabaseMaker();
+    $database->migrate();
 });
 //-----------------------------------------------------------------
 $kernel->call('make:resource', function () {

@@ -20,7 +20,7 @@ class DatabaseMaker
     public function createModel(): void
     {
         if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Model name!', 'warning', true);
+            Logger::warning('Enter the Model name!', true);
         }
 
         $modelPage = str_replace('&&&', $this->cmd[2], file_get_contents('Core/Cli/Layout/mysqlModel.txt'));
@@ -36,23 +36,23 @@ class DatabaseMaker
     public function removeModel(): void
     {
         if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Model name!', 'warning', true);
+            Logger::warning('Enter the Model name!', true);
         }
 
         $name = ucfirst($this->cmd[2]);
 
         if (file_exists("App/Model/{$name}.php")) {
             unlink("App/Model/{$name}.php");
-            Logger::status('Success', 'Model deleted successfully!');
+            Logger::success('Model deleted successfully!');
         } else {
-            Logger::status('Failed', 'Model is not exist!', 'failed', true);
+            Logger::failed('Model is not exist!', true);
         }
     }
 
     public function createMigrations(): void
     {
         if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Migration name!', 'warning', true);
+            Logger::warning('Enter the Migration name!', true);
         }
 
         if (isset($this->cmd[3])) {
@@ -63,16 +63,12 @@ class DatabaseMaker
                 $migrationPage = str_replace('&&&', $part[1], file_get_contents('Core/Cli/Layout/tableMigrations.txt'));
             }
         } else {
-            Logger::status('Failed', "Please Set Migration Option [--create=<tableName> || --table=<tableName>]", 'failed', true);
+            Logger::failed("Please Set Migration Option [--create=<tableName> Or --table=<tableName>]", true);
         }
 
-        $fileName = 'Database/Mysql/Migrations/' . date('Y_m_d') . '_' . $this->cmd[2] . '.php';
-        if (file_exists($fileName)) {
-            Logger::warning('Migration is already exist!');
-        } else {
-            file_put_contents($fileName, $migrationPage);
-            Logger::success('Migration Created Successfully!');
-        }
+        $fileName = 'Database/Mysql/Migrations/' . date('Y_m_d_U') . '_' . $this->cmd[2] . '.php';
+        file_put_contents($fileName, $migrationPage);
+        Logger::success('Migration Created Successfully!');
     }
 
     private function needMigrate(): array|null
@@ -141,80 +137,6 @@ class DatabaseMaker
             $class->up();
             $this->addToMigrations($migrate, $this->batch + 1);
             Logger::success("Migrated: {$migrate}");
-        }
-    }
-
-    public function createJsonDb(): void
-    {
-        if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Json\'s Database name!', 'warning', true);
-        }
-
-        $fileName = 'Database/Json/' . $this->cmd[2] . '.json';
-
-        if (!file_exists('Database/Json')){
-            mkdir('Database/Json');
-        }
-
-        if (file_exists($fileName)) {
-            Logger::warning('Json\'s Database is already exist!');
-        } else {
-            file_put_contents($fileName, "{\n\n}");
-            Logger::success('Json\'s Database Created Successfully!');
-        }
-    }
-
-    public function removeJsonDb(): void
-    {
-        if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Json\'s Database name!', 'warning', true);
-        }
-
-        $fileName = 'Database/Json/' .  ucfirst($this->cmd[2]) . '.json';
-
-        if (file_exists($fileName)) {
-            unlink($fileName);
-            Logger::status('Success', 'Json\'s Database deleted successfully!');
-        } else {
-            Logger::status('Failed', 'Json\'s Database is not exist!', 'failed', true);
-        }
-    }
-
-    public function createJsonModel(): void
-    {
-        if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Json\'s Model name!', 'warning', true);
-        }
-
-        $modelPage = str_replace('&&&', $this->cmd[2], file_get_contents('Core/Cli/Layout/jsonModel.txt'));
-        $fileName = 'App/Model/Json/' . $this->cmd[2] . '.php';
-
-        if (!file_exists('App/Model/Json')){
-            mkdir('App/Model/Json');
-        }
-
-        if (file_exists($fileName)) {
-            Logger::warning('Json\'s Model is already exist!');
-        } else {
-            file_put_contents($fileName, $modelPage);
-            Logger::success('Json\'s Model Created Successfully!');
-        }
-    }
-
-    public function removeJsonModel(): void
-    {
-        if (!isset($this->cmd[2])) {
-            Logger::status('Warning', 'Enter the Json\'s Model name!', 'warning', true);
-        }
-
-        $name = ucfirst($this->cmd[2]);
-        $fileName = "App/Model/Json/". ucfirst($this->cmd[2]) . ".php";
-
-        if (file_exists($fileName)) {
-            unlink($fileName);
-            Logger::status('Success', 'Json\'s Model deleted successfully!');
-        } else {
-            Logger::status('Failed', 'Json\'s Model is not exist!', 'failed', true);
         }
     }
 }

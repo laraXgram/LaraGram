@@ -710,12 +710,6 @@ protected array $fillable = ['status'];
 
 // set guarded keys
 protected array $guarded = ['id'];
-
-// set auto increment key (For Primary key)
-protected string $autoIncrement = 'id';
-
-// set unique keys
-protected array $unique = ['id'];
 ```
 
 ---

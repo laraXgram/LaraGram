@@ -1,0 +1,19 @@
+<?php
+
+namespace Bot\Database\Json\Migrations;
+
+use Bot\Core\Database\Json\JsonBlueprint;
+use Bot\Core\Database\Json\JsonSchema;
+
+return new class
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        JsonSchema::table('&&&', function (JsonBlueprint $table) {
+            // Code ...
+        });
+    }
+};
