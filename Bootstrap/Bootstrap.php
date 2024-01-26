@@ -26,7 +26,9 @@ class Bootstrap
         /*
          * Load Class
          * */
+
         // $this->classLoader();
+
 
         /*
          * Connect Databases
