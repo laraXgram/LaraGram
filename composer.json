@@ -9,6 +9,9 @@
       "email": "laraxgram@gmail.com"
     }
   ],
+  "require": {
+      "laraxgram/laragram":"v1.10.x-dev@dev"
+} },
   "autoload": {
     "psr-4": {
       "Bot\\Core\\": "Core",
