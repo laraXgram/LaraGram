@@ -19,7 +19,6 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "laraxgram/laragram":"v1.10.x-dev@dev",
     "vlucas/phpdotenv": "^5.5",
     "symfony/process": "^6.3",
     "bramus/ansi-php": "^3.1",
