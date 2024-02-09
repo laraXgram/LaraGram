@@ -3,7 +3,7 @@
 global $datas;
 $datas['argv'] = $argv;
 
-require_once 'Bootstrap/bootstrap.php';
+require_once 'Bootstrap/Bootstrap.php';
 
 use Bot\Bootstrap\Runner;
 
