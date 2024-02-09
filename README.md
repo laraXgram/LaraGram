@@ -12,13 +12,13 @@ composer create-project laraxgram/laragram:v1.10.x-dev@dev my-bot
 ```
 
 
-# ⭐ Features & 📙 Document :
-### [Config](https://github.com/laraXgram/Document/config)
-- [ENV](https://github.com/laraXgram/Document/config#ENV)
-- [AutoLoader](https://github.com/laraXgram/Document/config#AutoLoader)
-- [SetWebhook](https://github.com/laraXgram/Document/config#SetWebhook)
+# ⭐ Features & 📙 Document/blob/v1.10 :
+### [Config](https://github.com/laraXgram/Document/blob/v1.10/config.md)
+- [ENV](https://github.com/laraXgram/Document/blob/v1.10/config.md#env)
+- [AutoLoader](https://github.com/laraXgram/Document/blob/v1.10/config.md#autoloader)
+- [SetWebhook](https://github.com/laraXgram/Document/blob/v1.10/config.md#setwebhook)
 ---
-### [Development server](https://github.com/laraXgram/Document/commands.md#WebServer)
+### [Development server](https://github.com/laraXgram/Document/blob/v1.10/commands.md#webserver)
 - PHP Server
 - OpenSwoole Server
 ---
@@ -26,53 +26,53 @@ composer create-project laraxgram/laragram:v1.10.x-dev@dev my-bot
 
 ---
 ### Terminal Commands
-- [Manage Resources](https://github.com/laraXgram/Document/commands.md#Resources)
-- [Manage Webhook](https://github.com/laraXgram/Document/commands.md#Webhook)
-- [Manage Dependency](https://github.com/laraXgram/Document/commands.md#Dependency)
-- [Manage Api](https://github.com/laraXgram/Document/commands.md#Api)
-- [Manage Models](https://github.com/laraXgram/Document/commands.md#Models)
-- [Manage Migrations](https://github.com/laraXgram/Document/commands.md#Migrations)
-- [Manage WebServer](https://github.com/laraXgram/Document/commands.md#WebServer)
+- [Manage Resources](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-resource)
+- [Manage Webhook](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-webhook)
+- [Manage Dependency](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-dependency)
+- [Manage Api](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-api-controller)
+- [Manage Models](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-model)
+- [Manage Migrations](https://github.com/laraXgram/Document/blob/v1.10/commands.md#manage-migrations)
+- [Manage WebServer](https://github.com/laraXgram/Document/blob/v1.10/commands.md#webserver)
 ---
-### [Request Methods](https://github.com/laraXgram/Document/methods.md#Request%20Method)
+### [Request Methods](https://github.com/laraXgram/Document/blob/v1.10/methods.md#change-request-method)
 - Curl
 - Non-Response Curl
 - AMPHP
 - OpenSwoole
 ---
 ### Method
-- [Listener & Handler](https://github.com/laraXgram/Document/methods.md)
+- [Listener & Handler](https://github.com/laraXgram/Document/blob/v1.10/methods.md)
 ---
-### [Get Updates](https://github.com/laraXgram/Document/updates.md)
+### [Get Updates](https://github.com/laraXgram/Document/blob/v1.10/updates.md)
 
 ---
-### [Databases](https://github.com/laraXgram/Document/databases.md)
-- [MySql](https://github.com/laraXgram/Document/mysql.md)
-    - [Laravel Eloquent (recommended & default)](https://github.com/laraXgram/Document/eloquent.md)
+### [Databases](https://github.com/laraXgram/Document/blob/v1.10/databases.md)
+- MySql
+    - [Laravel Eloquent (recommended & default)](https://github.com/laraXgram/Document/blob/v1.10/eloquent.md)
         - Model
         - Migrations
-- [Redis](https://github.com/laraXgram/Document/redis.md)
-- [Json (exclusive)](https://github.com/laraXgram/Document/json.md)
+- [Redis](https://github.com/laraXgram/Document/blob/v1.10/redis.md)
+- [Json (exclusive)](https://github.com/laraXgram/Document/blob/v1.10/json.md)
     - Model
     - Migrations
 ---
-### [Authentication & Accessibility](https://github.com/laraXgram/Document/authentication.md)
-- [Auth](https://github.com/laraXgram/Document/authentication.md#Check%20Status)
-- [Role](https://github.com/laraXgram/Document/authentication.md#Role)
-- [Level](https://github.com/laraXgram/Document/authentication.md#Level)
+### [Authentication & Accessibility](https://github.com/laraXgram/Document/blob/v1.10/authentication.md)
+- [Auth](https://github.com/laraXgram/Document/blob/v1.10/authentication.md#check-status)
+- [Role](https://github.com/laraXgram/Document/blob/v1.10/authentication.md#role)
+- [Level](https://github.com/laraXgram/Document/blob/v1.10/authentication.md#level)
 ---
-### [API](https://github.com/laraXgram/Document/api.md)
-- [Controller](https://github.com/laraXgram/Document/api.md#Controller)
+### [API](https://github.com/laraXgram/Document/blob/v1.10/api.md)
+- [Controller](https://github.com/laraXgram/Document/blob/v1.10/api.md#controller)
 ---
-### [Keyboard Builder](https://github.com/laraXgram/Document/keyboard.md)
+### [Keyboard Builder](https://github.com/laraXgram/Document/blob/v1.10/keyboard.md)
 
 ---
-### [Helpers](https://github.com/laraXgram/Document/helpers.md)
-- [Messages Style](https://github.com/laraXgram/Document/helpers.md#Style)
-- [Timer Class](https://github.com/laraXgram/Document/helpers.md#Timer)
-- [Assets](https://github.com/laraXgram/Document/helpers.md#Assets)
+### [Helpers](https://github.com/laraXgram/Document/blob/v1.10/helpers.md)
+- [Messages Style](https://github.com/laraXgram/Document/blob/v1.10/helpers.md#style)
+- [Timer Class](https://github.com/laraXgram/Document/blob/v1.10/helpers.md#timer)
+- [Assets](https://github.com/laraXgram/Document/blob/v1.10/helpers.md#assets)
 ---
-# [🚨 Support](https://github.com/laraXgram/Document/supports.md)
+# [🚨 Support](https://github.com/laraXgram/Document/blob/v1.10/support.md)
 
 ###### Version 1.10.1
 
