@@ -1,4 +1,4 @@
-![LaraGram](images/LaraGram.png)
+![LaraGram](Assets/Image/LaraGram.png)
 # LaraGram
 > LaraGram, an advanced framework for Telegram Bot development
 ---
