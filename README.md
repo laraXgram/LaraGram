@@ -8,11 +8,11 @@
 ---
 # ✳️ Installation :
 ```bash
-composer create-project laraxgram/laragram:v1.10.x-dev@dev my-bot
+composer create-project laraxgram/laragram my-bot
 ```
 
 
-# ⭐ Features & 📙 Document/blob/v1.10 :
+# ⭐ Features & 📙 Document :
 ### [Config](https://github.com/laraXgram/Document/blob/v1.10/config.md)
 - [ENV](https://github.com/laraXgram/Document/blob/v1.10/config.md#env)
 - [AutoLoader](https://github.com/laraXgram/Document/blob/v1.10/config.md#autoloader)
