@@ -2,7 +2,6 @@
 
 namespace Bot\Core\Connect;
 
-use Bot\Core\Cli\Db\Migration;
 use Bot\Core\Cli\Error\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
