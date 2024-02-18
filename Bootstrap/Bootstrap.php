@@ -16,7 +16,7 @@ class Bootstrap
         /*
          * Require Composer Autoloader
          * */
-        require_once getcwd() . 'vendor/autoload.php';
+        require_once getcwd() . '/vendor/autoload.php';
 
         /*
          * Load .env, Configs
@@ -26,9 +26,7 @@ class Bootstrap
         /*
          * Load Class
          * */
-
         // $this->classLoader();
-
 
         /*
          * Connect Databases

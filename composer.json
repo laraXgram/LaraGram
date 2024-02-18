@@ -3,6 +3,11 @@
   "description": "LaraGram, an advanced framework for Telegram Bot development!",
   "type": "project",
   "license": "MIT",
+  "keywords": [
+    "telegram",
+    "PHP",
+    "laragram"
+  ],
   "authors": [
     {
       "name": "laraXgram",

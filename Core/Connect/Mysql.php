@@ -2,13 +2,11 @@
 
 namespace Bot\Core\Connect;
 
-use Bot\Core\Cli\Db\Migration;
 use Bot\Core\Cli\Error\Logger;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Facade;
-use newrelic\DistributedTracePayload;
 
 class Mysql
 {

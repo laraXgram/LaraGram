@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Bot\App\Model\Json;

@@ -14,13 +14,10 @@ return new class
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->integer('user')->unsigned()->index();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('role')->nullable();
             $table->string('level')->nullable();
             $table->timestamps();
-
-            $table->foreign('user')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
