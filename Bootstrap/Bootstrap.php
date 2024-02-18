@@ -16,7 +16,7 @@ class Bootstrap
         /*
          * Require Composer Autoloader
          * */
-        require_once 'vendor/autoload.php';
+        require_once getcwd() . '/vendor/autoload.php';
 
         /*
          * Load .env, Configs
@@ -26,14 +26,12 @@ class Bootstrap
         /*
          * Load Class
          * */
-
         // $this->classLoader();
-
 
         /*
          * Connect Databases
          * */
-        if ($_ENV['MYSQL_POWER'] === 'on' && class_exists(Capsule::class)) {
+        if ($_ENV['DB_POWER'] === 'on' && class_exists(Capsule::class)) {
             (new Mysql)->connect();
         }
 
@@ -56,6 +54,9 @@ class Bootstrap
         spl_autoload_register(function ($className) {
             $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
+                "Bot\\Core\\" => "Core",
+                "Bot\\Bootstrap\\" => "Bootstrap",
+                "Bot\\App\\" => "App",
                 // "namespace" => 'folder',
                 // "LaraGram\\TestNamespace => "LaraGram/TestFolder",
             ];

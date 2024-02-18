@@ -87,7 +87,8 @@ class ServerMaker
 
             Openswoole::connect();
         }else{
-            $webServer = new Process(["php", "-S", "{$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}"]);
+            $filePath = str_replace("\Core\Cli\Action", '', str_replace("/Core/Cli/Action", '', __DIR__));
+            $webServer = new Process(["php", "-S", "{$_ENV['SERVER_IP']}:{$_ENV['SERVER_PORT']}", "-t", $filePath]);
             $webServer->setTimeout(108000);
             $webServer->start();
             if ($webServer->isStarted()) {

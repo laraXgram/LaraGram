@@ -29,34 +29,34 @@ class Level
         $user = User::where('user_id', $user_id)->where('chat_id', $chat_id)->first();
 
         if (!is_null($user)){
-            if (is_null($user->admin->level)){
+            if (!isset($user->admin->level)){
                 Admin::create([
-                    'user' => $user->id,
+                    'user_id' => $user->id,
                     'level' => $level
                 ]);
                 return true;
             }else{
-                Admin::where('user', $user->admin->id)->update([
+                Admin::where('user_id', $user->id)->update([
                     'level' => $level
                 ]);
                 return true;
             }
         }else{
             $request = new Request();
-            $user = $request->getChatMember([
+            $chatMember = $request->getChatMember([
                 'chat_id' => $chat_id,
                 'user_id' => $user_id
             ]);
 
-            User::create([
-                'first_name' => $user['result']['user']['first_name'],
-                'last_name'  => $user['result']['user']['first_name'] ?? null,
-                'user_id'    => $user['result']['user']['id'],
+            $user = User::create([
+                'first_name' => $chatMember['result']['user']['first_name'],
+                'last_name'  => $chatMember['result']['user']['last_name'] ?? null,
+                'user_id'    => $chatMember['result']['user']['id'],
                 'chat_id'    => $request->ChatID()
             ]);
 
             Admin::create([
-                'user' => $user->id,
+                'user_id' => $user->id,
                 'level' => $level
             ]);
             return true;
@@ -79,8 +79,8 @@ class Level
         if (is_null($chat_id)) { $chat_id = (new Request())->ChatID(); }
 
         $user = User::where('user_id', $user_id)->where('chat_id', $chat_id)->first();
-        if (!is_null($user->admin->level)){
-            Admin::where('user', $user->admin->id)->delete();
+        if (isset($user->admin->level)){
+            Admin::where('user_id', $user->id)->delete();
             return true;
         }
         return false;

@@ -16,8 +16,8 @@ return new class
             $table->id();
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->integer('user_id');
-            $table->integer('chat_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('chat_id');
             $table->timestamps();
         });
     }
