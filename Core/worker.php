@@ -5,6 +5,6 @@ $datas['argv'] = $argv;
 
 require_once 'Bootstrap/Bootstrap.php';
 
-use Bot\Bootstrap\Runner;
+use LaraGram\Bootstrap\Runner;
 
 Runner::start();

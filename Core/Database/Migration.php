@@ -1,5 +1,5 @@
 <?php
-namespace Bot\Core\Database;
+namespace LaraGram\Core\Database;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core;
+namespace LaraGram\Core;
 
-use Bot\Core\Handler\Handler;
+use LaraGram\Core\Handler\Handler;
 
 final class Bot extends Handler
 {

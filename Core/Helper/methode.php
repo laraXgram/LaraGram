@@ -1,6 +1,6 @@
 <?php
 
-use Bot\Core\Request;
+use LaraGram\Core\Request;
 
 function getMe()
 {

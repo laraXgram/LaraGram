@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Connect;
+namespace LaraGram\Core\Connect;
 
 use Redis;
 use RedisException;

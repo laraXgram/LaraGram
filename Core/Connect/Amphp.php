@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Connect;
+namespace LaraGram\Core\Connect;
 
 use Amp\Http\Client\HttpClient;
 use Amp\Http\Client\HttpClientBuilder;

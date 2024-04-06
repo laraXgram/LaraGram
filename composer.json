@@ -16,9 +16,9 @@
   ],
   "autoload": {
     "psr-4": {
-      "Bot\\Core\\": "Core",
-      "Bot\\Bootstrap\\": "Bootstrap",
-      "Bot\\App\\": "App"
+      "LaraGram\\Core\\": "Core",
+      "LaraGram\\Bootstrap\\": "Bootstrap",
+      "LaraGram\\App\\": "App"
     }
   },
   "minimum-stability": "stable",

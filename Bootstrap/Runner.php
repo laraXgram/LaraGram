@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Bootstrap;
+namespace LaraGram\Bootstrap;
 
-use Bot\Core\Connect\Openswoole;
+use LaraGram\Core\Connect\Openswoole;
 
 class Runner
 {

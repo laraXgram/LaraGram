@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\App\Model;
+namespace LaraGram\App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 

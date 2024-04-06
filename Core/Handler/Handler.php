@@ -1,12 +1,13 @@
 <?php
 
-namespace Bot\Core\Handler;
+namespace LaraGram\Core\Handler;
 
-use Bot\Core\Matching;
+use LaraGram\Core\Auth\Condition;
+use LaraGram\Core\Matching;
 
 class Handler extends Matching
 {
-    public function on(array|string $message, callable $action): void
+    public function on(array|string $message, callable $action)
     {
         $this->action('text', $message, $action);
     }
@@ -124,7 +125,6 @@ class Handler extends Matching
     public function onSuperGroupChatCreated(callable $action): void
     {
         $this->action('supergroup_chat_created', null, $action);
-
     }
 
     public function onMessageAutoDeleteTimerChanged(callable $action): void

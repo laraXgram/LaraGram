@@ -1,7 +1,7 @@
 <?php
 
-use Bot\Core\Handler\Keyboard\Keyboard;
-use Bot\Core\Handler\Keyboard\Make;
+use LaraGram\Core\Handler\Keyboard\Keyboard;
+use LaraGram\Core\Handler\Keyboard\Make;
 
 function inlineKeyboardMarkup(...$row)
 {

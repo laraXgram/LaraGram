@@ -90,11 +90,3 @@ function inlineurl($text, $url, $parse_mode = 'markdown')
         return "<a href='{$url}'>{$text}</a>";
     }
 }
-
-function deleteThis(): void
-{
-    deleteMessage([
-        'chat_id'    => ChatID(),
-        'message_id' => MessageID()
-    ]);
-}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Database\Json;
+namespace LaraGram\Core\Database\Json;
 
 use Exception;
 

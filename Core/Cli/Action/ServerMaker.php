@@ -1,11 +1,11 @@
 <?php
 
-namespace Bot\Core\Cli\Action;
+namespace LaraGram\Core\Cli\Action;
 
-use Bot\Core\Cli\Error\Logger;
-use Bot\Core\Cli\Kernel;
-use Bot\Core\Connect\Openswoole;
-use Bot\Core\Request;
+use LaraGram\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Kernel;
+use LaraGram\Core\Connect\Openswoole;
+use LaraGram\Core\Request;
 use Symfony\Component\Process\Process;
 
 class ServerMaker

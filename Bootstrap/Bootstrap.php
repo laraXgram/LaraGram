@@ -1,9 +1,9 @@
 <?php
 
-namespace Bot\Bootstrap;
+namespace LaraGram\Bootstrap;
 
-use Bot\Core\App;
-use Bot\Core\Connect\Mysql;
+use LaraGram\Core\App;
+use LaraGram\Core\Connect\Mysql;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -54,9 +54,9 @@ class Bootstrap
         spl_autoload_register(function ($className) {
             $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
-                "Bot\\Core\\" => "Core",
-                "Bot\\Bootstrap\\" => "Bootstrap",
-                "Bot\\App\\" => "App",
+                "LaraGram\\Core\\" => "Core",
+                "LaraGram\\Bootstrap\\" => "Bootstrap",
+                "LaraGram\\App\\" => "App",
                 // "namespace" => 'folder',
                 // "LaraGram\\TestNamespace => "LaraGram/TestFolder",
             ];

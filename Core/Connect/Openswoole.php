@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core\Connect;
+namespace LaraGram\Core\Connect;
 
-use Bot\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Error\Logger;
 use OpenSwoole\Http\Request;
 use OpenSwoole\Http\Response;
 use OpenSwoole\Http\Server;

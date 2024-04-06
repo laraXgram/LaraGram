@@ -1,7 +1,7 @@
 <?php
 
-use Bot\Core\Auth\Level;
-use Bot\Core\Auth\Role;
+use LaraGram\Core\Auth\Level;
+use LaraGram\Core\Auth\Role;
 
 /**
  * add new bot admin

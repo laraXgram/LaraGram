@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\App\Controller\Api;
+namespace LaraGram\App\Controller\Api;
 
 class &&&
 {

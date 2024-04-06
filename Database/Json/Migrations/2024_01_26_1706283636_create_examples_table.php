@@ -5,10 +5,10 @@
 // | This is an example for YOU |
 // |----------------------------|
 
-namespace Bot\Database\Json\Migrations;
+namespace LaraGram\Database\Json\Migrations;
 
-use Bot\Core\Database\Json\JsonBlueprint;
-use Bot\Core\Database\Json\JsonSchema;
+use LaraGram\Core\Database\Json\JsonBlueprint;
+use LaraGram\Core\Database\Json\JsonSchema;
 
 return new class
 {

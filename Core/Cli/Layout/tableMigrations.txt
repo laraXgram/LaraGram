@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Database\Mysql\Migrations;
+namespace LaraGram\Database\Mysql\Migrations;
 
-use Bot\Core\Database\Schema;
+use LaraGram\Core\Database\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
 return new class

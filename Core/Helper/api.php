@@ -1,6 +1,6 @@
 <?php
 
-use Bot\App\Controller\Api\Api;
+use LaraGram\App\Controller\Api\Api;
 
 /**
  * user api controller

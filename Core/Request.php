@@ -1,10 +1,10 @@
 <?php
 
-namespace Bot\Core;
+namespace LaraGram\Core;
 
 use Amp\Loop;
-use Bot\Core\Connect\Amphp;
-use Bot\Core\Connect\Openswoole;
+use LaraGram\Core\Connect\Amphp;
+use LaraGram\Core\Connect\Openswoole;
 
 /**
  * Telegram Bot Class.
