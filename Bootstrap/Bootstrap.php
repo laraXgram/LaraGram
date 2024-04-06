@@ -2,8 +2,9 @@
 
 namespace LaraGram\Bootstrap;
 
-use LaraGram\Core\App;
 use LaraGram\Core\Connect\Mysql;
+use LaraGram\Core\Connect\Openswoole;
+use LaraGram\Core\Helper\Loader;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -36,17 +37,10 @@ class Bootstrap
         }
 
         /*
-         * Define Request_Methode Constant
-         * */
-        define("REQUEST_METHODE_CURL", 32);
-        define("REQUEST_METHODE_NO_RESPONSE_CURL", 64);
-        define("REQUEST_METHODE_AMPHP", 128);
-        define("REQUEST_METHODE_OPENSWOOLE", 256);
-
-        /*
          * Load Helper Function
          * */
-        Runner::LoadFolder('Core/Helper');
+
+        Loader::LoadHelper();
     }
 
     private function classLoader(): void
@@ -54,7 +48,6 @@ class Bootstrap
         spl_autoload_register(function ($className) {
             $dir = str_replace(DIRECTORY_SEPARATOR . "Bootstrap", '', __DIR__);
             $namespacePrefixes = [
-                "LaraGram\\Core\\" => "Core",
                 "LaraGram\\Bootstrap\\" => "Bootstrap",
                 "LaraGram\\App\\" => "App",
                 // "namespace" => 'folder',
@@ -76,6 +69,14 @@ class Bootstrap
                 }
             }
         });
+    }
+
+    public static function start(): void
+    {
+        $files = json_decode(file_get_contents('Bootstrap/load.json'), true);
+        foreach ($files as $file) {
+            !isset(Openswoole::$openswoole) ? require_once $file : require $file;
+        }
     }
 }
 

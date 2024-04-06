@@ -16,7 +16,6 @@
   ],
   "autoload": {
     "psr-4": {
-      "LaraGram\\Core\\": "Core",
       "LaraGram\\Bootstrap\\": "Bootstrap",
       "LaraGram\\App\\": "App"
     }
@@ -24,9 +23,12 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
+    "laraxgram/laraquest": "^0.1.0",
+    "laraxgram/core": "^0.1.0",
     "vlucas/phpdotenv": "^5.5",
     "symfony/process": "^6.3",
     "bramus/ansi-php": "^3.1",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-redis": "*"
   }
 }

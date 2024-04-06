@@ -5,6 +5,6 @@ $datas['argv'] = $argv;
 
 require_once 'Bootstrap/Bootstrap.php';
 
-use LaraGram\Bootstrap\Runner;
+use LaraGram\Bootstrap\Bootstrap;
 
-Runner::start();
+Bootstrap::start();

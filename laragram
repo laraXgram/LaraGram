@@ -1,4 +1,7 @@
 #!/usr/bin/php
 <?php
 
-require_once 'Core/Cli/Action/calling.php';
+use LaraGram\Core\Cli\Action\Calling;
+
+require_once 'Bootstrap/bootstrap.php';
+new Calling();
