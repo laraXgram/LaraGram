@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core\Cli;
+namespace LaraGram\Core\Cli;
 
-use Bot\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Error\Logger;
 
 class Kernel
 {

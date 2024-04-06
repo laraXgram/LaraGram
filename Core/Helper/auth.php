@@ -1,6 +1,6 @@
 <?php
 
-use Bot\Core\Auth\Auth;
+use LaraGram\Core\Auth\Auth;
 
 /**
  * Check user statis

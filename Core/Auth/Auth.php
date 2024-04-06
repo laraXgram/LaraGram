@@ -1,9 +1,9 @@
 <?php
 
-namespace Bot\Core\Auth;
+namespace LaraGram\Core\Auth;
 
-use Bot\App\Model\User;
-use Bot\Core\Request;
+use LaraGram\App\Model\User;
+use LaraGram\Core\Request;
 
 class Auth
 {

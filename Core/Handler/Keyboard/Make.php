@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Handler\Keyboard;
+namespace LaraGram\Core\Handler\Keyboard;
 
 class Make
 {

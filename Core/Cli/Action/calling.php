@@ -1,10 +1,10 @@
 <?php
 
-namespace Bot\Core\Cli\Action;
+namespace LaraGram\Core\Cli\Action;
 
 require_once 'Bootstrap/bootstrap.php';
 
-use Bot\Core\Cli\Kernel;
+use LaraGram\Core\Cli\Kernel;
 
 $kernel = new Kernel();
 //-----------------------------------------------------------------

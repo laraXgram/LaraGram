@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core\Database\Json;
+namespace LaraGram\Core\Database\Json;
 
-use Bot\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Error\Logger;
 
 class JsonBlueprint
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core\Cli\Action;
+namespace LaraGram\Core\Cli\Action;
 
-use Bot\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Error\Logger;
 
 class ApiMaker
 {

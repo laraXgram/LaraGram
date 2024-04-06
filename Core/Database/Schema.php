@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Database;
+namespace LaraGram\Core\Database;
 
 use Closure;
 use Illuminate\Database\Capsule\Manager as Capsule;

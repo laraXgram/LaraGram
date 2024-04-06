@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\App\Controller\Api;
+namespace LaraGram\App\Controller\Api;
 
-use Bot\Core\http\RegisterApi;
+use LaraGram\Core\Http\RegisterApi;
 
 class Api extends RegisterApi
 {

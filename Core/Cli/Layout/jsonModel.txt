@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 <?php
 
-namespace Bot\App\Model\Json;
+namespace LaraGram\App\Model\Json;
 
-use Bot\Core\Database\Json\JsonModel;
+use LaraGram\Core\Database\Json\JsonModel;
 
 class &&& extends JsonModel {
     protected string $database = '&&&';

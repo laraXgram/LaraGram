@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core;
+namespace LaraGram\Core;
 
 abstract class Matching
 {
@@ -175,11 +175,8 @@ abstract class Matching
 
     private function executeRegex(string $pattern, string $value): bool
     {
-        $regex = '/^' . preg_replace(self::REGEX_PATTERN, '(?<$1>.*)', $pattern, 1) . '?$/';
+        $regex = '/^' . preg_replace(self::REGEX_PATTERN, '(?<$1>.*)', $pattern) . '?$/mUu';
         if (preg_match($regex, $value, $matches, PREG_UNMATCHED_AS_NULL)) {
-            if ($matches == []){
-                return false;
-            }
             unset($matches[0]);
             $parameters = array_intersect_key($matches, array_flip(array_filter(array_keys($matches), 'is_numeric')));
             call_user_func_array($this->callable, array_merge([$this->request], $parameters));

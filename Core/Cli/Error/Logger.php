@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Cli\Error;
+namespace LaraGram\Core\Cli\Error;
 
 use Bramus\Ansi\Ansi;
 use Bramus\Ansi\ControlSequences\EscapeSequences\Enums\SGR;

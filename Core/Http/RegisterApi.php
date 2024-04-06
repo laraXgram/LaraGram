@@ -1,8 +1,8 @@
 <?php
 
-namespace Bot\Core\http;
+namespace LaraGram\Core\Http;
 
-use Bot\Core\Cli\Error\Logger;
+use LaraGram\Core\Cli\Error\Logger;
 
 class RegisterApi
 {

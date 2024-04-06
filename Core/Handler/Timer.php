@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Core\Handler;
+namespace LaraGram\Core\Handler;
 
 use Closure;
 
