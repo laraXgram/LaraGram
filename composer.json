@@ -16,7 +16,6 @@
   ],
   "autoload": {
     "psr-4": {
-      "LaraGram\\Bootstrap\\": "Bootstrap",
       "LaraGram\\App\\": "App"
     }
   },
