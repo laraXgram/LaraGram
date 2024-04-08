@@ -1,6 +1,6 @@
 <?php
 
-popen("php Core/worker.php " . escapeshellarg(file_get_contents('php://input')) . " >> /dev/null 2>&1 &", "r");
+popen("php worker.php " . escapeshellarg(file_get_contents('php://input')) . " >> /dev/null 2>&1 &", "r");
 
 ?>
 
