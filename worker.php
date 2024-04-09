@@ -7,5 +7,4 @@ require_once 'vendor/autoload.php';
 
 use LaraGram\Core\Bootstrap\Bootstrap;
 
-new Bootstrap();
-Bootstrap::start();
+(new Bootstrap())->start();
