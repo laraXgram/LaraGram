@@ -1,3 +1,9 @@
+# We're comming back strong with version 2.0.0
+> [!IMPORTANT]  
+> Ther activities for version 2.0.0 are in private repositories, don't think LaraGram has been forgotten.
+
+---
+
 ![LaraGram](Assets/Image/LaraGram.png)
 # LaraGram
 > LaraGram, an advanced framework for Telegram Bot development
@@ -74,6 +80,6 @@ composer create-project laraxgram/laragram my-bot
 ---
 # [🚨 Support](https://github.com/laraXgram/Document/blob/v1.10/support.md)
 
-###### Version 1.10.1
+###### Version 1.10.3
 
 ---
