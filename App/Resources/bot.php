@@ -1,8 +1,10 @@
 <?php
 
-use LaraGram\Core\Bot;
-use LaraGram\Core\Request;
+use LaraGram\Request\Request;
+use LaraGram\Support\Facades\Bot;
 
-$bot = new Bot();
+Bot::onText('hello', function (Request $request) {
+    $request->sendMessage($request->message->chat->id, 'hi LaraGram v2 is ready :)');
+});
 
-// Code ...
+// Code ....
