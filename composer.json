@@ -6,7 +6,8 @@
   "keywords": [
     "telegram",
     "PHP",
-    "laragram"
+    "laragram",
+    "bot"
   ],
   "authors": [
     {
@@ -16,13 +17,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "LaraGram\\App\\": "App"
+      "Database\\": "Database/",
+      "App\\": "App/"
     }
   },
-  "minimum-stability": "stable",
-  "prefer-stable": true,
+  "minimum-stability": "beta",
   "require": {
-    "laraxgram/laraquest": "^0.1.4",
-    "laraxgram/core": "^0.1.0"
+    "laraxgram/laraquest" : "^0.2",
+    "laraxgram/core": "^0.1"
   }
 }
