@@ -1,19 +1,28 @@
-### LaraGram Version 2.0.0 is Under Development!
+### A Fresh Start with the Rewritten LaraGram
 
-All infrastructures have been rebuilt.
-- Added Container to manage dependencies.
-- Added service providers.
-- Added Facades.
+**Some changes include:**
 
-From now on, LaraGram is developed on a completely flexible structure, where features can be loaded and unloaded through Facades and Providers.
+- Addition of a container for dependency management
+- Addition of service providers
+- Addition of facades for easy access to methods
+- Addition of commands for simple usage of the framework
 
-***but this is not the whole story!*** LaraGram can now call itself a ***professional framework***.
 
-Let's not spoil the surprise and reveal the new features. Stay tuned for more updates :')
+From now on, LaraGram is truly a **Framework**!
 
----
-# LaraGram
-> LaraGram, an advanced framework for Telegram Bot development
+```php 
+# App/Resources/bot.php
+
+use LaraGram\Request\Request;
+use LaraGram\Support\Facades\Bot;
+
+Bot::onText('hello', function (Request $request) {
+    $request->sendMessage($request->message->chat->id, 'hi');
+});
+```
+
+
+> **Wait for the document ...**
 
 ![LaraGram](Assets/Image/LaraGram.png)
 
