@@ -54,9 +54,9 @@ Some of the following features have not yet been added to version 2 and are bein
 - Non-Response Curl
 ---
 ### Method
-- [Listeners](https://github.com/laraXgram/Document/blob/v1.10/listeners.md)
-- [Methods](https://github.com/laraXgram/Document/blob/v1.10/methods.md)
-- [Updates](https://github.com/laraXgram/Document/blob/v1.10/updates.md)
+- [Listeners](https://github.com/laraXgram/Document/blob/v1.10/methods.md#listeners)
+- [Methods](https://github.com/laraXgram/Document/blob/v1.10/methods.md#methods)
+- [Updates](https://github.com/laraXgram/Document/blob/v1.10/methods.md#updates)
 ---
 ### [Databases](https://github.com/laraXgram/Document/blob/v1.10/databases.md)
 - [Laravel Eloquent (recommended & default)](https://github.com/laraXgram/Document/blob/v1.10/eloquent.md)
