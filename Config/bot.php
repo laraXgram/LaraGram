@@ -40,14 +40,7 @@ return [
      * Leave blank if you are not using local bot api server.
      * (Optional)
      */
-    'BOT_API_SERVER_DIR' => '',
-
-    /*
-     * The directory path for logs of the bot API server.
-     * Leave blank if you don't need logs.
-     * (Optional)
-     */
-    'BOT_API_SERVER_LOG_DIR' => '',
+    'BOT_API_SERVER_DIR' => 'Storage/API-Server/',
 
     /*
      * The API ID from your Telegram account.
