@@ -40,7 +40,38 @@ return [
      * Leave blank if you are not using local bot api server.
      * (Optional)
      */
-    'BOT_API_SERVER_DIR' => 'Storage/API-Server/',
+    'BOT_API_SERVER_DIR' => app('path.storage') . '/App/API-Server',
+
+    /*
+     * The directory path for logs of the bot API server.
+     * Leave blank if you don't need logs.
+     * (Optional)
+     */
+    'BOT_API_SERVER_LOG_DIR' => '',
+
+    /*
+     * The IP address for the local bot API server.
+     * (Optional)
+     */
+    'BOT_API_SERVER_IP' => '127.0.0.1',
+
+    /*
+     * The port for the local bot API server.
+     * (Optional)
+     */
+    'BOT_API_SERVER_PORT' => '8081',
+
+    /*
+     * The stat IP address for the local bot API server.
+     * (Optional)
+     */
+    'BOT_API_SERVER_STAT_IP' => '',
+
+    /*
+     * The stat port for the local bot API server.
+     * (Optional)
+     */
+    'BOT_API_SERVER_STAT_PORT' => '',
 
     /*
      * The API ID from your Telegram account.
