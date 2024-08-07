@@ -21,9 +21,9 @@
       "App\\": "App/"
     }
   },
-  "minimum-stability": "beta",
+  "minimum-stability": "stable",
   "require": {
-    "laraxgram/laraquest" : "^0.3",
-    "laraxgram/core": "^0.2"
+    "laraxgram/laraquest" : "^0.4",
+    "laraxgram/core": "^0.3"
   }
 }

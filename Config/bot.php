@@ -91,6 +91,7 @@ return [
      * The type of update received.
      * 1 - sync
      * 2 - global (default)
+     * 3 - openswoole
      * (Required)
      */
     'UPDATE_TYPE' => 'global',
