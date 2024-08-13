@@ -17,13 +17,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "Database\\": "Database/",
-      "App\\": "App/"
+      "Database\\": "database/",
+      "App\\": "app/"
     }
   },
   "minimum-stability": "stable",
   "require": {
-    "laraxgram/laraquest" : "^0.4",
-    "laraxgram/core": "^0.3"
+    "laraxgram/laraquest" : "^0.5",
+    "laraxgram/core": "^0.4"
   }
 }
