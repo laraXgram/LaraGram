@@ -33,5 +33,5 @@ return [
      * All data will be stored in this folder, so please ensure its security.
      * Data may be lost in case of accidental deletion.
      */
-    'JSON_DB_DATA_DIR' => 'Storage/App/JDB/',
+    'JSON_DB_DATA_DIR' => app('path.storage') . "/app/jdb",
 ];

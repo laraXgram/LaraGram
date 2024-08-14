@@ -40,7 +40,7 @@ return [
      * Leave blank if you are not using local bot api server.
      * (Optional)
      */
-    'BOT_API_SERVER_DIR' => app('path.storage') . '/App/API-Server',
+    'BOT_API_SERVER_DIR' => app('path.storage') . '/app/apiserver',
 
     /*
      * The directory path for logs of the bot API server.
