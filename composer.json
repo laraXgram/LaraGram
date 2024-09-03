@@ -7,6 +7,7 @@
     "telegram",
     "PHP",
     "laragram",
+    "laraquest",
     "bot"
   ],
   "authors": [
@@ -25,6 +26,6 @@
   "minimum-stability": "stable",
   "require": {
     "laraxgram/laraquest" : "^0.6",
-    "laraxgram/core": "^0.5"
+    "laraxgram/core": "^0.6"
   }
 }
