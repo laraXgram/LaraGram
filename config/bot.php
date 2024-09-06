@@ -105,4 +105,16 @@ return [
      * (Required)
      */
     'DEFAULT_MODE' => 'curl',
+
+    /*
+     * Polling Timeout
+     * (Required on polling mode)
+     */
+    'POLLING_TIMEOUT' => 100,
+
+    /*
+     * Polling refresh rate
+     * (Required on polling mode)
+     */
+    'POLLING_SLEEP_TIME' => 0.5,
 ];
