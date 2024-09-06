@@ -25,7 +25,7 @@
   },
   "minimum-stability": "stable",
   "require": {
-    "laraxgram/laraquest" : "^0.6",
+    "laraxgram/laraquest" : "^0.7",
     "laraxgram/core": "^0.6"
   }
 }

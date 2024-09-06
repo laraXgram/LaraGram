@@ -89,10 +89,11 @@ return [
 
     /*
      * The type of update received.
-     * 1 - sync
+     * 1 - sync (out of LaraGram)
      * 2 - global (default)
      * 3 - openswoole (recommended)
      * 4 - swoole
+     * 5 - polling
      * (Required)
      */
     'UPDATE_TYPE' => 'global',
