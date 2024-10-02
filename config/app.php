@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'SERVICE_PROVIDERS' => [
+    'service_provider' => [
         //
     ],
 
-    'COMMANDS' => [
+    'commands' => [
         //
     ],
 ];
