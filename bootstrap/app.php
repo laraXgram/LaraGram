@@ -1,9 +1,11 @@
 <?php
 
+use LaraGram\Foundation\Application;
+
 require_once 'vendor/autoload.php';
 
 global $data;
 $data['argv'] = $argv ?? [];
 
-(new \LaraGram\Foundation\Application())
-    ->handleRequests();
+Application::configure(dirname(__DIR__))
+    ->create();

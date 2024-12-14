@@ -1,10 +1,11 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 
 use LaraGram\Foundation\Application;
 
 require_once 'vendor/autoload.php';
 
-(new Application())
-    ->registerKernel()
-    ->registerCommands();
+Application::configure(__DIR__)
+    ->withKernels()
+    ->withCommands()
+    ->create();
