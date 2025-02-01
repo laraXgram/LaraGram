@@ -14,6 +14,10 @@
 - [ ] ???
 
 ##### Minor and Possible Capabilities
+- [ ] Custom rewrite of Eloquent ORM (Possible)
+- [ ] Add error handling to Laraquest
+- [ ] Structural changes in project files
+- [ ] Rewrite documentation
 - [ ] ???
 
 From now on, LaraGram is truly a **Framework**!
