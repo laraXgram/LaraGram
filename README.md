@@ -6,7 +6,7 @@
 - [ ] Add LaraProto infrastructure (LaraGram MTProto)
 - [ ] Add Queue and Job
 - [ ] Add Components
-- [ ] Add multilingual capability
+- [x] Add Multilingual capability
 - [ ] Optimization and development of the caching system
 - [ ] Add Logging
 - [ ] Add AMPHP and Fiber request method
