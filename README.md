@@ -6,6 +6,7 @@
 - [ ] Add LaraProto infrastructure (LaraGram MTProto)
 - [ ] Add Queue and Job
 - [ ] Add Components
+- [x] Custom rewrite of Eloquent ORM
 - [x] Add Multilingual capability
 - [ ] Optimization and development of the caching system
 - [ ] Add Logging
@@ -14,7 +15,6 @@
 - [ ] ???
 
 ##### Minor and Possible Capabilities
-- [ ] Custom rewrite of Eloquent ORM (Possible)
 - [ ] Add error handling to Laraquest
 - [ ] Structural changes in project files
 - [ ] Rewrite documentation
