@@ -1,6 +1,5 @@
 ### Version 3 tasks
 
-##### Major Capabilities
 - [x] Add Console kernel
 - [ ] Add HTTP Kernel
 - [ ] Add LaraProto infrastructure (LaraGram MTProto)
@@ -12,9 +11,7 @@
 - [ ] Add Logging
 - [ ] Add AMPHP and Fiber request method
 - [ ] Add Middlewares
-- [ ] ???
-
-##### Minor and Possible Capabilities
+- [ ] Add Multi Bot development capability
 - [ ] Add error handling to Laraquest
 - [ ] Structural changes in project files
 - [ ] Rewrite documentation
