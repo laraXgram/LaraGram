@@ -3,7 +3,7 @@
 - [x] Add Console kernel
 - [ ] Add HTTP Kernel
 - [ ] Add LaraProto infrastructure (LaraGram MTProto)
-- [ ] Add Queue and Job
+- [x] Add Queue and Job
 - [ ] Add Components
 - [x] Custom rewrite of Eloquent ORM
 - [x] Add Multilingual capability
