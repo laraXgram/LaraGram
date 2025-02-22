@@ -1,11 +1,10 @@
 <?php
 
 use LaraGram\Foundation\Application;
+use LaraGram\Foundation\Configuration\Exceptions;
 
-require_once 'vendor/autoload.php';
-
-global $data;
-$data['argv'] = $argv ?? [];
-
-Application::configure(dirname(__DIR__))
+return Application::configure(basePath: dirname(__DIR__))
+    ->withExceptions(function (Exceptions $exceptions) {
+        //
+    })
     ->create();

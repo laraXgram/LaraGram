@@ -23,9 +23,34 @@
       "Database\\Seeder\\": "database/seeders"
     }
   },
-  "minimum-stability": "stable",
   "require": {
-    "laraxgram/laraquest" : "^0",
-    "laraxgram/core": "^0"
-  }
+    "php": "^8.2",
+    "laraxgram/laraquest" : "^1",
+    "laraxgram/core": "^1"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "LaraGram\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php laragram package:discover --ansi"
+    ],
+    "post-create-project-cmd": [
+      "@php laragram migrate --graceful --ansi"
+    ],
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "php laragram serve\" \"php laragram queue:listen --tries=1"
+    ]
+  },
+  "extra": {
+    "laragram": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

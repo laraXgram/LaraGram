@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
+use LaraGram\Database\Migrations\Migration;
+use LaraGram\Database\Schema\Blueprint;
 use LaraGram\Support\Facades\Schema;
 
-return new class
+return new class extends Migration
 {
     /**
      * Run the migrations.

@@ -1,4 +1,7 @@
-/.idea/
-/.vscode/
-/.git/
-/vendor/
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.nova
+/.vscode
+/.zed

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use LaraGram\Database\Eloquent\Model;
+use LaraGram\Database\Eloquent\Relations\BelongsTo;
 
 class Admin extends Model
 {

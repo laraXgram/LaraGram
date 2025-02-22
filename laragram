@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-use LaraGram\Foundation\Application;
+use LaraGram\Console\Input\ArgvInput;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
-Application::configure(__DIR__)
-    ->withKernels()
-    ->withCommands()
-    ->create();
+$status = (require_once __DIR__.'/bootstrap/app.php')
+    ->handleCommand(new ArgvInput);
+
+exit($status);

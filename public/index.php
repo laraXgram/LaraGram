@@ -1,11 +1,11 @@
 <?php
 
-popen("php ./Bootstrap/app.php " . escapeshellarg(file_get_contents('php://input')) . " >> /dev/null 2>&1 &", "r");
+popen("php ../bootstrap/app.php " . escapeshellarg(file_get_contents('php://input')) . " >> /dev/null 2>&1 &", "r");
 
 ?>
 
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"

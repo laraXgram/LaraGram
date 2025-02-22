@@ -3,9 +3,12 @@
 return [
     /*
      * The type of update received.
-     * 1 - sync
-     * 2 - global (default)
-     * 3 - openswoole
+     * 1 - global (default)
+     * 2 - openswoole
+     * 3 - swoole
+     * 4 - polling
+     * 5 - amp
+     * 6 - fiber
      * (Required)
      */
     'update_type' => 'global',
