@@ -1,12 +1,21 @@
-### A Fresh Start with the Rewritten LaraGram
+### Version 3 tasks
 
-**Some changes include:**
-
-- Addition of a container for dependency management
-- Addition of service providers
-- Addition of facades for easy access to methods
-- Addition of commands for simple usage of the framework
-
+- [x] Add Console kernel
+- [ ] Add HTTP Kernel
+- [ ] Add LaraProto infrastructure (LaraGram MTProto)
+- [x] Add Queue and Job
+- [ ] Add Components
+- [x] Custom rewrite of Eloquent ORM
+- [x] Add Multilingual capability
+- [ ] Optimization and development of the caching system
+- [x] Add Logging
+- [ ] Add AMPHP and Fiber request method
+- [ ] Add Middlewares
+- [ ] Add Multi Bot development capability
+- [ ] Add error handling to Laraquest
+- [x] Structural changes in project files
+- [ ] Rewrite documentation
+- [ ] ???
 
 From now on, LaraGram is truly a **Framework**!
 
