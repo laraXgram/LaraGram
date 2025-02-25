@@ -2,7 +2,7 @@
 
 - [x] Add Console kernel
 - [ ] Add HTTP Kernel
-- [ ] Add LaraProto infrastructure (LaraGram MTProto)
+- [ ] Add LaraProto infrastructure (LaraGram MTProto) -> Possible
 - [x] Add Queue and Job
 - [ ] Add Components
 - [x] Custom rewrite of Eloquent ORM
@@ -14,7 +14,7 @@
 - [ ] Add Multi Bot development capability
 - [ ] Add error handling to Laraquest
 - [x] Structural changes in project files
-- [ ] Rewrite documentation
+- [ ] Rewrite documentation -> Under construction
 - [ ] ???
 
 From now on, LaraGram is truly a **Framework**!
