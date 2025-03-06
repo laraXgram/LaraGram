@@ -2,18 +2,19 @@
 
 - [x] Add Console kernel
 - [ ] Add HTTP Kernel
-- [ ] Add LaraProto infrastructure (LaraGram MTProto) -> Possible
-- [x] Add Queue and Job
-- [ ] Add Components
-- [x] Custom rewrite of Eloquent ORM
-- [x] Add Multilingual capability
-- [ ] Optimization and development of the caching system
-- [x] Add Logging
 - [ ] Add AMPHP and Fiber request method
 - [ ] Add Middlewares
 - [ ] Add Multi Bot development capability
-- [ ] Add error handling to Laraquest
+- [ ] Add Broadcasting
+- [x] Add Queue and Job
+- [x] Add RateLimiter
+- [x] Add Command Scheduling
+- [x] Add Concurrency
+- [x] Add Multilingual capability
+- [x] Add Logging
+- [x] Custom rewrite of Eloquent ORM
 - [x] Structural changes in project files
+- [ ] Optimization and development of the caching system
 - [ ] Rewrite documentation -> Under construction
 - [ ] ???
 
