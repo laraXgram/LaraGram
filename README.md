@@ -1,9 +1,8 @@
 ### Version 3 tasks
 
 - [x] Add Console kernel
-- [ ] Add HTTP Kernel
-- [ ] Add AMPHP and Fiber request method
-- [ ] Add Middlewares
+- [X] Add Bot Kernel
+- [X] Add Middlewares
 - [ ] Add Multi Bot development capability
 - [ ] Add Broadcasting
 - [x] Add Queue and Job
@@ -14,7 +13,7 @@
 - [x] Add Logging
 - [x] Custom rewrite of Eloquent ORM
 - [x] Structural changes in project files
-- [ ] Optimization and development of the caching system
+- [x] Optimization and development of the caching system
 - [ ] Rewrite documentation -> Under construction
 - [ ] ???
 
