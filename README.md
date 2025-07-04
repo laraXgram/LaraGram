@@ -6,7 +6,6 @@
 - [x] Add Template Engine
 - [x] Add Step Manager
 - [x] Add Encrypt and Hash
-- [ ] 
 - [ ] Add Multi Bot development capability
 - [ ] Add Broadcasting
 - [x] Add Queue and Job
