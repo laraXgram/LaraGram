@@ -6,8 +6,9 @@
 - [x] Add Template Engine
 - [x] Add Step Manager
 - [x] Add Encrypt and Hash
-- [ ] Add Multi Bot development capability
-- [ ] Add Broadcasting
+- [x] Add Multi Bot development capability
+- [ ] Add Auth System (90%)
+- [ ] Add Redirector (90%)
 - [x] Add Queue and Job
 - [x] Add RateLimiter
 - [x] Add Command Scheduling
@@ -17,8 +18,8 @@
 - [x] Custom rewrite of Eloquent ORM
 - [x] Structural changes in project files
 - [x] Optimization and development of the caching system
-- [ ] Rewrite documentation -> Under construction
-- [ ] ???
+- [x] •••
+- [ ] Rewrite documentation (60%)
 
 From now on, LaraGram is truly a **Framework**!
 
