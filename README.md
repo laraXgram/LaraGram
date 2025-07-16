@@ -8,7 +8,7 @@
 - [x] Add Encrypt and Hash
 - [x] Add Multi Bot development capability
 - [ ] Add Auth System (90%)
-- [ ] Add Redirector (90%)
+- [x] Add Redirector
 - [x] Add Queue and Job
 - [x] Add RateLimiter
 - [x] Add Command Scheduling
