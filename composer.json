@@ -1,44 +1,37 @@
 {
+  "$schema": "https://getcomposer.org/schema.json",
   "name": "laraxgram/laragram",
-  "description": "LaraGram, an advanced framework for Telegram Bot development!",
   "type": "project",
+  "description": "LaraGram, an advanced framework for Telegram Bot development\n\n.",
+  "keywords": ["laragram", "framework", "laraquest"],
   "license": "MIT",
-  "keywords": [
-    "telegram",
-    "PHP",
-    "laragram",
-    "laraquest",
-    "bot"
-  ],
-  "authors": [
-    {
-      "name": "laraXgram",
-      "email": "laraxgram@gmail.com"
-    }
-  ],
+  "require": {
+    "php": "^8.2",
+    "laraxgram/core": "^3.0",
+    "laraxgram/tempora": "^1"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "app/",
-      "Database\\Factories\\": "database/factories",
-      "Database\\Seeder\\": "database/seeders"
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
     }
-  },
-  "require": {
-    "php": "^8.2",
-    "laraxgram/laraquest" : "^1",
-    "laraxgram/core": "^1"
   },
   "scripts": {
     "post-autoload-dump": [
       "LaraGram\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php laragram package:discover --ansi"
     ],
-    "post-create-project-cmd": [
-      "@php laragram migrate --graceful --ansi"
+    "post-update-cmd": [
+      "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
     ],
-    "dev": [
-      "Composer\\Config::disableProcessTimeout",
-      "php laragram serve\" \"php laragram queue:listen --tries=1"
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php laragram key:generate --ansi",
+      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+      "@php laragram migrate --graceful --ansi"
     ]
   },
   "extra": {

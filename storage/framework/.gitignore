@@ -1,2 +1,7 @@
+compiled.php
 config.php
+events.scanned.php
+listens.php
+listens.scanned.php
 schedule-*
+services.json

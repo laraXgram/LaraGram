@@ -1,18 +1,15 @@
 <?php
 
-popen("php ../bootstrap/app.php " . escapeshellarg(file_get_contents('php://input')) . " >> /dev/null 2>&1 &", "r");
+use LaraGram\Foundation\Application;
+use LaraGram\Request\Request;
 
-?>
+define('LARAGRAM_START', microtime(true));
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>LaraGram</title>
-</head>
-<body>
-<h1 style="font-size: 32px; text-align: center; user-select: none;">Silence is gold!</h1>
-</body>
-</html>
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
+
+// Bootstrap LaraGram and handle the request...
+/** @var Application $app */
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+$app->handleRequest(Request::capture());

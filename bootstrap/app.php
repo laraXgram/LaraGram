@@ -2,9 +2,16 @@
 
 use LaraGram\Foundation\Application;
 use LaraGram\Foundation\Configuration\Exceptions;
+use LaraGram\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withListener(
+        bot: __DIR__."/../listens/bot.php",
+        commands: __DIR__."/../listens/commands.php",
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
         //
     })
-    ->create();
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
