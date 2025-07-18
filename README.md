@@ -1,7 +1,7 @@
 From now on, LaraGram is truly a **Framework**!
 
 ```php 
-# App/Resources/bot.php
+# listens/bot.php
 
 use LaraGram\Request\Request;
 use LaraGram\Support\Facades\Bot;
