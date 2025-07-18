@@ -16,7 +16,7 @@ return [
     'connections' => [
         'bot' => [
             'token' => '',
-            'domain' => '',
+            'url' => '',
             'username' => '',
             'userid' => '',
             'secret_token' => null,
