@@ -38,9 +38,4 @@ return [
         'api_hash' => ''
     ],
 
-    'development_server' => [
-        'ip' => '127.0.0.1',
-        'port' => 9000,
-    ],
-
 ];
