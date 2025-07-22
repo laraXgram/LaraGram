@@ -1,4 +1,4 @@
-From now on, LaraGram is truly a **Framework**!
+From now on, LaraGram is truly a ***Framework***! 🚀
 
 ```php 
 # listens/bot.php
@@ -11,18 +11,36 @@ Bot::onText('hello', function (Request $request) {
 });
 ```
 ---
-### 📢 Notice: Documentation in Progress
+### 📚 Official Documentation
 
-Our official documentation is currently under development.
-In the meantime, you can temporarily refer to the [Laravel documentation](https://laravel.com/docs/12.x) or reach out to our [Telegram support group](https://telegram.me/LaraGramChat) for assistance and updates.
+LaraGram now ships with complete documentation covering every major feature of the framework.
 
-##### Thank you for your patience and support!
+👉 [Documentation](https://laraxgram.github.io)
+
+👉 [Telegram support group](https://telegram.me/LaraGramChat)
 
 ---
 # ✳️ Installation :
 ```bash
 composer create-project laraxgram/laragram my-bot
 ```
+---
+# ✨ Key Features at a Glance
+
+- 🔐 Permission system (Gate & Policy)
+- 🧠 Caching (7 drivers) + Step Manager
+- 🔁 Fluent Collections
+- ⚙️ Concurrency system
+- 💻 Console commands & task scheduling
+- 📦 Rewritten Eloquent ORM with multi-DB support
+- 📐 Migrations, Seeders, Factories
+- 🔒 Crypt & Hash systems
+- 📢 Event Dispatcher
+- 📁 File system
+- 🧭 Listener system (routing-style)
+- 📝 Logging, Queues, Jobs, Redis, Validation, i18n
+- 🤖 Multi-bot support + config/cache optimization
+
 ---
 
 #### Report bugs, help and support, suggestions and criticisms
