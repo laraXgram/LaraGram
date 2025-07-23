@@ -1,15 +1,24 @@
 <?php
 
-use LaraGram\Foundation\Application;
-use LaraGram\Request\Request;
+$server = escapeshellarg(json_encode($_SERVER));
+$inputs = escapeshellarg(file_get_contents('php://input'));
 
-define('LARAGRAM_START', microtime(true));
+$output = '/dev/null'; // You can change it to specifics file.
 
-// Register the Composer autoloader...
-require __DIR__.'/../vendor/autoload.php';
+popen("php ./server {$inputs} {$server} >> {$output} 2>&1 &", "r");
 
-// Bootstrap LaraGram and handle the request...
-/** @var Application $app */
-$app = require_once __DIR__.'/../bootstrap/app.php';
+?>
 
-$app->handleRequest(Request::capture());
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LaraGram</title>
+</head>
+<body>
+
+</body>
+</html>
