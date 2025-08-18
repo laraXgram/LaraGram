@@ -1,7 +1,14 @@
-/public/storage
-/storage/*.key
-/vendor
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+/.fleet
 /.idea
 /.nova
 /.vscode
 /.zed
+/node_modules
+/public/storage
+/storage/*.key
+/vendor

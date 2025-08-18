@@ -1,0 +1,7 @@
+* text=auto eol=lf
+
+*.t8.php diff=html
+*.md diff=markdown
+*.php diff=php
+
+/.github export-ignore

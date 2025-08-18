@@ -1,49 +1,62 @@
 {
-  "$schema": "https://getcomposer.org/schema.json",
-  "name": "laraxgram/laragram",
-  "type": "project",
-  "description": "LaraGram, an advanced framework for Telegram Bot development\n\n.",
-  "keywords": ["laragram", "framework", "laraquest"],
-  "license": "MIT",
-  "require": {
-    "php": "^8.2",
-    "laraxgram/core": "^3.0",
-    "laraxgram/tempora": "^1"
-  },
-  "autoload": {
-    "psr-4": {
-      "App\\": "app/",
-      "Database\\Factories\\": "database/factories/",
-      "Database\\Seeders\\": "database/seeders/"
-    }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "LaraGram\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php laragram package:discover --ansi"
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laraxgram/laragram",
+    "type": "project",
+    "description": "LaraGram, an advanced framework for Telegram Bot development.",
+    "keywords": [
+        "laragram",
+        "framework",
+        "laraquest",
+        "laravel"
     ],
-    "post-update-cmd": [
-      "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
-    ],
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      "@php laragram key:generate --ansi",
-      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-      "@php laragram migrate --graceful --ansi"
-    ]
-  },
-  "extra": {
-    "laragram": {
-      "dont-discover": []
-    }
-  },
-  "config": {
-    "optimize-autoloader": true,
-    "preferred-install": "dist",
-    "sort-packages": true
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "laraxgram/core": "^3.0",
+        "laraxgram/tempora": "^1"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php laragram config:clear",
+            "@php laragram clear-compiled",
+            "@php laragram package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php laragram key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php laragram migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd\" \"php laragram serve\" \"php laragram queue:listen --tries=1\" --names=server,queue --kill-others"
+        ]
+    },
+    "extra": {
+        "laragram": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
