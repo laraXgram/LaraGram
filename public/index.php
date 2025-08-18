@@ -3,7 +3,11 @@
 $server = escapeshellarg(json_encode($_SERVER));
 $inputs = escapeshellarg(file_get_contents('php://input'));
 
-$vendorDir = realpath(__DIR__ . '/../vendor'); // Change this if the vendor location changes.
+// Change this if the vendor location changes.
+$vendorDir = is_file($dir = realpath(__DIR__ . '/../vendor'))
+    ? $dir
+    : realpath(__DIR__ . '/vendor');
+
 $serverPath = $vendorDir . '/laraxgram/core/src/Foundation/resources/server.php';
 
 $output = '/dev/null'; // You can change it to specifics file.
