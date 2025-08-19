@@ -4,7 +4,7 @@ $server = escapeshellarg(json_encode($_SERVER));
 $inputs = escapeshellarg(file_get_contents('php://input'));
 
 // Change this if the vendor location changes.
-$vendorDir = is_file($dir = realpath(__DIR__ . '/../vendor'))
+$vendorDir = is_dir($dir = realpath(__DIR__ . '/../vendor'))
     ? $dir
     : realpath(__DIR__ . '/vendor');
 
