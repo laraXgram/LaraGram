@@ -15,18 +15,18 @@ return [
 
     'connections' => [
         'bot' => [
-            'token' => '',
-            'url' => '',
-            'username' => '',
-            'userid' => '',
+            'token' => env("BOT_TOKEN"),
+            'url' => env("BOT_URL"),
+            'username' => env("BOT_USERNAME", ''),
+            'userid' => env("BOT_USERID", ''),
             'secret_token' => null,
             'allowed_updates' => ['*']
         ],
     ],
 
     'api_server' => [
-        'endpoint' => 'https://api.telegram.org',
-        'dir' => storage_path('app/api-server'),
+        'endpoint' => env("API_ENDPOINT", "https://api.telegram.org"),
+        'dir' => env("API_DIR", storage_path('app/api-server')),
         'log_dir' => '',
         'ip' => '127.0.0.1',
         'port' => 8081,
@@ -34,8 +34,8 @@ return [
             'ip' => '',
             'port' => ''
         ],
-        'api_id' => '',
-        'api_hash' => ''
+        'api_id' => env("API_ID", ''),
+        'api_hash' => env("API_HASH", ''),
     ],
 
 ];
