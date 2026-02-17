@@ -37,10 +37,10 @@
             "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
         ],
         "post-root-package-install": [
-            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
+            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php laragram key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php laragram migrate --graceful --ansi"
