@@ -6,8 +6,8 @@ From now on, LaraGram is truly a ***Framework***! 🚀
 use LaraGram\Request\Request;
 use LaraGram\Support\Facades\Bot;
 
-Bot::onText('hello', function (Request $request) {
-    $request->sendMessage(chat()->id, 'hi');
+Bot::onText('say {text}', function (Request $request, $text) {
+    $request->sendMessage(chat()->id, $text);
 });
 ```
 ---
@@ -22,7 +22,9 @@ LaraGram now ships with complete documentation covering every major feature of t
 ---
 # ✳️ Installation :
 ```bash
-composer create-project laraxgram/laragram my-bot
+composer global require laraxgram/installer
+
+laragram new my-bot
 ```
 ---
 # ✨ Key Features at a Glance
