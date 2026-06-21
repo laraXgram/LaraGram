@@ -13,6 +13,7 @@
     "require": {
         "php": "^8.2",
         "laraxgram/core": "^3.0",
+        "laraxgram/watchdog": "^1",
         "laraxgram/tempora": "^1"
     },
     "require-dev": {
@@ -32,19 +33,21 @@
             "@php laragram package:discover --ansi"
         ],
         "post-update-cmd": [
+            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
+            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php laragram key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php laragram migrate --graceful --ansi"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd\" \"php laragram serve\" \"php laragram queue:listen --tries=1\" --names=server,queue --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#e087c8\" \"php laragram serve\" \"php laragram queue:listen --tries=1\" \"php laragram watchdog\" --names=server,queue,watchdog --kill-others"
         ]
     },
     "extra": {

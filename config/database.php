@@ -148,8 +148,4 @@ return [
 
     ],
 
-    'json' => [
-        'storage' => env('JSON_DATABASE_PATH', storage_path('app/json-database'))
-    ]
-
 ];
