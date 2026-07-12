@@ -52,6 +52,12 @@ return [
             'lock_path' => storage_path('framework/cache/data'),
         ],
 
+        'storage' => [
+            'driver' => 'storage',
+            'disk' => env('CACHE_STORAGE_DISK'),
+            'path' => env('CACHE_STORAGE_PATH', 'framework/cache/data'),
+        ],
+
         'memcached' => [
             'driver' => 'memcached',
             'persistent_id' => env('MEMCACHED_PERSISTENT_ID'),
@@ -77,8 +83,53 @@ return [
             'lock_connection' => env('REDIS_CACHE_LOCK_CONNECTION', 'default'),
         ],
 
-        'octane' => [
-            'driver' => 'octane',
+        'dynamodb' => [
+            'driver' => 'dynamodb',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+            'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
+            'endpoint' => env('DYNAMODB_ENDPOINT'),
+        ],
+
+        'surge' => [
+            'driver' => 'surge',
+        ],
+
+        'failover' => [
+            'driver' => 'failover',
+            'stores' => [
+                'database',
+                'array',
+            ],
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Step Manager Stores
+    |--------------------------------------------------------------------------
+    |
+    | The step manager keeps per-user conversation/flow state in the cache.
+    | Here you may define named "step stores", each pointing to one of the
+    | cache stores defined above. This lets the step manager live in a
+    | different driver than the rest of your cache (e.g. fast "redis" for
+    | steps while application data stays in "database").
+    |
+    | Switch at runtime with: Step::store('volatile')->set('name');
+    | Any name not listed here is treated as a cache store name directly.
+    |
+    */
+
+    'step' => [
+
+        'default' => env('STEP_STORE', 'database'),
+
+        'stores' => [
+            'database' => 'database',
+            'redis' => 'redis',
+            'volatile' => 'array',
         ],
 
     ],
@@ -95,5 +146,18 @@ return [
     */
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laragram'), '_').'_cache_'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Serializable Classes
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the classes that can be unserialized from cache
+    | storage. By default, no PHP classes will be unserialized from your
+    | cache to prevent gadget chain attacks if your APP_KEY is leaked.
+    |
+    */
+
+    'serializable_classes' => false,
 
 ];

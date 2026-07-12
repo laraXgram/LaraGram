@@ -1,15 +1,21 @@
 <?php
 
-$server = escapeshellarg(json_encode($_SERVER));
-$inputs = escapeshellarg(file_get_contents('php://input'));
+$serverPath = __DIR__."/../laraxgram/core/src/Foundation/resources/server.php";
 
-// Change this if the vendor location changes.
-$vendorDir = is_dir($dir = realpath(__DIR__ . '/../vendor'))
-    ? $dir
-    : realpath(__DIR__ . '/vendor');
+$rawInput = file_get_contents('php://input');
+$content = json_decode($rawInput, true);
 
-$serverPath = $vendorDir . '/laraxgram/core/src/Foundation/resources/server.php';
+$isBotUpdate = json_last_error() === JSON_ERROR_NONE
+    && is_array($content)
+    && array_key_exists('update_id', $content);
 
-$output = '/dev/null'; // You can change it to specifics file.
+if ($isBotUpdate) {
+    $server = escapeshellarg(json_encode($_SERVER));
+    $inputs = escapeshellarg($rawInput);
 
-popen("php \"{$serverPath}\" {$inputs} {$server} >> {$output} 2>&1 &", "r");
+    $log = "/dev/null";
+
+    popen("php \"{$serverPath}\" {$inputs} {$server} >> {$log} 2>&1 &", "r");
+} else {
+    require_once $serverPath;
+}

@@ -11,13 +11,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
-        "laraxgram/core": "^3.0",
+        "php": "^8.3",
+        "laraxgram/core": "^4",
         "laraxgram/watchdog": "^1",
         "laraxgram/tempora": "^1"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23"
+        "fakerphp/faker": "^1.24"
     },
     "autoload": {
         "psr-4": {
