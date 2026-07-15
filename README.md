@@ -1,4 +1,6 @@
-From now on, LaraGram is truly a ***Framework***! 🚀
+# LaraGram
+
+### Telegram Bot API + MTProto + TMAs + Web Pages
 
 ```php 
 # listens/bot.php
@@ -13,7 +15,7 @@ Bot::onText('say {text}', function (Request $request, $text) {
 ---
 ### 📚 Official Documentation
 
-LaraGram now ships with complete documentation covering every major feature of the framework.
+LaraGram ships with complete documentation covering every major feature of the framework.
 
 👉 [Documentation](https://laraxgram.github.io)
 
@@ -29,19 +31,23 @@ laragram new my-bot
 ---
 # ✨ Key Features at a Glance
 
-- 🔐 Permission system (Gate & Policy)
-- 🧠 Caching (7 drivers) + Step Manager
+- 🚀 MTProto
+- 🤖 Telegram Mini Apps (TMA) Development
+- 🌐 Web Routing
+- 🔐 Permission System (Gate & Policy)
+- 🧠 Caching (7 Drivers) + Step Manager
 - 🔁 Fluent Collections
-- ⚙️ Concurrency system
-- 💻 Console commands & task scheduling
-- 📦 Rewritten Eloquent ORM with multi-DB support
-- 📐 Migrations, Seeders, Factories
-- 🔒 Crypt & Hash systems
+- 💬 Conversations
+- ⚙️ Concurrency System
+- 💻 Console Commands & Task Scheduling
+- 📦 Rewritten Eloquent ORM with Multi-DB Support
+- 📐 Migrations, Seeders & Factories
+- 🔒 Crypt & Hash Systems
 - 📢 Event Dispatcher
-- 📁 File system
-- 🧭 Listener system (routing-style)
-- 📝 Logging, Queues, Jobs, Redis, Validation, i18n
-- 🤖 Multi-bot support + config/cache optimization
+- 📁 File System
+- 🧭 Listener System (Routing-style)
+- 📝 Logging, Queues, Jobs, Redis, Validation & i18n
+- 🤖 Multi-bot Support + Config/Cache Optimization
 
 ---
 
