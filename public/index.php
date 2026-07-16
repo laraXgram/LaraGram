@@ -1,6 +1,6 @@
 <?php
 
-$serverPath = __DIR__."/../laraxgram/core/src/Foundation/resources/server.php";
+$serverPath = __DIR__."/../vendor/laraxgram/core/src/Foundation/resources/server.php";
 
 $rawInput = file_get_contents('php://input');
 $content = json_decode($rawInput, true);
