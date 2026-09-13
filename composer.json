@@ -30,7 +30,8 @@
         "post-autoload-dump": [
             "@php laragram config:clear",
             "@php laragram clear-compiled",
-            "@php laragram package:discover --ansi"
+            "@php laragram package:discover --ansi",
+            "@php -r \"is_file('vendor/laraxgram/mtproto/bin/compile-tl.php') && ! is_dir('vendor/laraxgram/mtproto/src/Generated') && passthru(escapeshellarg(PHP_BINARY).' vendor/laraxgram/mtproto/bin/compile-tl.php');\""
         ],
         "post-update-cmd": [
             "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
