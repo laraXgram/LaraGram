@@ -14,7 +14,8 @@
         "php": "^8.3",
         "laraxgram/core": "^4",
         "laraxgram/watchdog": "^1",
-        "laraxgram/tempora": "^1"
+        "laraxgram/tempora": "^1",
+        "laraxgram/probe": "^0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24"
