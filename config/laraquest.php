@@ -29,4 +29,16 @@ return [
         //
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Exceptions
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, a call Telegram refuses throws the exception that matches
+    | the failure instead of returning it. Individual calls may opt in or out
+    | at any time with $request->throw() and $request->silent().
+    |
+    */
+    'throw_exceptions' => env('LARAQUEST_THROW_EXCEPTIONS', false),
+
 ];
