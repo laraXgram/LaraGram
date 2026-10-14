@@ -27,6 +27,7 @@ return [
     ],
 
     'api_server' => [
+        'binary' => env("API_BINARY", "telegram-bot-api"),
         'endpoint' => env("API_ENDPOINT", "https://api.telegram.org"),
         'dir' => env("API_DIR", storage_path('app/api-server')),
         'log_dir' => '',
