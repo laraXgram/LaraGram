@@ -12,10 +12,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "laraxgram/core": "^4",
-        "laraxgram/watchdog": "^1",
+        "laraxgram/core": "^4.5",
+        "laraxgram/watchdog": "^1.3",
         "laraxgram/tempora": "^1",
-        "laraxgram/probe": "^0"
+        "laraxgram/probe": "^0.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24"
@@ -34,6 +34,9 @@
             "@php laragram package:discover --ansi",
             "@php -r \"is_file('vendor/laraxgram/mtproto/bin/compile-tl.php') && ! is_dir('vendor/laraxgram/mtproto/src/Generated') && passthru(escapeshellarg(PHP_BINARY).' vendor/laraxgram/mtproto/bin/compile-tl.php');\""
         ],
+        "post-install-cmd": [
+            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php"
+        ],
         "post-update-cmd": [
             "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php laragram vendor:publish --tag=laragram-assets --ansi --force"
@@ -42,7 +45,6 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php vendor/laraxgram/laraquest/bin/parse-telegram-api.php",
             "@php laragram key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php laragram migrate --graceful --ansi"
