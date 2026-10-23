@@ -51,7 +51,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#e087c8\" \"php laragram serve\" \"php laragram queue:listen --tries=1\" \"php laragram watchdog\" --names=server,queue,watchdog --kill-others"
+            "@php laragram dev"
         ]
     },
     "extra": {
