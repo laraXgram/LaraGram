@@ -39,6 +39,12 @@ return [
         ],
         'api_id' => env("API_ID", ''),
         'api_hash' => env("API_HASH", ''),
+
+        // LaraGram API Server only: serve files at their /file/ URLs, streamed
+        // from Telegram, and optionally never write files to disk...
+        'stream_files' => env('API_STREAM_FILES', false),
+        'stream_read_ahead' => env('API_STREAM_READ_AHEAD', 4),
+        'file_storage' => env('API_FILE_STORAGE', true),
     ],
 
     /*
